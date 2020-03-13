@@ -11,3 +11,109 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.search-form {
+  position: relative;
+}
+
+.search-form input {
+  padding-right: 78px;
+}
+
+.search-form button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.recipe-card {
+  padding: 0;
+}
+
+.recipe-card .card-body {
+  padding: 20px;
+}
+
+.recipe-card .card-bg-img {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.recipe-card .card-bg-img img {
+  opacity: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.recipe-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.grid {
+  -webkit-column-count: 4;
+  column-count: 4;
+  -webkit-column-gap: 10px;
+  column-gap: 10px;
+  position: relative;
+}
+
+.grid .item {
+  display: block;
+  position: relative;
+  padding: 10px 15px;
+  -webkit-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  overflow: hidden;
+}
+
+.grid .item .card {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.card a {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  display: block;
+  text-decoration: none;
+  color: #444;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid #F85A3E;
+  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);
+  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);
+  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);
+  transition: 0.2s all;
+  overflow: hidden;
+}
+.card .card-bg-img {
+  border-bottom: 4px solid #F85A3E;
+  transition: 0.2s all;
+}
+
+.card a:hover .card-bg-img,
+.card a:active .card-bg-img {
+  border-bottom: 4px solid #FF7733;
+}
+
+.card a:hover,
+.card a:active {
+  background-color: #f2f2f2;
+  border: 2px solid #FF7733;
+  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);
+  color: #E63B2E;
+}
+
+.recipe-tags {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}

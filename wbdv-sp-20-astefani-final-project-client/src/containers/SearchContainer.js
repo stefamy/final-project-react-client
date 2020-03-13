@@ -3,7 +3,8 @@ import React from 'react'
 
 
 
-class SearchContainer extends React.Component {
+
+export default class SearchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,31 +18,28 @@ class SearchContainer extends React.Component {
     })
   }
 
-  sendQuery(e) {
+  submitQuery(e) {
     e.preventDefault();
     this.props.history.push(`queryResults/${this.state.queryText}`);
   }
 
 
+
   render() {
     return (
-        <div>
-          <form onSubmit={this.sendQuery}>
-          <input type="text" value={this.state.queryText} placeholder="Search for recipes..."
+          <div class="row">
+            <div class="col-4">
+              <form class="search-form" onSubmit={(e) => this.submitQuery(e)}>
+                <input class="form-control" type="text" value={this.state.queryText} placeholder="Search for recipes..."
                  onChange={e => this.handleChange(e)}/>
-            <button onClick={(e) => this.sendQuery(e)}>Search</button>
-          </form>
-
-          <div id="queryTerm"></div>
-          <div id="numResults"></div>
-          <div id="results"></div>
-
-
+                  <button type="button" class="btn btn-primary" onClick={(e) => this.submitQuery(e)}>Search</button>
+              </form>
+            </div>
+            <div class="col-8"></div>
           </div>
     );
   }
 
 }
 
-export default SearchContainer;
 
