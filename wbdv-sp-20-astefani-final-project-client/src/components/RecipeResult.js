@@ -12,9 +12,9 @@ const RecipeResult = ({ recipeData }) => (
         </div>
 
         <div className="card-body">
-          <span className="recipe-title">{recipeData.title} </span>
-          <span className="recipe-time">Ready in: {recipeData.readyInMinutes} minutes </span>
-          <span className="recipe-servings">Yields: {recipeData.servings} servings </span>
+          <h4 className="recipe-title">{recipeData.title} </h4>
+          <div className="recipe-time">Ready in: {recipeData.readyInMinutes} minutes </div>
+          <div className="recipe-servings">Yields: {recipeData.servings} servings </div>
         </div>
 
       </Link>
