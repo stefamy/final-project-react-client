@@ -24,7 +24,7 @@ const RecipeCard = ({ title, image, time, servings, ingredients, instructions, c
                 </ul>
                 <div className="recipe-instructions">
                   <ol className="recipe-instructions">
-                    {instructions && instructions[0].steps && instructions[0].steps.map((instruction, index) =>
+                    {instructions && instructions.length > 0 && instructions[0].steps && instructions[0].steps.map((instruction, index) =>
                       <li key={index}>
                         {instruction.step}
                       </li>
