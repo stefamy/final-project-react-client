@@ -54,6 +54,9 @@ code {
   padding: 0;
 }
 
+/* Note: some of this CSS is re from a prior project of mine: https://github.com/stefamy/some-like-it-hot-sauce */
+
+
 .grid {
   -webkit-column-count: 4;
   column-count: 4;
