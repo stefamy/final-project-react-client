@@ -1,8 +1,5 @@
-import {Link} from "react-router-dom";
 import React from "react";
 import RecipeCard from './RecipeCard';
-import {EDAMAM_API_KEY, EDAMAM_APP_ID, SAMPLE_DETAILS} from "../common/constants";
-import {Image} from "react-bootstrap";
 
 
 export default class RecipeDetailsComponent extends React.Component {

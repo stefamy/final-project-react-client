@@ -1,5 +1,4 @@
 import React from 'react'
-// import SearchResultsComponent from '../components/SearchResultsComponent';
 
 
 
@@ -29,6 +28,7 @@ export default class SearchContainer extends React.Component {
     return (
           <div className="row">
             <div className="col-4">
+              <h3>Recipe Finder Tool</h3>
               <form className="search-form" onSubmit={(e) => this.submitQuery(e)}>
                 <input className="form-control" type="text" value={this.state.queryText} placeholder="Search for recipes..."
                  onChange={e => this.handleChange(e)}/>

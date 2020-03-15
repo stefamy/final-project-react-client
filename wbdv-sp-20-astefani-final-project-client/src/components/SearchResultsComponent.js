@@ -1,8 +1,5 @@
 import React from "react";
 import RecipeResult from "./RecipeResult";
-import {EDAMAM_API_KEY, EDAMAM_APP_ID, SAMPLE_RESPONSE, SPOONACULAR_API_KEY} from "../common/constants";
-import {findRecipesByQueryTerm} from '../services/RecipeService';
-import {Link} from "react-router-dom";
 
 
 export default class SearchResultsComponent extends React.Component {

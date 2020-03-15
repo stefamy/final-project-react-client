@@ -1,31 +1,37 @@
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import SearchResultsComponent from "../components/SearchResultsComponent";
 import RecipeDetailsComponent from '../components/RecipeDetailsComponent';
-import SearchContainer from "./SearchContainer";
+import RecipeFinderContainer from "./RecipeFinderContainer";
 import React from "react";
+import SearchContainer from "./SearchContainer";
 
 
 /**
  * @param {{queryText:string}} queryText
  * @param {{recipeId:string}} recipeId
  */
-export default class RecipeFinderContainer extends React.Component {
+export default class HomeContainer extends React.Component {
 
 
   render() {
     return (
         <div className="container-fluid">
           <header>
-            <h1>Recipe Finder Tool</h1>
+            <h1>Potluck Party Organizer</h1>
           </header>
           <Router>
             <Route
                 path="/"
                 exact={true}
                 render={props => (
-                    <SearchContainer
-                        {...props}
-                    />
+                    <RecipeFinderContainer {...props} />
+                )}
+            />
+            <Route
+                path="/search"
+                exact={true}
+                render={props => (
+                    <SearchContainer {...props} />
                 )}
             />
             <Route
@@ -51,7 +57,7 @@ export default class RecipeFinderContainer extends React.Component {
           </Router>
         </div>
     );
-    }
-
   }
+
+}
 
