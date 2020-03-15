@@ -58,6 +58,7 @@ export default class RecipeDetailsComponent extends React.Component {
     const recipe = this.state.recipeData;
     return (
         <div>
+          <button type="button" class="float-right btn btn-primary" onClick={this.props.history.goBack}>Back</button>
           {recipe &&
           <div>
             <RecipeCard

@@ -2,6 +2,7 @@ import React from "react";
 import RecipeResult from "./RecipeResult";
 import {EDAMAM_API_KEY, EDAMAM_APP_ID, SAMPLE_RESPONSE, SPOONACULAR_API_KEY} from "../common/constants";
 import {findRecipesByQueryTerm} from '../services/RecipeService';
+import {Link} from "react-router-dom";
 
 
 export default class SearchResultsComponent extends React.Component {
@@ -59,12 +60,13 @@ export default class SearchResultsComponent extends React.Component {
     render() {
       return (
           <div>
-          <h4>Search term: {this.props.queryText}</h4>
-          {this.state.results &&
+            <h4>Search term: {this.props.queryText}</h4>
           <div>
+            <button type="button" className="float-right btn btn-primary"
+                    onClick={this.props.history.goBack}>Back
+            </button>
           <p>Viewing 10 of {this.state.count} results.</p>
-
-            <ul class="grid">
+            <ul className="grid">
             {this.state.results &&
               this.state.results.map((each, index) => (
                   <RecipeResult
@@ -73,7 +75,7 @@ export default class SearchResultsComponent extends React.Component {
                   />
               ))}
           </ul>
-          </div>  }
+          </div>
             {!this.state.results &&
             <p>Searching...</p>}
         </div>

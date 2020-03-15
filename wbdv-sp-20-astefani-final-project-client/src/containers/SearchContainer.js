@@ -20,22 +20,22 @@ export default class SearchContainer extends React.Component {
 
   submitQuery(e) {
     e.preventDefault();
-    this.props.history.push(`queryResults/${this.state.queryText}`);
+    this.props.history.push(`results/${this.state.queryText}`);
   }
 
 
 
   render() {
     return (
-          <div class="row">
-            <div class="col-4">
-              <form class="search-form" onSubmit={(e) => this.submitQuery(e)}>
-                <input class="form-control" type="text" value={this.state.queryText} placeholder="Search for recipes..."
+          <div className="row">
+            <div className="col-4">
+              <form className="search-form" onSubmit={(e) => this.submitQuery(e)}>
+                <input className="form-control" type="text" value={this.state.queryText} placeholder="Search for recipes..."
                  onChange={e => this.handleChange(e)}/>
-                  <button type="button" class="btn btn-primary" onClick={(e) => this.submitQuery(e)}>Search</button>
+                  <button type="button" className="btn btn-primary" onClick={(e) => this.submitQuery(e)}>Search</button>
               </form>
             </div>
-            <div class="col-8"></div>
+            <div className="col-8"></div>
           </div>
     );
   }

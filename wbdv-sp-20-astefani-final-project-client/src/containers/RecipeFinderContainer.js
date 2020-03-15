@@ -16,7 +16,7 @@ export default class RecipeFinderContainer extends React.Component {
     return (
         <div className="container-fluid">
           <header>
-          <h1>Recipe Search API</h1>
+            <h1>Recipe Finder Tool</h1>
           </header>
           <Router>
             <Route
@@ -29,7 +29,7 @@ export default class RecipeFinderContainer extends React.Component {
                 )}
             />
             <Route
-                path="/queryResults/:queryText"
+                path="/results/:queryText"
                 exact={true}
                 render={props => (
                     <SearchResultsComponent
@@ -39,7 +39,7 @@ export default class RecipeFinderContainer extends React.Component {
                 )}
             />
             <Route
-                path="/recipeDetails/:recipeId"
+                path="/recipe/:recipeId"
                 // exact={true}
                 render={props => (
                     <RecipeDetailsComponent

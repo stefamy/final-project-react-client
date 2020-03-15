@@ -5,7 +5,7 @@ import React from "react";
 const RecipeResult = ({ recipeData }) => (
     <li className="item">
       <div className="card recipe-card">
-      <Link to={`/recipeDetails/${recipeData.id}`} title="Click for the recipe">
+      <Link to={`/recipe/${recipeData.id}`} title="Click for the recipe">
 
         <div className="card-bg-img" style={{ backgroundImage: `url('https://spoonacular.com/recipeImages/${recipeData.imageUrls[0]}')` }} >
           <img src={`https://spoonacular.com/recipeImages/${recipeData.imageUrls[0]}`} alt='' />
