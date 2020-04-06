@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+h1.site-title {
+  font-size: 18px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
 .search-form {
   position: relative;
 }

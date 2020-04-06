@@ -5,6 +5,9 @@ import RecipeFinderContainer from "./RecipeFinderContainer";
 import React from "react";
 import SearchContainer from "./SearchContainer";
 
+import Register from "../components/users/Register";
+import Profile from "../components/users/Profile";
+import Login from "../components/users/Login";
 
 /**
  * @param {{queryText:string}} queryText
@@ -17,7 +20,7 @@ export default class HomeContainer extends React.Component {
     return (
         <div className="container-fluid">
           <header>
-            <h1>Potluck Party Organizer</h1>
+            <h1 className="site-title">Potluck Party Organizer</h1>
           </header>
           <Router>
             <Route
@@ -53,6 +56,21 @@ export default class HomeContainer extends React.Component {
                         recipeId={props.match.params.recipeId}
                     />
                 )}
+            />
+            <Route
+                path="/register"
+                exact={true}
+                component={Register}
+            />
+            <Route
+                path="/profile"
+                exact={true}
+                component={Profile}
+            />
+            <Route
+                path="/login"
+                exact={true}
+                component={Login}
             />
           </Router>
         </div>
