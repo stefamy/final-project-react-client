@@ -2,9 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9533d462-0b40-4a4c-b9af-b7ceb848f3cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/wbdv-sp-20-astefani-final-project-client.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result-detail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../result-summary.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/common/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/RecipeCard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/RecipeDetailsComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/RecipeResult.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/SearchResultsComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/users/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/users/Profile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/users/Register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/containers/HomeContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/containers/RecipeFinderContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/containers/SearchContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/services/RecipeService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/services/UserService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/util/passwords.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
+              <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -54,8 +83,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/users/Profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="226" column="100" selection-start-line="226" selection-start-column="100" selection-end-line="226" selection-end-column="100" />
+            <state relative-caret-position="83">
+              <caret line="214" column="54" selection-start-line="214" selection-start-column="54" selection-end-line="214" selection-end-column="54" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -87,7 +116,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -111,6 +140,7 @@
     <option name="width" value="1389" />
     <option name="height" value="877" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -223,18 +253,17 @@
       <workItem from="1585362040612" duration="1011000" />
       <workItem from="1586208645716" duration="561000" />
       <workItem from="1586209370926" duration="14248000" />
-      <workItem from="1586238319594" duration="1652000" />
+      <workItem from="1586238319594" duration="1977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17472000" />
+    <option name="totallyTimeSpent" value="17797000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="447" y="86" width="1389" height="877" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2494432" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2494432" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -251,7 +280,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.19685039" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.96062994" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -429,14 +458,14 @@
     <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
+          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/users/Profile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="226" column="100" selection-start-line="226" selection-start-column="100" selection-end-line="226" selection-end-column="100" />
+        <state relative-caret-position="83">
+          <caret line="214" column="54" selection-start-line="214" selection-start-column="54" selection-end-line="214" selection-end-column="54" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
