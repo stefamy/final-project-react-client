@@ -1,19 +1,20 @@
+import {API_URL} from '../common/constants';
 
 export const logout = () =>
-    fetch(`http://localhost:8080/logout`, {
+    fetch(`${API_URL}/logout`, {
       method: 'POST',
       credentials: "include"
     })
 
 export const profile = () =>
-    fetch(`http://localhost:8080/profile`, {
+    fetch(`${API_URL}/profile`, {
       method: 'POST',
       credentials: "include"
     }).then(response => response.json());
 
 
 export const updateProfile = (userId, user) =>
-    fetch(`http://localhost:8080/profile/${userId}`, {
+    fetch(`${API_URL}/profile/${userId}`, {
       method: 'PUT',
       body: JSON.stringify(user),
       headers: {
@@ -23,7 +24,7 @@ export const updateProfile = (userId, user) =>
     }).then(response => response.json())
 
 export const register = (user) =>
-    fetch(`http://localhost:8080/register`, {
+    fetch(`${API_URL}/register`, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -34,7 +35,7 @@ export const register = (user) =>
 
 
 export const login = (user) =>
-    fetch(`http://localhost:8080/login`, {
+    fetch(`${API_URL}/login`, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
