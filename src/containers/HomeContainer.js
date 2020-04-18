@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import SearchResultsComponent from "../components/SearchResultsComponent";
+import HeaderContainer from "./HeaderContainer";
 import RecipeDetailsComponent from '../components/RecipeDetailsComponent';
 import RecipeFinderContainer from "./RecipeFinderContainer";
 import React from "react";
@@ -19,9 +20,7 @@ export default class HomeContainer extends React.Component {
   render() {
     return (
         <div className="container-fluid">
-          <header>
-            <h1 className="site-title">Potluck Party Organizer</h1>
-          </header>
+          <HeaderContainer />
           <Router>
             <Route
                 path="/"

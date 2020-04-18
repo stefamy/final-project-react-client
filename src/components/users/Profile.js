@@ -59,7 +59,7 @@ export default class Profile extends React.Component {
     updateProfile = (e, user) => {
       e.preventDefault();
       console.log('updating user:', user);
-      updateProfile(user.id, user)
+      updateProfile(user)
       .then(updatedUser => this.props.history.push('/profile'));
     }
 
@@ -186,10 +186,10 @@ export default class Profile extends React.Component {
                     <label htmlFor="glutenFreeInput">Gluten Free</label>
 
                     <input
-                        // checked={this.state.profile.glutenFree}
+                        checked={this.state.profile.glutenFree ? 1 : 0}
                         type="checkbox"
                         id="glutenFreeInput"
-                        onChange={(e) => this.handleProfileInput('glutenFree', e.target.value ? "1" : null)}
+                        onChange={(e) => this.handleProfileInput('glutenFree',e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
                     />
 
@@ -197,10 +197,10 @@ export default class Profile extends React.Component {
                   <div className="form-check">
                     <label htmlFor="vegetarianInput">Vegetarian</label>
                     <input
-                        // checked={this.state.profile.vegetarian}
+                        checked={this.state.profile.vegetarian ? 1 : 0}
                         type="checkbox"
                         id="vegetarianInput"
-                        onChange={(e) => this.handleProfileInput('vegetarian', e.target.value ? "1" : null)}
+                        onChange={(e) => this.handleProfileInput('vegetarian', e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
                     />
                   </div>
@@ -208,10 +208,10 @@ export default class Profile extends React.Component {
                     <label htmlFor="veganInput">Vegan</label>
 
                     <input
-                        // checked={this.state.profile.vegan}
+                        checked={this.state.profile.vegan ? 1 : 0}
                         type="checkbox"
                         id="veganInput"
-                        onChange={(e) => this.handleProfileInput('vegan', e.target.value ? "1" : null)}
+                        onChange={(e) => this.handleProfileInput('vegan', e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
                     />
 
@@ -220,11 +220,10 @@ export default class Profile extends React.Component {
                     <label htmlFor="nutAllergyInput">Nut Allergy</label>
 
                     <input
-                        // checked={this.state.profile.nutAllergy ? true : false}
-                        value="1"
+                        checked={this.state.profile.nutAllergy ? 1 : 0}
                         type="checkbox"
                         id="nutAllergyInput"
-                        onChange={(e) => this.handleProfileInput('nutAllergy', e.target.value === "1" ? "1" : null)}
+                        onChange={(e) => this.handleProfileInput('nutAllergy', e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
                     />
 
