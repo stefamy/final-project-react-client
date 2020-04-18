@@ -6,7 +6,9 @@ import React from "react";
  */
 export default class HeaderContainer extends React.Component {
 
-
+  componentDidMount() {
+    console.log('props from header container', this.props);
+  }
   render() {
     return (
         <header>

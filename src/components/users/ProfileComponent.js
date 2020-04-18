@@ -1,35 +1,14 @@
 import React from "react";
-import {
-  profile,
-  logout,
-  updateProfile
-} from "../../services/UserService";
+import _ from 'lodash';
+import userActions from "../../actions/UserActions";
+import userService from "../../services/UserService";
 import {Link} from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Profile extends React.Component {
+class ProfileComponent extends React.Component {
 
     state = {
-        profile: {
-            id: '',
-            username: '',
-            password: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            streetAddress1: '',
-            streetAddress2: '',
-            city: '',
-            state: '',
-            zip: '',
-            glutenFree: '',
-            vegetarian: '',
-            vegan: '',
-            nutAllergy: '',
-            otherDietaryRestrictions: '',
-            specialRequests: '',
-            roles: []
-        }
+        profile: {}
     }
 
     handleProfileInput(attribute, newContent) {
@@ -39,45 +18,41 @@ export default class Profile extends React.Component {
     }
 
     componentDidMount() {
-      profile()
-      .then(profile => {
-        this.setState({
-          profile: profile,
-          loggedIn: true
-        })
-        console.log('this profile', this.state.profile);
-      }).catch(error => this.setState({loggedIn: false}));
+      this.props.findUser();
+    }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.user !== this.props.user) {
+        if (prevProps.user.username !== this.props.user.username) {
+          this.setState({profile: _.cloneDeep(this.props.user)});
+        }
+      }
     }
 
     logout = () => {
-      logout()
-      .then(status => {
-        this.props.history.push('/')
-      });
+      this.props.logout();
     }
 
-    updateProfile = (e, user) => {
+    handleProfileSubmit = (e) => {
       e.preventDefault();
-      console.log('updating user:', user);
-      updateProfile(user)
-      .then(updatedUser => this.props.history.push('/profile'));
+      this.props.updateUser(this.state.profile);
     }
 
     render() {
         return(
             <div>
               <h1>Profile</h1>
-              {!this.state.loggedIn &&
+              {!this.state.profile.username &&
               <p>You are not logged in.<br/>
               <Link to="/login">Log in to</Link> or <Link to="/register">register a new</Link> account.</p>
               }
-              {this.state.loggedIn &&
+              {this.state.profile.username &&
                 <div>
                 <p>Hi {this.state.profile.username}!</p>
                 <hr/>
               <div className="row">
                 <div className="col-md-4 col-lg-6 col">
-                <form onSubmit={(e) => this.updateProfile(e, this.state.profile)}>
+                <form onSubmit={(e) => this.handleProfileSubmit(e)}>
                   <div className="form-group">
                     <label htmlFor="usernameInput">Username</label>
                     <input
@@ -103,7 +78,7 @@ export default class Profile extends React.Component {
                         id="firstNameInput"
                         onChange={(e) => this.handleProfileInput('firstName', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.firstName}
+                        placeholder={this.state.profile.firstName || 'First Name'}
                         />
                   </div>
                   <div className="form-group">
@@ -112,7 +87,7 @@ export default class Profile extends React.Component {
                         id="lastNameInput"
                         onChange={(e) => this.handleProfileInput('lastName', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.lastName}
+                        placeholder={this.state.profile.lastName || 'Last Name'}
                     />
                   </div>
                   <div className="form-group">
@@ -121,7 +96,7 @@ export default class Profile extends React.Component {
                         id="emailInput"
                         onChange={(e) => this.handleProfileInput('email', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.email}
+                        placeholder={this.state.profile.email || 'Email Address'}
                     />
                   </div>
                   <div className="form-group">
@@ -270,3 +245,34 @@ export default class Profile extends React.Component {
         )
     }
 }
+
+
+const stateToPropertyMapper = state => {
+  return {
+    user: state.user.user
+  };
+};
+
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    findUser: () => {
+      userService.findUser()
+      .then(user => dispatch(userActions.findUser(user)));
+    },
+    logout: () => {
+      userService.logout()
+      .then(() => dispatch(userActions.logout()));
+    },
+    updateUser: (user) => {
+      userService.updateUser(user)
+      .then(user => {
+        dispatch(userActions.updateUser(user));
+      });
+    },
+  };
+};
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(ProfileComponent);
