@@ -1,0 +1,6 @@
+export const CREATE_EVENT = "CREATE_EVENT"
+export const FIND_ALL_EVENTS = "FIND_ALL_EVENTS"
+// export const FIND_EVENTS_BY_HOST = "FIND_EVENTS_BY_HOST"
+// export const DELETE_EVENT = "DELETE_EVENT"
+// export const UPDATE_EVENT = "UPDATE_EVENT"
+

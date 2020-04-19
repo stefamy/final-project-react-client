@@ -6,6 +6,13 @@ export default class Login extends React.Component {
     username: '',
     password: ''
   }
+  componentDidMount() {
+    if (this.props) {
+      console.log('this.state', this.state);
+      console.log('this.props', this.props);
+
+    }
+  }
   handleLogin = (event, user) => {
     event.preventDefault();
     login(user)

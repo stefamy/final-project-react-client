@@ -1,4 +1,4 @@
-import {API_URL} from '../common/constants';
+// import {API_URL} from '../common/constants';
 
 // CREATE
 export const register = (user) =>
