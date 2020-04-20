@@ -6,21 +6,13 @@ import { connect } from "react-redux";
 class User extends React.Component {
 
   state = {
-    userData: {
-      id: 1,
-      username: 'username',
-      firstName: 'Amy',
-      lastName: 'S',
-      city: 'Seattle',
-      state: 'Washington'
-    }
+    userData: { }
   }
 
   componentDidMount() {
-    // this.props.findUser();
-    // this.setState({
-    //   userData: this.props.publicUser("test")
-    // });
+    userService.findPublicProfile(this.props.username)
+    .then(profile =>
+      this.setState({userData: profile} ));
   }
 
   componentDidUpdate() {
@@ -31,17 +23,15 @@ class User extends React.Component {
     return(
         <div>
           <h1>Profile</h1>
+          <span> You are: {this.props.user.firstName} </span><br/>
+
+          <hr />
+          <span>VIEWING </span>
           <span>User: {this.props.username}</span> <br/>
+          {this.state.userData && <>
           <span>Name: {this.state.userData.firstName} {this.state.userData.lastName}.</span> <br/>
-          <span>Location: {this.state.userData.city}, {this.state.userData.state}</span> <br/>
-        
-        {/* private details */ }
-        {this.state.userData.username ===  this.props.user.username &&
-          <span>Email address: </span>
-        }
-        
-        </div>
-          )
+        </>}
+        </div>)
   }
 
 }
@@ -58,10 +48,6 @@ const dispatchToPropertyMapper = dispatch => {
     findUser: () => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
-    },
-    findPublicUser: () => {
-      userService.findUser("username")
-      .then(publicUser => publicUser);
     },
   };
 };

@@ -18,15 +18,19 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-      this.props.findUser();
+      // this.props.findUser();
+      console.log('this props 1 ', this.props);
+      console.log('this state 1', this.state);
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.user !== this.props.user) {
-        if (prevProps.user.username !== this.props.user.username) {
-          this.setState({profile: _.cloneDeep(this.props.user)});
-        }
-      }
+      // if (prevProps.user !== this.props.user) {
+      //   if (prevProps.user.username !== this.props.user.username) {
+      //     this.setState({profile: _.cloneDeep(this.props.user)});
+      //   }
+      // }
+      console.log('this props 2', this.props);
+      console.log('this state 2', this.state);
     }
 
     logout = () => {
@@ -42,13 +46,13 @@ class Profile extends React.Component {
         return(
             <div>
               <h1>Profile</h1>
-              {!this.state.profile.username &&
+              {!this.props.user &&
               <p>You are not logged in.<br/>
               <Link to="/login">Log in to</Link> or <Link to="/register">register a new</Link> account.</p>
               }
-              {this.state.profile.username &&
+              {this.props.user &&
                 <div>
-                <p>Hi {this.state.profile.username}!</p>
+                <p>Hi {this.props.user.username}!</p>
                 <hr/>
               <div className="row">
                 <div className="col-md-4 col-lg-6 col">
@@ -59,7 +63,7 @@ class Profile extends React.Component {
                         id="usernameInput"
                         onChange={(e) => this.handleProfileInput('username', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.username}
+                        placeholder={this.props.user.username}
                         />
                   </div>
                   <div className="form-group">
@@ -78,7 +82,7 @@ class Profile extends React.Component {
                         id="firstNameInput"
                         onChange={(e) => this.handleProfileInput('firstName', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.firstName || 'First Name'}
+                        placeholder={this.props.user.firstName || 'First Name'}
                         />
                   </div>
                   <div className="form-group">
@@ -87,7 +91,7 @@ class Profile extends React.Component {
                         id="lastNameInput"
                         onChange={(e) => this.handleProfileInput('lastName', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.lastName || 'Last Name'}
+                        placeholder={this.props.user.lastName || 'Last Name'}
                     />
                   </div>
                   <div className="form-group">
@@ -96,7 +100,7 @@ class Profile extends React.Component {
                         id="emailInput"
                         onChange={(e) => this.handleProfileInput('email', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.email || 'Email Address'}
+                        placeholder={this.props.user.email || 'Email Address'}
                     />
                   </div>
                   <div className="form-group">
@@ -105,7 +109,7 @@ class Profile extends React.Component {
                         id="phoneInput"
                         onChange={(e) => this.handleProfileInput('phone', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.phone}
+                        placeholder={this.props.user.phone}
                     />
                   </div>
                   <div className="form-group">
@@ -114,7 +118,7 @@ class Profile extends React.Component {
                         id="streetAddress1Input"
                         onChange={(e) => this.handleProfileInput('streetAddress1', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.streetAddress1}
+                        placeholder={this.props.user.streetAddress1}
                     />
                   </div>
                   <div className="form-group">
@@ -123,7 +127,7 @@ class Profile extends React.Component {
                         id="streetAddress2Input"
                         onChange={(e) => this.handleProfileInput('streetAddress2', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.streetAddress2}
+                        placeholder={this.props.user.streetAddress2}
                     />
                   </div>
                   <div className="form-group">
@@ -132,7 +136,7 @@ class Profile extends React.Component {
                         id="cityInput"
                         onChange={(e) => this.handleProfileInput('city', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.city}
+                        placeholder={this.props.user.city}
                     />
                   </div>
                   <div className="form-group">
@@ -141,7 +145,7 @@ class Profile extends React.Component {
                         id="stateInput"
                         onChange={(e) => this.handleProfileInput('state', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.state}
+                        placeholder={this.props.user.state}
                     />
                   </div>
                   <div className="form-group">
@@ -150,7 +154,7 @@ class Profile extends React.Component {
                         id="zipInput"
                         onChange={(e) => this.handleProfileInput('zip', e.target.value)}
                         className={`form-control`}
-                        placeholder={this.state.profile.zip}
+                        placeholder={this.props.user.zip}
                     />
                   </div>
                   <hr />
@@ -161,7 +165,7 @@ class Profile extends React.Component {
                     <label htmlFor="glutenFreeInput">Gluten Free</label>
 
                     <input
-                        checked={this.state.profile.glutenFree ? 1 : 0}
+                        checked={this.props.user.glutenFree ? 1 : 0}
                         type="checkbox"
                         id="glutenFreeInput"
                         onChange={(e) => this.handleProfileInput('glutenFree',e.target.checked ? 1 : 0)}
@@ -172,7 +176,7 @@ class Profile extends React.Component {
                   <div className="form-check">
                     <label htmlFor="vegetarianInput">Vegetarian</label>
                     <input
-                        checked={this.state.profile.vegetarian ? 1 : 0}
+                        checked={this.props.user.vegetarian ? 1 : 0}
                         type="checkbox"
                         id="vegetarianInput"
                         onChange={(e) => this.handleProfileInput('vegetarian', e.target.checked ? 1 : 0)}
@@ -183,7 +187,7 @@ class Profile extends React.Component {
                     <label htmlFor="veganInput">Vegan</label>
 
                     <input
-                        checked={this.state.profile.vegan ? 1 : 0}
+                        checked={this.props.user.vegan ? 1 : 0}
                         type="checkbox"
                         id="veganInput"
                         onChange={(e) => this.handleProfileInput('vegan', e.target.checked ? 1 : 0)}
@@ -195,7 +199,7 @@ class Profile extends React.Component {
                     <label htmlFor="nutAllergyInput">Nut Allergy</label>
 
                     <input
-                        checked={this.state.profile.nutAllergy ? 1 : 0}
+                        checked={this.props.user.nutAllergy ? 1 : 0}
                         type="checkbox"
                         id="nutAllergyInput"
                         onChange={(e) => this.handleProfileInput('nutAllergy', e.target.checked ? 1 : 0)}
@@ -209,7 +213,7 @@ class Profile extends React.Component {
                           id="otherDietaryInput"
                           onChange={(e) => this.handleProfileInput('otherDietaryRestrictions', e.target.value)}
                           className={`form-control`}
-                          placeholder={this.state.profile.otherDietaryRestrictions}
+                          placeholder={this.props.user.otherDietaryRestrictions}
                       />
                     </div>
                     <div className="form-group">
@@ -218,7 +222,7 @@ class Profile extends React.Component {
                           id="specialRequestsInput"
                           onChange={(e) => this.handleProfileInput('specialRequests', e.target.value)}
                           className={`form-control`}
-                          placeholder={this.state.profile.specialRequests}
+                          placeholder={this.props.user.specialRequests}
                       />
                     </div>
                   </div>

@@ -20,6 +20,13 @@ export const findUser = () =>
     .then( res => res.json())
     .catch(() => '');
 
+// READ
+export const findPublicProfile = (username) =>
+    fetch(`http://localhost:8080/api/user/${username}`, {
+      method: 'GET'
+    })
+    .then( res => res.json());
+
 
 // DELETE
 export const deleteUser = () =>
@@ -65,6 +72,7 @@ export const login = (user) =>
 export default {
   register,
   findUser,
+  findPublicProfile,
   deleteUser,
   updateUser,
   logout,

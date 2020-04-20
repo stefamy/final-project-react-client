@@ -1,25 +1,84 @@
-import React from "react";
+import React, {Component} from "react";
+import inviteService from "../../services/InviteService";
+import eventsActions from "../../actions/EventsActions";
+import {connect} from "react-redux";
+import userService from "../../services/UserService";
+import userActions from "../../actions/UserActions";
 
-const InviteList = ({ event, userId }) => {
 
+class InviteList extends Component {
+
+  state = {}
+
+  componentDidMount() {
+    if (this.props.user.id) {
+      this.props.findInviteByGuestId(this.props.user.id);
+    } else {
+      this.props.findUser();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.user.id && (prevProps.user.id !== this.props.user.id)) {
+      // this.props.findInvitesByGuestId(this.props.user.id).then(invites =>
+      this.setState(
+          {invites: this.props.findInvitesByGuestId(this.props.user.id)});
+      // }
+    }
+  }
+
+  render() {
     return (
         <>
-          <div class="col">
-          <div className="card">
-            <div className="card-header">
-              {event.date}
-              {/*{event.startTime ? event.startTime : ''} {event.endTime ? ' - ' + event.endTime : ''}*/}
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">{event.name}</h5>
-              <h6 className="card-subtitle">{event.description}</h6>
-              <p className="card-text">{event.locationCity} {event.locationState && event.locationCity ? ', ' + event.locationState : ''}</p>
-            </div>
+          {this.state.invites &&
+              <div>
+            the invite is for event ID# {this.state.invites.id}
+              </div>
+          }
+          {!this.state.invites &&
+          <div>
+            No invites yet...
           </div>
-          </div>
+          }
         </>
     );
-
+  }
 }
 
-export default InviteList;
+
+const stateToPropertyMapper = state => {
+  return {
+    user: state.user.user,
+    events: state.events.events
+  };
+};
+
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    findUser: () => {
+      userService.findUser()
+      .then(user => dispatch(userActions.findUser(user)));
+    },
+    findInvitesByGuestId: userId => inviteService.findInvitesByGuestId(userId)
+      .then(invites => invites)
+        // dispatch(eventsActions.findInviteByGuestId(invites));
+      //});
+
+    // createInvite: (eventId, invite) => {
+    //   inviteService.createInvite(invite).then(invite => {
+    //     dispatch(eventsActions.createInivte(invite));
+    //   });
+    // },
+    // updateInvite: (inviteId, invite) => {
+    //   inviteService.updateInvite(invite).then(invite => {
+    //     dispatch(eventsActions.updateInvite(invite));
+    //   });
+    // }
+  };
+
+};
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(InviteList);

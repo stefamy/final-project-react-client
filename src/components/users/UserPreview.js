@@ -5,8 +5,8 @@ const UserPreview = ({ user }) => {
     return (
         <>
           <div>
-            {user.firstName}
-           
+            <div>First name: {user.firstName}</div>
+            <div>Username: {user.username}</div>
           </div>
         </>
     );

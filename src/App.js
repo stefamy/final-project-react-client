@@ -14,6 +14,8 @@ import Register from "./components/users/Register";
 import Profile from "./components/users/Profile";
 import User from "./components/users/User";
 import Login from "./components/users/Login";
+import AssignmentList from "./components/assignments/AssignmentList";
+import InviteList from "./components/invites/InviteList";
 import EventList from "./components/events/EventList";
 
 export default class App extends React.Component {
@@ -51,6 +53,7 @@ export default class App extends React.Component {
                     exact={true}
                     render={props => (
                         <Register
+                            {...props}
                             history={props.history}
                         />
                     )}
@@ -60,6 +63,27 @@ export default class App extends React.Component {
                     exact={true}
                     render={props => (
                         <EventList
+                            {...props}
+                            history={props.history}
+                        />
+                    )}
+                />
+                <Route
+                    path="/invites"
+                    exact={true}
+                    render={props => (
+                        <InviteList
+                            {...props}
+                            history={props.history}
+                        />
+                    )}
+                />
+                <Route
+                    path="/assignments"
+                    exact={true}
+                    render={props => (
+                        <AssignmentList
+                            {...props}
                             history={props.history}
                         />
                     )}
@@ -69,15 +93,17 @@ export default class App extends React.Component {
                     exact={true}
                     render={props => (
                         <Profile
+                            {...props}
                             history={props.history}
                         />
                     )}
                 />
                 <Route
-                    path="/user/:username"
+                    path="/profile/:username"
                     exact={true}
                     render={props => (
                         <User
+                            {...props}
                             history={props.history}
                             username={props.match.params.username}
                         />
@@ -88,6 +114,7 @@ export default class App extends React.Component {
                     exact={true}
                     render={props => (
                         <Login
+                            {...props}
                             history={props.history}
                         />
                     )}
