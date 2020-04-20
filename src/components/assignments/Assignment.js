@@ -1,9 +1,6 @@
 import React from "react";
 import eventsService from "../../services/EventsService";
-import EventPreview from "../events/EventPreview";
 import assignmentsService from "../../services/AssignmentsService";
-import assignmentsActions from "../../actions/AssignmentsActions";
-import {connect} from "react-redux";
 
 class Assignment extends React.Component {
 
@@ -25,6 +22,8 @@ class Assignment extends React.Component {
     let newState = Object.assign({}, this.state);
     newState.assignment[attribute] = newContent;
     this.setState(newState);
+    console.log('this.state', this.state);
+    console.log('this.props', this.props);
   }
 
   componentDidUpdate(prevProps) {
@@ -107,7 +106,7 @@ class Assignment extends React.Component {
                          className="form-control"
                          placeholder={'Comments for host'}
                          defaultValue={this.props.assignment.comments || ''}
-                         onChange={(e) => this.handleResponseChange('comments', e.target.value)}
+                         onChange={(e) => this.handleResponseChange('assigneeComments', e.target.value)}
                   />
                 </div>
                 {!this.state.isUpdating && <button type="submit" className={`btn btn-primary`}>Update Response</button> }

@@ -5,8 +5,6 @@ import {connect} from "react-redux";
 import assignmentsService from "../../services/AssignmentsService";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import Assignment from "./Assignment";
-import Invite from "../invites/Invite";
-
 
 class AssignmentList extends Component {
 
@@ -35,7 +33,6 @@ class AssignmentList extends Component {
                     assignment={assignment}
                     history={this.props.history}
                     userId={this.props.user.id}
-                    updateAssignment={this.props.updateAssignment}
                 />
             ))}
           </div>

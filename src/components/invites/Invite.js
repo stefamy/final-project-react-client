@@ -1,9 +1,7 @@
 import React from "react";
 import eventsService from "../../services/EventsService";
-import EventPreview from "../events/EventPreview";
 import invitesService from "../../services/InvitesService";
-import invitesActions from "../../actions/InvitesActions";
-import {connect} from "react-redux";
+
 
  class Invite extends React.Component {
 
@@ -121,17 +119,3 @@ import {connect} from "react-redux";
 }
 
 export default Invite;
-//
-// const dispatchToPropertyMapper = dispatch => {
-//   return {
-//     updateInvite: (inviteId, invite) => {
-//       invitesService.updateInvite(inviteId, invite).then(invite => {
-//         this.setState({invite: invitesActions.updateInvite(invite)});
-//       })
-//     }
-//   };
-// }
-//
-// export default connect(
-//     dispatchToPropertyMapper
-// )(Invite);

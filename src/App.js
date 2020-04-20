@@ -19,6 +19,7 @@ import Login from "./components/users/Login";
 import AssignmentList from "./components/assignments/AssignmentList";
 import InviteList from "./components/invites/InviteList";
 import EventList from "./components/events/EventList";
+import Event from "./components/events/Event";
 
 export default class App extends React.Component {
 
@@ -68,6 +69,17 @@ export default class App extends React.Component {
                     render={props => (
                         <EventList
                             {...props}
+                            history={props.history}
+                        />
+                    )}
+                />
+                <Route
+                    path="/events/:eventId"
+                    exact={true}
+                    render={props => (
+                        <Event
+                            {...props}
+                            eventId={props.match.params.eventId}
                             history={props.history}
                         />
                     )}

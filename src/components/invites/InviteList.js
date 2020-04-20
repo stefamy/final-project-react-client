@@ -33,7 +33,6 @@ class InviteList extends Component {
                     invite={invite}
                     history={this.props.history}
                     userId={this.props.user.id}
-                    updateInvite={this.props.updateInvite}
                 />
                 ))}
               </div>
