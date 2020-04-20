@@ -5,7 +5,7 @@ import userService from "../../services/UserService";
 import {Link} from "react-router-dom";
 import { connect } from "react-redux";
 
-class ProfileComponent extends React.Component {
+class Profile extends React.Component {
 
     state = {
         profile: {}
@@ -275,4 +275,4 @@ const dispatchToPropertyMapper = dispatch => {
 export default connect(
     stateToPropertyMapper,
     dispatchToPropertyMapper
-)(ProfileComponent);
+)(Profile);

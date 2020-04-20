@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-const EventListItemComponent = ({ event, userId }) => {
+const InviteList = ({ event, userId }) => {
 
     return (
         <>
@@ -22,4 +22,4 @@ const EventListItemComponent = ({ event, userId }) => {
 
 }
 
-export default EventListItemComponent;
+export default InviteList;

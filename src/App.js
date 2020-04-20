@@ -11,9 +11,10 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 // import SearchResultsComponent from "./components/SearchResultsComponent";
 // import RecipeDetailsComponent from "./components/RecipeDetailsComponent";
 import Register from "./components/users/Register";
-import Profile from "./components/users/ProfileComponent";
+import Profile from "./components/users/Profile";
+import User from "./components/users/User";
 import Login from "./components/users/Login";
-import EventListComponent from "./components/events/EventListComponent";
+import EventList from "./components/events/EventList";
 
 export default class App extends React.Component {
 
@@ -34,52 +35,63 @@ export default class App extends React.Component {
         <Provider store={this.store}>
           <div className="container-fluid">
             <HeaderContainer/>
-            <Router>
-              <Route
-                  path="/"
-                  exact={true}
-                  render={props => (
-                      <HomeContainer
-                          {...props}
-                      />
-                  )}
-              />
-              <Route
-                  path="/register"
-                  exact={true}
-                  render={props => (
-                      <Register
-                          history={props.history}
-                      />
-                  )}
-              />
-              <Route
-                  path="/events"
-                  exact={true}
-                  render={props => (
-                      <EventListComponent
-                          history={props.history}
-                      />
-                  )}
-              />
-              <Route
-                  path="/profile"
-                  exact={true}
-                  render={props => (
-                      <Profile
-                          history={props.history}
-                      />
-                  )}
-              />
-              <Route
-                  path="/login"
-                  exact={true}
-                  render={props => (
-                      <Login
-                          history={props.history}
-                      />
-                  )}
-              />
+              <div className="container-content container pt-3 pb-3">
+              <Router>
+                <Route
+                    path="/"
+                    exact={true}
+                    render={props => (
+                        <HomeContainer
+                            {...props}
+                        />
+                    )}
+                />
+                <Route
+                    path="/register"
+                    exact={true}
+                    render={props => (
+                        <Register
+                            history={props.history}
+                        />
+                    )}
+                />
+                <Route
+                    path="/events"
+                    exact={true}
+                    render={props => (
+                        <EventList
+                            history={props.history}
+                        />
+                    )}
+                />
+                <Route
+                    path="/profile"
+                    exact={true}
+                    render={props => (
+                        <Profile
+                            history={props.history}
+                        />
+                    )}
+                />
+                <Route
+                    path="/user/:username"
+                    exact={true}
+                    render={props => (
+                        <User
+                            history={props.history}
+                            username={props.match.params.username}
+                        />
+                    )}
+                />
+                <Route
+                    path="/login"
+                    exact={true}
+                    render={props => (
+                        <Login
+                            history={props.history}
+                        />
+                    )}
+                />
               {/*<Route*/}
               {/*    path="/search"*/}
               {/*    exact={true}*/}
@@ -106,8 +118,8 @@ export default class App extends React.Component {
               {/*        />*/}
               {/*    )}*/}
               {/*/>*/}
-
             </Router>
+              </div>
           </div>
         </Provider>
     )

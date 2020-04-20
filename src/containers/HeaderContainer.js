@@ -20,9 +20,13 @@ class HeaderContainer extends React.Component {
 
   render() {
     return (
-        <header>
-          <div className="width-limiter"><span className="site-title">Potluck Party Organizer</span></div>
-          {this.props.user.username && <span>Welcome, {this.props.user.username}!</span>}
+        <header className="bg-pattern">
+          <div className="container">
+            <div className="pt-2 pb-2 row">
+              <div className="col site-title">Potluck Party Organizer</div>
+            {this.props.user.username && <div className="col text-right"> Welcome, {this.props.user.username}!</div>}
+            </div>
+          </div>
         </header>
     );
   }
