@@ -1,12 +1,14 @@
 import React from "react";
+import {Provider} from "react-redux";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import HomeContainer from "./containers/HomeContainer";
 import {combineReducers, createStore} from "redux";
 import userReducer from "./reducers/UserReducer";
 import eventsReducer from "./reducers/EventsReducer";
-import {Provider} from "react-redux";
+import assignmentsReducer from "./reducers/AssignmentsReducer";
+import invitesReducer from "./reducers/InvitesReducer";
 import HeaderContainer from "./containers/HeaderContainer";
-import {BrowserRouter as Router, Route} from "react-router-dom";
 // import SearchContainer from "./containers/SearchContainer";
 // import SearchResultsComponent from "./components/SearchResultsComponent";
 // import RecipeDetailsComponent from "./components/RecipeDetailsComponent";
@@ -24,7 +26,9 @@ export default class App extends React.Component {
 
   rootReducer = combineReducers({
     user: userReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    assignments: assignmentsReducer,
+    invites: invitesReducer
   });
 
   store = createStore(this.rootReducer);

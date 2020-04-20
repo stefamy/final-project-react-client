@@ -1,10 +1,11 @@
 import React, {Component} from "react";
-import inviteService from "../../services/InviteService";
-import eventsActions from "../../actions/EventsActions";
 import {connect} from "react-redux";
+import invitesService from "../../services/InvitesService";
+import invitesActions from "../../actions/InvitesActions";
 import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
-
+import EventPreview from "../events/EventPreview";
+import Invite from "./Invite";
 
 class InviteList extends Component {
 
@@ -13,29 +14,34 @@ class InviteList extends Component {
   componentDidMount() {
     if (this.props.user.id) {
       this.props.findInviteByGuestId(this.props.user.id);
-    } else {
-      this.props.findUser();
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.user.id && (prevProps.user.id !== this.props.user.id)) {
-      // this.props.findInvitesByGuestId(this.props.user.id).then(invites =>
-      this.setState(
-          {invites: this.props.findInvitesByGuestId(this.props.user.id)});
-      // }
+    if (prevProps.user !== this.props.user) {
+      this.props.findInvitesByGuestId(this.props.user.id);
     }
+    console.log('this.state', this.state);
+    console.log('this.props', this.props);
   }
 
   render() {
     return (
         <>
-          {this.state.invites &&
+          {this.props.invites &&
               <div>
-            the invite is for event ID# {this.state.invites.id}
+                {/*this.state.invites.map((invite, index) => (*/}
+                {/*<Invite*/}
+                {/*    key={index}*/}
+                {/*    event={invite}*/}
+                {/*    history={this.props.history}*/}
+                {/*    userId={this.props.user.id}*/}
+                {/*/>*/}
+                {/*))}*/}
+            the invite is for event ID# {this.props.invites.id}
               </div>
           }
-          {!this.state.invites &&
+          {!this.props.invites &&
           <div>
             No invites yet...
           </div>
@@ -49,7 +55,7 @@ class InviteList extends Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    events: state.events.events
+    invites: state.invites.invites
   };
 };
 
@@ -59,22 +65,12 @@ const dispatchToPropertyMapper = dispatch => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
     },
-    findInvitesByGuestId: userId => inviteService.findInvitesByGuestId(userId)
-      .then(invites => invites)
-        // dispatch(eventsActions.findInviteByGuestId(invites));
-      //});
-
-    // createInvite: (eventId, invite) => {
-    //   inviteService.createInvite(invite).then(invite => {
-    //     dispatch(eventsActions.createInivte(invite));
-    //   });
-    // },
-    // updateInvite: (inviteId, invite) => {
-    //   inviteService.updateInvite(invite).then(invite => {
-    //     dispatch(eventsActions.updateInvite(invite));
-    //   });
-    // }
-  };
+    findInvitesByGuestId: userId => {
+      invitesService.findInvitesByGuestId(userId).then(invites => {
+        dispatch(invitesActions.findAllInvites(invites));
+      });
+    }
+  }
 
 };
 

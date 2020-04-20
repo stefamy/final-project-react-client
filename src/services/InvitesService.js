@@ -28,7 +28,7 @@ export const findAllInvitesForEvent = (eventId) =>
 // READ
 export const findInvitesByGuestId = (userId) =>
     fetch(`http://localhost:8080/api/user/${userId}/invites`, {
-      method: 'READ'
+      method: 'GET'
     }).then(response => response.json());
 
 

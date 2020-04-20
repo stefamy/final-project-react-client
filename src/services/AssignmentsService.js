@@ -21,7 +21,7 @@ export const findAssignmentById = (assignmentId) =>
 // READ
 export const findAssignmentByAssigneeUserId = (userId) =>
     fetch(`http://localhost:8080/api/user/${userId}/assignments`, {
-      method: 'READ'
+      method: 'GET'
     }).then(response => response.json());
 
 
