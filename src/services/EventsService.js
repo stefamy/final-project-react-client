@@ -15,15 +15,14 @@ export const findEventById = (eventId) =>
     fetch(`http://localhost:8080/api/events/${eventId}`, {
       method: 'GET',
     })
-    .then( res => res.json())
-    .catch(() => '');
+    .then( response => response.json());
 
 // READ
 export const findEventsForUser = (userId) =>
     fetch(`http://localhost:8080/api/events/host/${userId}`, {
       method: 'GET',
     })
-    .then( res => res.json());
+    .then( response => response.json());
 
 
 // DELETE

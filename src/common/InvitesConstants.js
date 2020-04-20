@@ -1,3 +1,4 @@
 export const CREATE_INVITE = "CREATE_INVITE"
 export const FIND_ALL_INVITES = "FIND_ALL_INVITES"
+export const UPDATE_INVITE = "UPDATE_INVITE"
 

@@ -1,4 +1,4 @@
-import { CREATE_INVITE, FIND_ALL_INVITES } from "../common/InvitesConstants";
+import { CREATE_INVITE, FIND_ALL_INVITES, UPDATE_INVITE } from "../common/InvitesConstants";
 
 
 // CREATE
@@ -13,7 +13,15 @@ export const findAllInvites = (invites) => ({
   invites: invites
 })
 
+// READ
+export const updateInvite = (invite) => ({
+  type: UPDATE_INVITE,
+  invite: invite
+})
+
+
 export default {
   createInvite,
-  findAllInvites
+  findAllInvites,
+  updateInvite
 }
