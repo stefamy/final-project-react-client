@@ -1,4 +1,8 @@
-import { CREATE_ASSIGNMENT, FIND_ALL_ASSIGNMENTS } from "../common/AssignmentsConstants";
+import {
+  CREATE_ASSIGNMENT,
+  FIND_ALL_ASSIGNMENTS,
+  UPDATE_ASSIGNMENT
+} from "../common/AssignmentsConstants";
 
 
 // CREATE
@@ -13,7 +17,15 @@ export const findAllAssignments = (assignments) => ({
   assignments: assignments
 })
 
+// READ
+export const updateAssignment = (assignment) => ({
+  type: UPDATE_ASSIGNMENT,
+  invite: assignment
+})
+
+
 export default {
   createAssignment,
-  findAllAssignments
+  findAllAssignments,
+  updateAssignment
 }

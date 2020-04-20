@@ -4,10 +4,7 @@ import invitesService from "../../services/InvitesService";
 import invitesActions from "../../actions/InvitesActions";
 import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
-import EventPreview from "../events/EventPreview";
 import Invite from "./Invite";
-import eventsService from "../../services/EventsService";
-import eventsActions from "../../actions/EventsActions";
 
 class InviteList extends Component {
 
@@ -23,13 +20,6 @@ class InviteList extends Component {
     if (prevProps.user !== this.props.user) {
       this.props.findInvitesByGuestId(this.props.user.id);
     }
-    console.log('this.state', this.state);
-    console.log('this.props', this.props);
-  }
-
-  handleUpdateInvite(e, invite) {
-    e.preventDefault();
-    console.log('updating invite:', invite);
   }
 
   render() {
@@ -43,7 +33,7 @@ class InviteList extends Component {
                     invite={invite}
                     history={this.props.history}
                     userId={this.props.user.id}
-                    handleUpdateInvite={this.handleUpdateInvite}
+                    updateInvite={this.props.updateInvite}
                 />
                 ))}
               </div>
@@ -76,12 +66,8 @@ const dispatchToPropertyMapper = dispatch => {
       invitesService.findInvitesByGuestId(userId).then(invites => {
         dispatch(invitesActions.findAllInvites(invites));
       });
-    },
-    updateInvite: (inviteId, invite) => {
-      invitesService.updateInvite(inviteId, invite).then(invites => {
-        dispatch(invitesActions.updateInvite(invite));
-      })
     }
+
   }
 
 };

@@ -4,6 +4,9 @@ import userActions from "../../actions/UserActions";
 import {connect} from "react-redux";
 import assignmentsService from "../../services/AssignmentsService";
 import assignmentsActions from "../../actions/AssignmentsActions";
+import Assignment from "./Assignment";
+import Invite from "../invites/Invite";
+
 
 class AssignmentList extends Component {
 
@@ -19,8 +22,6 @@ class AssignmentList extends Component {
     if (prevProps.user !== this.props.user) {
       this.props.findAssignmentByAssigneeUserId(this.props.user.id);
     }
-    console.log('this.state', this.state);
-    console.log('this.props', this.props);
   }
 
   render() {
@@ -28,7 +29,15 @@ class AssignmentList extends Component {
         <>
           {this.props.assignments &&
           <div>
-            the assignment is for event ID# {this.props.assignments.id}
+            {this.props.assignments.map((assignment, index) => (
+                <Assignment
+                    key={index}
+                    assignment={assignment}
+                    history={this.props.history}
+                    userId={this.props.user.id}
+                    updateAssignment={this.props.updateAssignment}
+                />
+            ))}
           </div>
           }
           {!this.props.assignments &&

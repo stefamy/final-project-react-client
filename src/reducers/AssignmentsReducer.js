@@ -1,5 +1,10 @@
-import { CREATE_ASSIGNMENT, FIND_ALL_ASSIGNMENTS } from "../common/AssignmentsConstants";
+import {
+  CREATE_ASSIGNMENT,
+  FIND_ALL_ASSIGNMENTS,
+  UPDATE_ASSIGNMENT
+} from "../common/AssignmentsConstants";
 import _ from 'lodash';
+import {UPDATE_INVITE} from "../common/InvitesConstants";
 
 const initialState = {
   assignments: []
@@ -21,6 +26,15 @@ const assignmentsReducer = (state = initialState, action) => {
       assignments = _.sortBy(action.assignments, 'date')
       return {
         assignments: assignments
+      }
+
+    case UPDATE_ASSIGNMENT:
+      assignments = [...state.assignments];
+      const indexToUpdate = _.findIndex(assignments, {id: action.assignment.id});
+      assignments.splice(indexToUpdate, 1, action.assignment);
+
+      return {
+        assignments: _.cloneDeep(assignments)
       }
 
     default:
