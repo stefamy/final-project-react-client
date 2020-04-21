@@ -2,7 +2,8 @@ import {
   CREATE_ASSIGNMENT,
   FIND_ALL_ASSIGNMENTS,
   FIND_ALL_ASSIGNMENTS_FOR_EVENT,
-  UPDATE_ASSIGNMENT
+  UPDATE_ASSIGNMENT,
+  UPDATE_ASSIGNMENT_FOR_EVENT
 } from "../common/AssignmentsConstants";
 import _ from 'lodash';
 
@@ -44,6 +45,14 @@ const assignmentsReducer = (state = initialState, action) => {
         assignments: _.cloneDeep(assignments)
       }
 
+    case UPDATE_ASSIGNMENT_FOR_EVENT:
+      eventAssignments = [...state.eventAssignments];
+      const indexInEventList = _.findIndex(eventAssignments, {id: action.assignment.id});
+      eventAssignments.splice(indexInEventList, 1, action.assignment);
+
+      return {
+        eventAssignments: _.cloneDeep(eventAssignments)
+      }
 
 
     default:

@@ -11,7 +11,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
-    "font-awesome": "^4.7.0",
+    "font-awesome": "^5.7.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",

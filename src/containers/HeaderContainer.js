@@ -22,12 +22,6 @@ class HeaderContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user.id !== this.props.user.id) {
-      if (this.props.user.id) {
-        this.props.findAllUserData();
-      }
-    }
-
   }
 
   render() {

@@ -43,7 +43,6 @@ export const updateAssignment = (assignmentId, assignment) =>
     }).then(response => response.json())
 
 
-
 // DELETE
 export const deleteAssignment = (assignmentId) =>
     fetch(`http://localhost:8080/api/assignments/${assignmentId}`, {

@@ -70,6 +70,35 @@ h1.site-title {
   padding: 0;
 }
 
+.assignment-edit-bar {
+  border-radius: 3px;
+  position: relative;
+}
+.assignment-edit-bar .assignment-checkbox-wrap {
+  border-radius: 0 0 0 3px;
+}
+
+button.special-border-radius {
+  border: 0 none;
+  border-radius: 0 0 3px 0 !important;
+  height: 100%;
+}
+
+.special-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.special-checkbox input {
+  position: relative;
+  top: -2px;
+}
+
 /* Note: some of this CSS is re from a prior project of mine: https://github.com/stefamy/some-like-it-hot-sauce */
 
 

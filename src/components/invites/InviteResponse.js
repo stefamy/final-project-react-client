@@ -19,9 +19,7 @@ const InviteResponse = ({ invite, event }) => {
 
   return (
         <li className="list-group-item d-flex justify-content-between align-items-center">
-          <span>{invite.firstName} {invite.lastName}
-            <a href={`mailto:` + invite.email}><i className="ml-2 fa fa-envelope"> </i></a>
-          </span>
+          <span><a href={`mailto:` + invite.email}>{invite.firstName} {invite.lastName}</a></span>
           <span className={`badge badge-pill ` + badgeClass(invite.response)}>{invite.response}</span>
         </li>
   );
