@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import invitesService from "../../services/InvitesService";
 
 
 export default class CreateAssignment extends Component {
@@ -7,7 +6,8 @@ export default class CreateAssignment extends Component {
 
   state = {
     newAssignment: {
-      eventId: this.props.eventId
+      eventId: this.props.eventId,
+      status: "Unassigned"
     }
   }
 
@@ -50,7 +50,7 @@ export default class CreateAssignment extends Component {
                 <label htmlFor="taskNameInput">Assignment Name</label>
                 <input
                     id="taskNameInput"
-                    onChange={(e) => this.handleNewAssignmentInput('name', e.target.value)}
+                    onChange={(e) => this.handleNewAssignmentInput('title', e.target.value)}
                     className={`form-control`}
                     placeholder='Example: "Cold Appetizer Item"'
                     required/>
@@ -59,7 +59,7 @@ export default class CreateAssignment extends Component {
               <label htmlFor="taskDescriptionInput">Description</label>
                 <input
                     id="taskDescriptionInput"
-                    onChange={(e) => this.handleNewAssignmentInput('name', e.target.value)}
+                    onChange={(e) => this.handleNewAssignmentInput('description', e.target.value)}
                     className='form-control'
                     placeholder='Example: "Something easy to eat standing up, preferably!"'
                     />

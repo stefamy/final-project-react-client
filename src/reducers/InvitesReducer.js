@@ -11,21 +11,21 @@ const invitesReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case CREATE_INVITE:
-      invites = [...state.invites];
-      invites.push(action.invites);
+      eventInvites = [...state.eventInvites];
+      eventInvites.push(action.invite);
 
       return {
-        invites: invites
+        eventInvites: eventInvites
       }
 
     case FIND_ALL_INVITES:
-      invites = _.sortBy(action.invites, 'date')
+      invites = _.sortBy(action.invites, 'invitationDate')
       return {
         invites: invites
       }
 
     case FIND_ALL_INVITES_FOR_EVENT:
-      eventInvites = _.sortBy(action.invites, 'date')
+      eventInvites = _.sortBy(action.invites, 'invitationDate')
       return {
         eventInvites: eventInvites
       }

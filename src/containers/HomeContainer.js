@@ -1,7 +1,6 @@
-// import RecipeFinderContainer from "./RecipeFinderContainer";
 import React from "react";
-import {Link} from "react-router-dom";
 import { connect } from "react-redux";
+import {Link} from "react-router-dom";
 
 /**
  * @param {{queryText:string}} queryText
@@ -25,7 +24,7 @@ class HomeContainer extends React.Component {
               <h1>Welcome to the Potluck Party Planner!</h1>
               <h4>pot·​luck | ˈpät-ˈlək | <span className="subtitle"><em>noun</em></span></h4>
               <p>A meal or party to which each of the guests contributes a dish.</p>
-              <p><a href="/about" className="btn btn-primary btn-large">Learn more</a></p>
+              <p><Link to="/about" className="btn btn-primary btn-large">Learn more</Link></p>
             </div>
             <div className="row pb-5">
               <div className="col-lg-6 col-12 pb-5">
@@ -33,8 +32,8 @@ class HomeContainer extends React.Component {
                   <div className="card-body">
                     <h5 className="card-title">Let's Get Started!</h5>
                     <p className="card-text">Log in or register as a new user.</p>
-                    <a href="/login" className="btn btn-primary mr-2">Log in</a>
-                    <a href="/login" className="btn btn-primary">Register</a>
+                    <Link to="/login" className="btn btn-primary mr-2">Log in</Link>
+                    <Link to="/register" className="btn btn-primary">Register</Link>
 
                   </div>
                 </div>
@@ -44,7 +43,7 @@ class HomeContainer extends React.Component {
                   <div className="card-body">
                     <h5 className="card-title">Recent Recipe Review</h5>
                     <p className="card-text">Check out the recipe.</p>
-                    <a href="/" className="btn btn-primary mr-2">Get the recipe</a>
+                    <Link to="/" className="btn btn-primary mr-2">Get the recipe</Link>
                   </div>
                 </div>
               </div>
@@ -56,7 +55,7 @@ class HomeContainer extends React.Component {
               <div className="mb-5 p-5 bg-white hero-unit rounded border">
                   <h1>Welcome to the Party Planner App!</h1>
                   <p>Tagline</p>
-                  <p><a href="#" className="btn btn-primary btn-large">Learn more</a></p>
+                  <p><Link to="/" className="btn btn-primary btn-large">Learn more</Link></p>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-12 pb-5">
@@ -66,7 +65,7 @@ class HomeContainer extends React.Component {
                       <h5 className="card-title">Create an Event</h5>
                       <p className="card-text">With supporting text below as a
                         natural lead-in to additional content.</p>
-                      <a href="/events" className="btn btn-primary">Go to events</a>
+                      <Link to="/events" className="btn btn-primary">Go to events</Link>
                     </div>
                   </div>
                 </div>
@@ -77,7 +76,7 @@ class HomeContainer extends React.Component {
                     <h5 className="card-title">RSVP to an Event</h5>
                     <p className="card-text">With supporting text below as a
                       natural lead-in to additional content.</p>
-                    <a href="/invites" className="btn btn-primary">Go to invites</a>
+                    <Link to="/invites" className="btn btn-primary">Go to invites</Link>
                   </div>
                 </div>
                 </div>
@@ -90,7 +89,7 @@ class HomeContainer extends React.Component {
                       <h5 className="card-title">Special title treatment</h5>
                       <p className="card-text">With supporting text below as a
                         natural lead-in to additional content.</p>
-                      <a href="/assignments" className="btn btn-primary">Go to assignments</a>
+                      <Link to="/assignments" className="btn btn-primary">Go to assignments</Link>
                     </div>
                  </div>
                 </div>

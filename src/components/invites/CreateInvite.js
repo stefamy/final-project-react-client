@@ -1,13 +1,15 @@
 import React, {Component} from "react";
 
-
 export default class CreateInvite extends Component {
 
 
   state = {
-    newInvite: { }
+    newInvite: {
+      eventId: this.props.eventId,
+      invitationDate: new Date(),
+      response: 'Pending'
+    }
   }
-
 
   handleNewInviteInput(attribute, newContent) {
     let newState = Object.assign({}, this.state);
@@ -17,153 +19,60 @@ export default class CreateInvite extends Component {
 
   handleCreateInvite(e) {
     e.preventDefault();
-    this.props.createInvite(this.props.user.id, this.state.newInvite);
+    this.props.createInvite(this.state.newInvite.eventId, this.state.newInvite);
   }
+
+  showSaveSuccess() {
+    this.setState({
+      isSaving: false,
+      showSuccess: true
+    });
+    return setTimeout(() => {
+      this.setState({showSuccess: false})
+    }, 1000);
+  }
+
 
   render() {
     return (
-        <>
+        <div className="new-invite-form mt-5 mb-5">
           <h3>Create New Invite</h3>
           <form onSubmit={(e) => this.handleCreateInvite(e)}>
-            <h3 className="mt-3">What</h3>
             <div className="form-group">
-              {/*  <label htmlFor="eventNameInput">Event Name</label>*/}
-              {/*  <input*/}
-              {/*      id="eventNameInput"*/}
-              {/*      onChange={(e) => this.handleNewEventInput('name', e.target.value)}*/}
-              {/*      className={`form-control`}*/}
-              {/*      placeholder='Example: "Smith Family Reunion"'*/}
-              {/*      required/>*/}
-              {/*</div>*/}
-              {/*<div className="form-group">*/}
-              {/*  <label htmlFor="eventDescriptionInput">Event Description</label>*/}
-              {/*  <input*/}
-              {/*      id="eventDescriptionInput"*/}
-              {/*      onChange={(e) => this.handleNewEventInput('description',*/}
-              {/*          e.target.value)}*/}
-              {/*      className={`form-control`}*/}
-              {/*      placeholder='Example: "Pool Party and BBQ with Games"'/>*/}
-              {/*</div>*/}
-              {/*<h3 className="mt-3">When</h3>*/}
-              {/*<div className="form-group">*/}
-              {/*  <div className="form-row">*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="eventDateInput">Date of Event</label>*/}
-              {/*      <input*/}
-              {/*          id="eventDateInput"*/}
-              {/*          type="date"*/}
-              {/*          min="2020-01-01"*/}
-              {/*          max="2040-01-01"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('date',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*          required/>*/}
-              {/*    </div>*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="eventStartTimeInput">Start Time of*/}
-              {/*        Event</label>*/}
-              {/*      <input*/}
-              {/*          id="eventStartTimeInput"*/}
-              {/*          type="time"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('startTime',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="eventEndTimeInput">End Time of Event</label>*/}
-              {/*      <input*/}
-              {/*          id="eventEndTimeInput"*/}
-              {/*          type="time"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('endTime',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-              {/*<h3 className="mt-3">Where</h3>*/}
-              {/*<div className="form-group">*/}
-              {/*  <label htmlFor="locationName">Location Name</label>*/}
-              {/*  <input*/}
-              {/*      id="locationName"*/}
-              {/*      onChange={(e) => this.handleNewEventInput('locationName',*/}
-              {/*          e.target.value)}*/}
-              {/*      className={`form-control`}*/}
-              {/*      placeholder={`Example: "Nana's House"`}*/}
-              {/*  />*/}
-              {/*</div>*/}
-              {/*<div className="form-group">*/}
-              {/*  <div className="form-row">*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="streetAddress1Input">Street Address</label>*/}
-              {/*      <input*/}
-              {/*          id="streetAddress1Input"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('locationStreet1',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="streetAddress2Input">Street Address 2</label>*/}
-              {/*      <input*/}
-              {/*          id="streetAddress2Input"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('locationStreet2',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*          placeholder="Apt, suite, floor, etc."*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-              {/*<div className="form-group">*/}
-              {/*  <div className="form-row">*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="cityInput">City</label>*/}
-              {/*      <input*/}
-              {/*          id="cityInput"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('locationCity',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="stateInput">State</label>*/}
-              {/*      <input*/}
-              {/*          id="stateInput"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('locationState',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*    <div className="col">*/}
-              {/*      <label htmlFor="zipInput">Zip Code</label>*/}
-              {/*      <input*/}
-              {/*          id="zipInput"*/}
-              {/*          onChange={(e) => this.handleNewEventInput('locationZip',*/}
-              {/*              e.target.value)}*/}
-              {/*          className={`form-control`}*/}
-              {/*      />*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-              {/*<div className="form-group">*/}
-              {/*  <label htmlFor="locationNotes">Location Notes</label>*/}
-              {/*  <input*/}
-              {/*      id="locationNotes"*/}
-              {/*      onChange={(e) => this.handleNewEventInput('locationNotes',*/}
-              {/*          e.target.value)}*/}
-              {/*      className={`form-control`}*/}
-              {/*      placeholder='Example: Enter through the gate in the side yard.'*/}
-              {/*  />*/}
-              {/*</div>*/}
-              {/*<div className="form-group mt-3">*/}
-              {/*  <button type="submit"*/}
-              {/*          className={`btn btn-primary btn-block`}>Create Your Event!*/}
-              {/*  </button>*/}
+              <label htmlFor="inviteFirstNameInput">First Name</label>
+              <input
+                  id="inviteFirstNameInput"
+                  onChange={(e) => this.handleNewInviteInput('firstName', e.target.value)}
+                  className="form-control"
+                  placeholder="First name of the invitee"
+                  required/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="inviteLastNameInput">Last Name</label>
+              <input
+                  id="inviteLastNameInput"
+                  onChange={(e) => this.handleNewInviteInput('lastName', e.target.value)}
+                  className="form-control"
+                  placeholder="Last name of the invitee"
+                  />
+            </div>
+            <div className="form-group">
+              <label htmlFor="inviteEmailInput">Email Address</label>
+              <input
+                  id="inviteEmailInput"
+                  onChange={(e) => this.handleNewInviteInput('email', e.target.value)}
+                  className="form-control"
+                  placeholder="Email address of the invitee"
+                  required
+              />
+            </div>
+            <div className="form-group mt-3">
+              {!this.state.isSaving && <button type="submit" className="btn btn-primary">Add Invite</button> }
+              {this.state.showSuccess && <span className="text-success success-saved"> Added!</span> }
+              {this.state.isSaving && <button type="submit" disabled className="btn btn-primary">Update Response</button> }
             </div>
           </form>
-        </>
+        </div>
     );
   }
 }

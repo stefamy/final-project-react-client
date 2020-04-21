@@ -19,8 +19,6 @@ class HeaderContainer extends React.Component {
     } else {
       this.props.findUser();
     }
-    console.log('this.props', this.props);
-    console.log('this.state', this.state);
   }
 
   componentDidUpdate(prevProps) {

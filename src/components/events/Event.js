@@ -1,15 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import Invite from "../invites/Invite";
+import InviteResponse from "../invites/InviteResponse";
+import AssignmentResponse from "../assignments/AssignmentResponse";
 import CreateInvite from "../invites/CreateInvite";
 import invitesActions from "../../actions/InvitesActions";
 import invitesService from "../../services/InvitesService";
-import Assignment from "../assignments/Assignment";
 import CreateAssignment from "../assignments/CreateAssignment";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import assignmentsService from "../../services/AssignmentsService";
 import eventsService from "../../services/EventsService";
-import CreateEvent from "./CreateEvent";
 
 class Event extends React.Component {
 
@@ -19,11 +18,11 @@ class Event extends React.Component {
     if (!this.props.event) {
       eventsService.findEventById(this.props.eventId).then((event) => {
         this.setState({event: event});
-        this.props.loadAllEventData(this.state.event.id);
+        this.props.loadAllEventData(this.props.eventId);
       });
     } else {
-      this.setState({ event: this.props.event });
-      this.props.loadAllEventData(this.state.event.id);
+      this.setState({event: this.props.event});
+      this.props.loadAllEventData(this.props.eventId);
     }
   }
 
@@ -33,11 +32,15 @@ class Event extends React.Component {
     this.setState(newState);;
   }
 
-  componentDidUpdate(prevProps) {
-    console.log('this.props', this.props);
-    console.log('this.state', this.state);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!this.state.eventDataLoaded) {
+      this.props.loadAllEventData(this.props.eventId).then(response =>
+          this.setState({
+            eventDataLoaded: true
+          })
+      )
+    }
   }
-
 
   showUpdateSuccess() {
     this.setState({
@@ -64,7 +67,7 @@ class Event extends React.Component {
 
   doShowCreateInvite() {
     this.setState({
-      showCreateAInvite: true
+      showCreateInvite: true
     })
   }
 
@@ -79,41 +82,41 @@ class Event extends React.Component {
               <p>{this.state.event.date} </p>
 
               {this.props.eventAssignments && <>
-                    <h3>Assignments</h3>
-                    {this.props.eventAssignments.map((assignment, index) => (
-                    <Assignment
+                <h3>Assignments</h3>
+                <ul className="list-group mb-3">
+                {this.props.eventAssignments.map((assignment, index) => (
+                    <AssignmentResponse
                         key={index}
                         assignment={assignment}
                         event={this.state.event}
-                        history={this.props.history}
-                        userId={this.props.user.id}
                     />
                 ))}
+                </ul>
                 </>}
               <button
                   onClick={() => this.doShowCreateAssignment()}
                   className="btn btn-primary">
                 Add New Assignment
               </button>
-              {/*{this.state.showCreateAssignment &&*/}
+              {this.state.showCreateAssignment &&
                   <CreateAssignment
                       createAssignment={this.props.createAssignment}
                       user={this.props.user}
                       eventId={this.state.event.id}
                   />
-              {/*}*/}
+              }
               <hr/>
               {this.props.eventInvites && <>
-                  <h3>Invites</h3>
+                <h3>Invites</h3>
+                <ul className="list-group mb-3">
                   {this.props.eventInvites.map((invite, index) => (
-                      <Invite
+                      <InviteResponse
                           key={index}
                           invite={invite}
                           event={this.state.event}
-                          history={this.props.history}
-                          userId={this.props.user.id}
                       />
                   ))}
+                </ul>
                 </>}
               <button
                   onClick={() => this.doShowCreateInvite()}

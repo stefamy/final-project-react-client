@@ -5,19 +5,19 @@ import invitesService from "../../services/InvitesService";
 
  class Invite extends React.Component {
 
-   state = { }
+   state = {
+     invite: {...this.props.invite}
+   }
 
    componentDidMount() {
-     this.setState({
-       invite: {...this.props.invite}
-     });
-     if (!this.props.event) {
-         eventsService.findEventById(this.props.invite.eventId)
-         .then((event) => this.setState({event: event}));
-        } else {
-         this.setState({event: this.props.event});
-       }
+     if (this.props.event) {
+       this.setState({event: this.props.event});
+     } else {
+       eventsService.findEventById(this.props.invite.eventId)
+       .then((event) => this.setState({event: event}));
+     }
    }
+
 
    handleResponseChange(attribute, newContent) {
      let newState = Object.assign({}, this.state);

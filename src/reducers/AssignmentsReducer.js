@@ -24,13 +24,13 @@ const assignmentsReducer = (state = initialState, action) => {
       }
 
     case FIND_ALL_ASSIGNMENTS:
-      assignments = _.sortBy(action.assignments, 'date')
+      assignments = _.sortBy(action.assignments, 'type')
       return {
         assignments: assignments
       }
 
     case FIND_ALL_ASSIGNMENTS_FOR_EVENT:
-      eventAssignments = _.sortBy(action.assignments, 'date')
+      eventAssignments = _.sortBy(action.assignments, 'type')
       return {
         eventAssignments: eventAssignments
       }
