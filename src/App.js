@@ -40,9 +40,9 @@ class App extends React.Component {
   render() {
     return (
         <Provider store={this.store}>
-          <div className="container-fluid">
+          <div className="container-fluid bg-pattern">
             <HeaderContainer/>
-              <div className="container-content container pt-3 pb-3">
+              <div className="container-content container pt-5 pb-5">
               <Router>
                 <Route
                     path="/"

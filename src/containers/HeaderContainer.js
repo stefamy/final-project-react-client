@@ -30,20 +30,28 @@ class HeaderContainer extends React.Component {
         this.props.findAllUserData();
       }
     }
-    console.log('this.props', this.props);
-    console.log('this.state', this.state);
   }
 
   render() {
     return (
-        <header className="bg-pattern">
-          <div className="container">
-            <div className="pt-2 pb-2 row">
-              <div className="col site-title">Potluck Party Organizer</div>
-              {this.props.user.username && <div className="col text-right">
-                Welcome, {this.props.user.username}!</div>}
-            </div>
-          </div>
+        <header className="bg-white  border-bottom">
+              <nav className="container navbar navbar-expand-lg navbar-default justify-content-between">
+                    <div className="navbar-header">
+                      <a className="navbar-brand" href="/">Potluck Party Planner</a>
+                    </div>
+                {this.props.user.username &&
+                    <ul className="nav navbar-nav">
+                      <li><a href="/profile" className="nav-link btn">Your Profile</a></li>
+                      <li><button onClick={this.props.logout} className="nav-link btn">Logout</button></li>
+                    </ul>
+                }
+                {!this.props.user.username &&
+                  <ul className="nav navbar-nav">
+                    <li><a href="/login" className="nav-link btn">Log in</a></li>
+                    <li><a href="/register" className="nav-link btn" >Register</a></li>
+                  </ul>
+                  }
+              </nav>
         </header>
     );
   }

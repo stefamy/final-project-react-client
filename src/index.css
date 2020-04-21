@@ -73,63 +73,63 @@ h1.site-title {
 /* Note: some of this CSS is re from a prior project of mine: https://github.com/stefamy/some-like-it-hot-sauce */
 
 
-.grid {
-  -webkit-column-count: 4;
-  column-count: 4;
-  -webkit-column-gap: 10px;
-  column-gap: 10px;
-  position: relative;
-}
+/*.grid {*/
+/*  -webkit-column-count: 4;*/
+/*  column-count: 4;*/
+/*  -webkit-column-gap: 10px;*/
+/*  column-gap: 10px;*/
+/*  position: relative;*/
+/*}*/
 
-.grid .item {
-  display: block;
-  position: relative;
-  padding: 10px 15px;
-  -webkit-break-inside: avoid;
-  break-inside: avoid;
-  page-break-inside: avoid;
-  overflow: hidden;
-}
+/*.grid .item {*/
+/*  display: block;*/
+/*  position: relative;*/
+/*  padding: 10px 15px;*/
+/*  -webkit-break-inside: avoid;*/
+/*  break-inside: avoid;*/
+/*  page-break-inside: avoid;*/
+/*  overflow: hidden;*/
+/*}*/
 
-.grid .item .card {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
-.card a {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  display: block;
-  text-decoration: none;
-  color: #444;
-  background-color: rgba(255, 255, 255, 0);
-  border: 2px solid #F85A3E;
-  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);
-  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);
-  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);
-  transition: 0.2s all;
-  overflow: hidden;
-}
-.card .card-bg-img {
-  border-bottom: 4px solid #F85A3E;
-  transition: 0.2s all;
-}
+/*.grid .item .card {*/
+/*  -webkit-border-radius: 10px;*/
+/*  -moz-border-radius: 10px;*/
+/*  border-radius: 10px;*/
+/*}*/
+/*.card a {*/
+/*  -webkit-border-radius: 10px;*/
+/*  -moz-border-radius: 10px;*/
+/*  border-radius: 10px;*/
+/*  display: block;*/
+/*  text-decoration: none;*/
+/*  color: #444;*/
+/*  background-color: rgba(255, 255, 255, 0);*/
+/*  border: 2px solid #F85A3E;*/
+/*  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);*/
+/*  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);*/
+/*  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.0);*/
+/*  transition: 0.2s all;*/
+/*  overflow: hidden;*/
+/*}*/
+/*.card .card-bg-img {*/
+/*  border-bottom: 4px solid #F85A3E;*/
+/*  transition: 0.2s all;*/
+/*}*/
 
-.card a:hover .card-bg-img,
-.card a:active .card-bg-img {
-  border-bottom: 4px solid #FF7733;
-}
+/*.card a:hover .card-bg-img,*/
+/*.card a:active .card-bg-img {*/
+/*  border-bottom: 4px solid #FF7733;*/
+/*}*/
 
-.card a:hover,
-.card a:active {
-  background-color: #f2f2f2;
-  border: 2px solid #FF7733;
-  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);
-  color: #E63B2E;
-}
+/*.card a:hover,*/
+/*.card a:active {*/
+/*  background-color: #f2f2f2;*/
+/*  border: 2px solid #FF7733;*/
+/*  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);*/
+/*  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);*/
+/*  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.15);*/
+/*  color: #E63B2E;*/
+/*}*/
 
 .recipe-tags {
   margin-top: 10px;
