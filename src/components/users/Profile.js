@@ -1,5 +1,5 @@
 import React from "react";
-import _ from 'lodash';
+// import _ from 'lodash';
 import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
 import {Link} from "react-router-dom";
@@ -18,26 +18,15 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-      // this.props.findUser();
-      console.log('this props 1 ', this.props);
-      console.log('this state 1', this.state);
+      if (!this.props.user.id) {
+        this.props.findUser();
+      }
     }
 
     componentDidUpdate(prevProps) {
-      // if (prevProps.user !== this.props.user) {
-      //   if (prevProps.user.username !== this.props.user.username) {
-      //     this.setState({profile: _.cloneDeep(this.props.user)});
-      //   }
-      // }
-      console.log('this props 2', this.props);
-      console.log('this state 2', this.state);
     }
 
-    logout = () => {
-      this.props.logout();
-    }
-
-    handleProfileSubmit = (e) => {
+    handleProfileSubmit(e) {
       e.preventDefault();
       this.props.updateUser(this.state.profile);
     }
@@ -46,11 +35,11 @@ class Profile extends React.Component {
         return(
             <div>
               <h1>Profile</h1>
-              {!this.props.user &&
+              {!this.props.user.id &&
               <p>You are not logged in.<br/>
               <Link to="/login">Log in to</Link> or <Link to="/register">register a new</Link> account.</p>
               }
-              {this.props.user &&
+              {this.props.user.id &&
                 <div>
                 <p>Hi {this.props.user.username}!</p>
                 <hr/>
@@ -237,7 +226,7 @@ class Profile extends React.Component {
                 </form>
                 <hr/>
                   <button
-                      onClick={this.logout}
+                      onClick={this.props.logout}
                       className={`btn btn-danger`}>
                       Logout
                   </button>
@@ -253,8 +242,11 @@ class Profile extends React.Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user
-  };
+      user: state.user.user,
+      events: state.events.events,
+      assignments: state.assignments.assignments,
+      invites: state.invites.invites
+    };
 };
 
 const dispatchToPropertyMapper = dispatch => {

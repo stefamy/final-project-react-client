@@ -4,7 +4,6 @@ import {
   UPDATE_ASSIGNMENT
 } from "../common/AssignmentsConstants";
 import _ from 'lodash';
-import {UPDATE_INVITE} from "../common/InvitesConstants";
 
 const initialState = {
   assignments: []

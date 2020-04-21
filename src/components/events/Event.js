@@ -1,5 +1,12 @@
 import React from "react";
 import eventsService from "../../services/EventsService";
+// import assignmentsService from "../../services/AssignmentsService"
+// import Assignment from "../assignments/Assignment";
+// import userService from "../../services/UserService";
+// import userActions from "../../actions/UserActions";
+// import assignmentsActions from "../../actions/AssignmentsActions";
+// import {connect} from "react-redux";
+// import {Link} from "react-router-dom";
 
 class Event extends React.Component {
 
@@ -11,7 +18,9 @@ class Event extends React.Component {
     });
     if (!this.props.event) {
       eventsService.findEventById(this.props.eventId)
-      .then((event) => this.setState({event: event}));
+      .then((event) => {
+        this.setState({event: event});
+      });
     } else {
       this.setState({event: this.props.event});
     }
@@ -20,13 +29,10 @@ class Event extends React.Component {
   handleResponseChange(attribute, newContent) {
     let newState = Object.assign({}, this.state);
     newState.event[attribute] = newContent;
-    this.setState(newState);
-    console.log('this.state', this.state);
-    console.log('this.props', this.props);
+    this.setState(newState);;
   }
 
   componentDidUpdate(prevProps) {
-    console.log('updated!');
   }
 
   updateResponseChoice(e) {
@@ -59,6 +65,20 @@ class Event extends React.Component {
               <h3>Event: {this.state.event.name} </h3>
               <h5>{this.state.event.description} </h5>
               <p>{this.state.event.date} </p>
+              {/*{this.state.assignments &&*/}
+              {/*    <>*/}
+              {/*  {this.state.assignments.map((assignment, index) => (*/}
+              {/*      <Assignment*/}
+              {/*          key={index}*/}
+              {/*          assignment={assignment}*/}
+              {/*          history={this.props.history}*/}
+              {/*          // userId={this.state.user.id}*/}
+              {/*          event={this.state.event}*/}
+              {/*      />*/}
+              {/*  ))}*/}
+              {/*  </>}*/}
+
+              {/*<Link to={`/events/${this.state.event.id}/assignments`} >View assignments</Link>*/}
               {/*<form onSubmit={(e) => this.handleUpdateEvent(e)}>*/}
               {/*  <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>*/}
               {/*    <div className="form-check form-check-inline">*/}
@@ -119,3 +139,32 @@ class Event extends React.Component {
 }
 
 export default Event;
+//
+// const stateToPropertyMapper = state => {
+//   return {
+//     user: state.user.user,
+//     events: state.events.events,
+//     assignments: state.assignments.assignments
+//   };
+// };
+//
+// const dispatchToPropertyMapper = dispatch => {
+//   return {
+//     findUser: () => {
+//       userService.findUser()
+//       .then(user => dispatch(userActions.findUser(user)));
+//     },
+//     findAllAssignmentsForEvent: userId => {
+//       assignmentsService.findAssignmentByAssigneeUserId(userId).then(assignments => {
+//         dispatch(assignmentsActions.findAllAssignments(assignments));
+//       });
+//     }
+//   };
+// };
+//
+//
+// export default connect(
+//     stateToPropertyMapper,
+//     dispatchToPropertyMapper
+// )(Event);
+//

@@ -12,20 +12,24 @@ class AssignmentList extends Component {
 
   componentDidMount() {
     if (this.props.user.id) {
-      this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+        this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+    } else {
+        this.setState({guestUser: true})
     }
+
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
+    if (this.props.findByUser && (prevProps.user !== this.props.user)) {
       this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+      this.setState({guestUser: false})
     }
   }
 
   render() {
     return (
         <>
-          {this.props.assignments &&
+          {!this.state.guestUser && this.props.assignments &&
           <div>
             {this.props.assignments.map((assignment, index) => (
                 <Assignment
@@ -33,9 +37,13 @@ class AssignmentList extends Component {
                     assignment={assignment}
                     history={this.props.history}
                     userId={this.props.user.id}
+                    event={this.props.event}
                 />
             ))}
           </div>
+          }
+          {this.state.guestUser &&
+          <p>Please log in to view your assignments.</p>
           }
           {!this.props.assignments &&
           <div>

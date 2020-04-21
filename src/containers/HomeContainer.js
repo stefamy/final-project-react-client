@@ -1,4 +1,4 @@
-import RecipeFinderContainer from "./RecipeFinderContainer";
+// import RecipeFinderContainer from "./RecipeFinderContainer";
 import React from "react";
 import {Link} from "react-router-dom";
 import { connect } from "react-redux";
@@ -10,11 +10,10 @@ import { connect } from "react-redux";
 class HomeContainer extends React.Component {
 
   componentDidMount() {
-    console.log('this props 1', this.props);
   }
 
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-      console.log('this props 2', this.props);
   }
 
   render() {
@@ -37,7 +36,10 @@ class HomeContainer extends React.Component {
 
   const stateToPropertyMapper = state => {
     return {
-      user: state.user.user
+      user: state.user.user,
+      events: state.events.events,
+      assignments: state.assignments.assignments,
+      invites: state.invites.invites
     };
   };
 

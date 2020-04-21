@@ -21,7 +21,7 @@ import InviteList from "./components/invites/InviteList";
 import EventList from "./components/events/EventList";
 import Event from "./components/events/Event";
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   state = {};
 
@@ -84,12 +84,35 @@ export default class App extends React.Component {
                         />
                     )}
                 />
+                {/*<Route*/}
+                {/*    path="/events/:eventId/assignments"*/}
+                {/*    exact={true}*/}
+                {/*    render={props => (*/}
+                {/*        <AssignmentList*/}
+                {/*            {...props}*/}
+                {/*            eventId={props.match.params.eventId}*/}
+                {/*            history={props.history}*/}
+                {/*        />*/}
+                {/*    )}*/}
+                {/*/>*/}
+                {/*<Route*/}
+                {/*    path="/events/:eventId/invites"*/}
+                {/*    exact={true}*/}
+                {/*    render={props => (*/}
+                {/*        <InviteList*/}
+                {/*            {...props}*/}
+                {/*            eventId={props.match.params.eventId}*/}
+                {/*            history={props.history}*/}
+                {/*        />*/}
+                {/*    )}*/}
+                {/*/>*/}
                 <Route
                     path="/invites"
                     exact={true}
                     render={props => (
                         <InviteList
                             {...props}
+                            findByUser={true}
                             history={props.history}
                         />
                     )}
@@ -100,6 +123,7 @@ export default class App extends React.Component {
                     render={props => (
                         <AssignmentList
                             {...props}
+                            findByUser={true}
                             history={props.history}
                         />
                     )}
@@ -169,3 +193,5 @@ export default class App extends React.Component {
   }
 
 }
+
+export default App;

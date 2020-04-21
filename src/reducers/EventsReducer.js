@@ -23,31 +23,6 @@ const eventsReducer = (state = initialState, action) => {
           events: events
         }
 
-    //
-    // case FIND_EVENT_BY_ID:
-    //   user = _.cloneDeep(action.user)
-    //
-    //   return {
-    //     user: user
-    //   }
-    //
-    // case FIND_EVENTS_BY_HOST:
-    //   return {
-    //     user: {}
-    //   }
-    //
-    // case DELETE_EVENT:
-    //   return {
-    //     user: {}
-    //   }
-    //
-    // case UPDATE_EVENT:
-    //   user = _.cloneDeep(action.user)
-    //
-    //   return {
-    //     user: user
-    //   }
-
     default:
       return state
   }

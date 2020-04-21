@@ -6,17 +6,12 @@ export default class Login extends React.Component {
     username: '',
     password: ''
   }
-  componentDidMount() {
-    if (this.props) {
-      console.log('this.state', this.state);
-      console.log('this.props', this.props);
 
-    }
-  }
-  handleLogin = (event, user) => {
+  handleLogin(event, user) {
     event.preventDefault();
-    login(user)
-    .then(currentUser => this.props.history.push('/profile'))
+    login(user).then(currentUser => {
+      this.props.history.push('/profile');
+    })
   }
 
   render() {
@@ -30,7 +25,6 @@ export default class Login extends React.Component {
                   <label htmlFor="usernameInput">Username</label>
                   <input
                       id="usernameInput"
-                      required="required"
                       value={this.state.username}
                       onChange={(e) => this.setState({
                         username: e.target.value
@@ -43,7 +37,6 @@ export default class Login extends React.Component {
                   <label htmlFor="passwordInput">Password</label>
                   <input
                       id="passwordInput"
-                      required="required"
                       value={this.state.password}
                       onChange={(e) => this.setState({
                         password: e.target.value

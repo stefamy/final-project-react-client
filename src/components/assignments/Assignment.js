@@ -4,17 +4,16 @@ import assignmentsService from "../../services/AssignmentsService";
 
 class Assignment extends React.Component {
 
-  state = { }
+  state = {
+    assignment: {...this.props.assignment}
+  }
 
   componentDidMount() {
-    this.setState({
-      assignment: {...this.props.assignment}
-    });
-    if (!this.props.event) {
+    if (this.props.event) {
+      this.setState({event: this.props.event});
+    } else {
       eventsService.findEventById(this.props.assignment.eventId)
       .then((event) => this.setState({event: event}));
-    } else {
-      this.setState({event: this.props.event});
     }
   }
 
@@ -22,8 +21,6 @@ class Assignment extends React.Component {
     let newState = Object.assign({}, this.state);
     newState.assignment[attribute] = newContent;
     this.setState(newState);
-    console.log('this.state', this.state);
-    console.log('this.props', this.props);
   }
 
   componentDidUpdate(prevProps) {
