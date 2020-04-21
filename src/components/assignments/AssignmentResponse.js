@@ -35,21 +35,32 @@ class AssignmentResponse extends React.Component {
   }
 
   handleUpdateAssignment(e) {
-    console.log('assignment to be updated to:', this.state);
     e.preventDefault();
     this.props.updateAssignment(this.state.updatedAssignment.id, this.state.updatedAssignment)
+  }
+
+  handleDeleteAssignment(e) {
+    e.preventDefault();
+    this.props.deleteAssignment(this.state.updatedAssignment.id);
   }
 
 
   render() {
     const assignment = this.props.assignment;
-    const event = this.props.event;
+    const user = this.props.user;
+
 
     return (
-        <div className="row border mb-3">
+        <div className="assignment border mb-3">
+          <div className="assignment-header d-flex justify-content-between align-items-center pl-3 pr-3 pt-2 pb-2 bg-light border-bottom">
+            {assignment.type}
+            {this.props.isHost && <button className="btn" onClick={(e) => this.handleDeleteAssignment(e)}><i className="text-danger fa fa-close"></i></button>}
+          </div>
+          <div className="assignment-body d-flex">
           <div className="col-auto pl-0 pr-0 input-group-addon bg-light assignment-checkbox-wrap border-right">
-            <label className="special-checkbox pt-3 pb-3">
+            <label className="special-checkbox p-3">
               <input
+                  disabled={assignment.status === "Assigned" && assignment.assigneeUserId !== user.id}
                   onChange={(e) => this.handleResponseChange(e.target.checked ? "Assigned" : "Unassigned")}
                   id={`assignmentCheckboxInput` + assignment.id}
                   type="checkbox"
@@ -60,12 +71,16 @@ class AssignmentResponse extends React.Component {
           <div className="col d-flex justify-content-between align-items-center border-0">
             <span>{assignment.title} {assignment.description}</span>
             {(this.state.updatedAssignment.status === assignment.status) && <>
-              {this.state.updatedAssignment.status === "Assigned" ? <span className="badge badge-pill badge-success">{this.state.updatedAssignment.status}</span>
-                : <span className="badge badge-pill badge-warning">{this.state.updatedAssignment.status}</span>}
+              {(assignment.status === "Assigned" && assignment.assigneeUserId !== user.id) &&
+                <span className="badge badge-pill badge-light text-secondary border">{this.state.updatedAssignment.status}</span> }
+              {(assignment.status === "Assigned" && assignment.assigneeUserId === user.id) &&
+                <span className="badge badge-pill badge-success">{this.state.updatedAssignment.status} to you</span> }
+              {assignment.status !== "Assigned" && <span className="badge badge-pill badge-warning">{this.state.updatedAssignment.status}</span>}
              </>}
           </div>
+        </div>
           {(this.state.updatedAssignment.status !== assignment.status) &&
-          <div className="col-12 pl-0 pr-0 input-group border-top">
+          <div className="col pl-0 pr-0 input-group border-top">
               <input id={`assigneeCommentsInput` + assignment.id}
                      name="assigneeComments"
                      type="text"
@@ -76,6 +91,7 @@ class AssignmentResponse extends React.Component {
               <div className="input-group-addon border-left bg-light"><button type="submit" onClick={(e) => this.handleUpdateAssignment(e)} className="btn btn-primary special-border-radius">Save</button></div>
           </div>
           }
+
         </div>
     );
   }

@@ -8,7 +8,6 @@ export default class CreateEvent extends Component {
     newEvent: { }
   }
 
-
   handleNewEventInput(attribute, newContent) {
     let newState = Object.assign({}, this.state);
     newState.newEvent[attribute] = newContent;

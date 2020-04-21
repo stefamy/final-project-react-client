@@ -16,6 +16,8 @@ import invitesService from "../../services/InvitesService";
        eventsService.findEventById(this.props.invite.eventId)
        .then((event) => this.setState({event: event}));
      }
+     console.log('this props', this.props);
+     console.log('this state', this.state);
    }
 
 
@@ -55,9 +57,11 @@ import invitesService from "../../services/InvitesService";
            <div className="col pb-4">
              {this.state.event &&
                  <>
-                   <h3>Event: {this.state.event.name} </h3>
-                   <h5>{this.state.event.description} </h5>
-                   <p>{this.state.event.date} </p>
+                   {!this.props.hideEventDetails && <>
+                     <h3>Event: {this.state.event.name} </h3>
+                     <h5>{this.state.event.description} </h5>
+                     <p>{this.state.event.date} </p>
+                   </>}
                    <form onSubmit={(e) => this.handleUpdateInvite(e)}>
                      <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>
                        <div className="form-check form-check-inline">
@@ -66,8 +70,8 @@ import invitesService from "../../services/InvitesService";
                                id={`response1 + ${this.props.invite.id}`}
                                type="radio"
                                name={`response + ${this.props.invite.id}`}
-                               value="YES"
-                               defaultChecked={this.props.invite.response === "YES"}
+                               value="Yes"
+                               defaultChecked={this.props.invite.response === "Yes"}
                         />
                        Yes</label>
                        </div>
@@ -77,8 +81,8 @@ import invitesService from "../../services/InvitesService";
                                id={`response2 + ${this.props.invite.id}`}
                                type="radio"
                                name={`response + ${this.props.invite.id}`}
-                               value="NO"
-                               defaultChecked={this.props.invite.response === "NO"}
+                               value="No"
+                               defaultChecked={this.props.invite.response === "No"}
                         />
                         No</label>
                        </div>
@@ -88,8 +92,8 @@ import invitesService from "../../services/InvitesService";
                                id={`response3 + ${this.props.invite.id}`}
                                type="radio"
                                name={`response + ${this.props.invite.id}`}
-                               value="PENDING"
-                               defaultChecked={this.props.invite.response === "PENDING"}
+                               value="Pending"
+                               defaultChecked={this.props.invite.response === "Pending"}
                         />
                         Pending</label>
                        </div>

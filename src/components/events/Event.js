@@ -10,12 +10,11 @@ import CreateAssignment from "../assignments/CreateAssignment";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import assignmentsService from "../../services/AssignmentsService";
 import eventsService from "../../services/EventsService";
+import Invite from "../invites/Invite";
 
 class Event extends React.Component {
 
-  state = {
-    statusUnknown: true
-  }
+  state = { }
 
   componentDidMount() {
     if (!this.props.event) {
@@ -26,6 +25,7 @@ class Event extends React.Component {
     } else {
       this.setState({event: this.props.event});
       this.props.loadAllEventData(this.props.eventId);
+
     }
   }
 
@@ -35,14 +35,18 @@ class Event extends React.Component {
     this.setState(newState);
   }
 
+  handleCreateAssignment(eventId, assignment) {
+    this.stopShowCreateAssignment();
+    this.props.createAssignment(eventId, assignment);
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (this.state.event && this.state.statusUnknown) {
-    //   this.setState({
-    //     isEventHost: this.props.user.id === this.state.event.hostId,
-    //     isEventGuest: this.props.eventInvites.some(invite => invite.guestId === this.props.user.id),
-    //     statusUnknown: false
-    //   })
-    // }
+    if (this.props.user && (prevProps.eventInvites !== this.props.eventInvites)) {
+      const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
+      this.setState({
+        userInvite: invite
+      });
+    }
   }
 
   showUpdateSuccess() {
@@ -68,11 +72,22 @@ class Event extends React.Component {
     })
   }
 
+  stopShowCreateAssignment() {
+    this.setState({
+      showCreateAssignment: false
+    })
+  }
+
   doShowCreateInvite() {
     this.setState({
       showCreateInvite: true
     })
   }
+
+  getUserInvite(userId) {
+    return this.props.eventInvites.find(invite => invite.guestId === userId);
+  }
+
 
   render() {
     return (
@@ -87,24 +102,27 @@ class Event extends React.Component {
               <div className="col-12 bg-white p-3">
                 <h3>Assignments</h3>
                  {!this.state.event.privateEvent && this.props.eventAssignments && <>
-                      <ul className="list-group mb-3">
+                      <div className="mb-3">
                       {this.props.eventAssignments.map((assignment, index) => (
                           <AssignmentResponse
                               key={index}
                               assignment={assignment}
-                              event={this.props.event}
+                              isHost={this.state.event.id === this.props.user.id}
                               user={this.props.user}
                               updateAssignment={this.props.updateAssignment}
+                              deleteAssignment={this.props.deleteAssignment}
                           />
                       ))}
-                      </ul>
+                      </div>
                      </> }
-                    {this.state.isEventHost && <>
-                      <button
+                    {this.state.event.hostId === this.props.user.id && <>
+                      {!this.state.showCreateAssignment &&
+                        <button
                           onClick={() => this.doShowCreateAssignment()}
                           className="btn btn-primary">
-                        Add New Assignment
-                      </button>
+                          Add New Assignment
+                          </button>
+                      }
                       {this.state.showCreateAssignment &&
                           <CreateAssignment
                               createAssignment={this.props.createAssignment}
@@ -114,14 +132,14 @@ class Event extends React.Component {
                       }
                       </>}
                   {!this.state.isEventGuest && this.state.event.privateEvent &&
-                  <p>For privacy reasons, only guests on the invite list can see event details. <br/>
-                    If you are on the invite list, please sign in to view more about this event.</p>}
+                  <p>For privacy reasons, only event guests can see the invite list. <br/>
+                    If you are on the invite list, please sign in to view the full event details.</p>}
                 </div>
 
               <hr/>
+              {this.state.event.hostId === this.props.user.id &&
               <div className="col-12 bg-white p-3">
-                    <h3>Invites</h3>
-                {!this.state.isEventHost && <>
+                <h3>Invites</h3>
                     {this.props.eventInvites && <>
                     <ul className="list-group mb-3">
                       {this.props.eventInvites.map((invite, index) => (
@@ -138,26 +156,30 @@ class Event extends React.Component {
                       className="btn btn-primary">
                     Add New Invitation
                   </button>
-                  {this.state.showCreateInvite &&
-                  <CreateInvite
-                      createInvite={this.props.createInvite}
-                      user={this.props.user}
-                      eventId={this.state.event.id}
-                  /> }
-                  </>}
-
-                {!this.state.isEventGuest && !this.state.isEventHost &&
-                <p>For privacy reasons, only guests on the invite list can see event details. <br/>
-                  If you are on the invite list, please sign in to view more about this event.</p>
+                    {this.state.showCreateInvite &&
+                    <CreateInvite
+                        createInvite={this.props.createInvite}
+                        user={this.props.user}
+                        eventId={this.state.event.id}
+                    /> }
+                </div>
                 }
-              </div>
+                {this.state.userInvite &&
+                  <div className="col-12 bg-white p-3">
+                  <h3>Your RSVP</h3>
+                      <Invite
+                         invite={this.state.userInvite}
+                         event={this.state.event}
+                         userId={this.props.user.id}
+                         hideEventDetails={true}
+                     />
+                  </div>
+                  }
+                </>}
+          </div>
+      );
 
-            </>
-            }
-        </div>
-    );
-
-  }
+    }
 
 }
 
@@ -190,13 +212,17 @@ const dispatchToPropertyMapper = dispatch => {
         dispatch(assignmentsActions.createAssignment(assignment));
       });
     },
+    deleteAssignment: (assignmentId) => {
+      assignmentsService.deleteAssignment(assignmentId).then(response => {
+        dispatch(assignmentsActions.deleteAssignment(assignmentId));
+      });
+    },
     updateAssignment: (assignmentId, assignment) => {
       assignmentsService.updateAssignment(assignmentId, assignment).then(response => {
         dispatch(assignmentsActions.updateAssignmentForEvent(assignment));
       });
     },
   };
-
 };
 
 

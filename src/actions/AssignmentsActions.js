@@ -4,7 +4,7 @@ import {
   FIND_ALL_ASSIGNMENTS_FOR_EVENT,
   UPDATE_ASSIGNMENT,
   DELETE_ASSIGNMENT,
-  UPDATE_ASSIGNMENT_FOR_EVENT
+  UPDATE_ASSIGNMENT_FOR_EVENT, DELETE_ASSIGNMENT_FOR_EVENT
 } from "../common/AssignmentsConstants";
 
 
@@ -43,10 +43,18 @@ export const updateAssignmentForEvent = (assignment) => ({
 
 
 // READ
-export const deleteAssignment = (assignment) => ({
+export const deleteAssignment = (assignmentId) => ({
   type: DELETE_ASSIGNMENT,
-  assignment: assignment
+  assignmentId: assignmentId
 })
+
+
+// READ
+export const deleteAssignmentForEvent = (assignmentId) => ({
+  type: DELETE_ASSIGNMENT_FOR_EVENT,
+  assignmentId: assignmentId
+})
+
 
 
 export default {
@@ -55,5 +63,6 @@ export default {
   findAllAssignmentsForEvent,
   updateAssignment,
   updateAssignmentForEvent,
-  deleteAssignment
+  deleteAssignment,
+  deleteAssignmentForEvent
 }

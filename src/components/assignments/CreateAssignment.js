@@ -68,14 +68,14 @@ export default class CreateAssignment extends Component {
               <label htmlFor="taskTypeInput">Type Of Assignment</label>
                 <select id="taskTypeInput" defaultValue="" className="form-control" value={this.state.value} onChange={this.handleNewTaskType.bind(this)}>
                   <option value="" disabled>Type of Assignment</option>
-                  <option value="FOOD">Food</option>
-                  <option value="PREP">Event Prep</option>
-                  <option value="SETUP">Set up (Day of)</option>
-                  <option value="CLEANUP">Clean up (Day of)</option>
-                  <option value="OTHER">Other</option>
+                  <option value="Food/Drink">Food/Drink</option>
+                  <option value="Event Prep">Event Prep</option>
+                  <option value="Set up (Day of)">Set up (Day of)</option>
+                  <option value="Clean up (Day of)">Clean up (Day of)</option>
+                  <option value="Other">Other</option>
                 </select>
             </div>
-            {this.state.newAssignment.type === "PREP" && <>
+            {this.state.newAssignment.type === "Event Prep" && <>
             <div className="form-input">
               <label htmlFor="assignmentDateInput">Date Needed By</label>
               <input
@@ -88,20 +88,20 @@ export default class CreateAssignment extends Component {
                   />
               </div>
             </>}
-            {this.state.newAssignment.type === "FOOD" && <>
+            {this.state.newAssignment.type === "Food/Drink" && <>
             <div className="form-group">
             <label htmlFor="foodCategoryInput">Type Of Dish</label>
                 <select value={this.state.value} className="form-control" id="foodCategoryInput" onChange={this.handleNewDishCategory.bind(this)}>
-                  <option value="BREAKFAST">Breakfast</option>
-                  <option value="LUNCH">Lunch</option>
-                  <option value="MAIN">Main</option>
-                  <option value="SNACK">Snack</option>
-                  <option value="DESSERT">Dessert</option>
-                  <option value="STARCH">Starch</option>
-                  <option value="SIDE">Side</option>
-                  <option value="MEAT">Meat</option>
-                  <option value="BEVERAGE">Beverage</option>
-                  <option value="ANY">Any/No Preference</option>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Lunch">Lunch</option>
+                  <option value="Main">Main</option>
+                  <option value="Snack">Snack</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Starch">Starch</option>
+                  <option value="Side">Side</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Beverage">Beverage</option>
+                  <option value="Any/No Preference">Any/No Preference</option>
                 </select>
             </div>
             <div className="form-group">

@@ -3,7 +3,8 @@ import {
   FIND_ALL_ASSIGNMENTS,
   FIND_ALL_ASSIGNMENTS_FOR_EVENT,
   UPDATE_ASSIGNMENT,
-  UPDATE_ASSIGNMENT_FOR_EVENT
+  UPDATE_ASSIGNMENT_FOR_EVENT,
+  DELETE_ASSIGNMENT_FOR_EVENT
 } from "../common/AssignmentsConstants";
 import _ from 'lodash';
 
@@ -54,6 +55,13 @@ const assignmentsReducer = (state = initialState, action) => {
         eventAssignments: _.cloneDeep(eventAssignments)
       }
 
+    case DELETE_ASSIGNMENT_FOR_EVENT:
+      eventAssignments = [...state.eventAssignments];
+      _.remove(eventAssignments, {id: action.assignmentId})
+
+      return {
+        eventAssignments: eventAssignments
+      }
 
     default:
       return state
@@ -61,4 +69,5 @@ const assignmentsReducer = (state = initialState, action) => {
 }
 
 export default assignmentsReducer;
+
 
