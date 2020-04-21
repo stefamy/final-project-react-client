@@ -10,7 +10,7 @@ class User extends React.Component {
   }
 
   componentDidMount() {
-    userService.findPublicProfile(this.props.username)
+    userService.findPublicProfile(this.props.id)
     .then(profile =>
       this.setState({userData: profile} ));
   }

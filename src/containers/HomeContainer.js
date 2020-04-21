@@ -19,13 +19,39 @@ class HomeContainer extends React.Component {
   render() {
     return (
         <>
-          {/*{this.props.user &&*/}
-          {/*<div>*/}
-          {/*  <p>Welcome, {this.props.user.firstName || this.props.user.username}! <Link to="/profile">Visit your profile</Link></p>*/}
-          {/*               <p><Link to="/login">Login</Link> or <Link to="/register">register</Link> to get started.</p>
-          </div>*/}
-          {/*}*/}
-          {this.props.user &&
+          {!this.props.user.id &&
+          <div>
+            <div className="mb-5 p-5 bg-white hero-unit rounded border">
+              <h1>Welcome to the Potluck Party Planner!</h1>
+              <h4>pot·​luck | ˈpät-ˈlək | <span className="subtitle"><em>noun</em></span></h4>
+              <p>A meal or party to which each of the guests contributes a dish.</p>
+              <p><a href="/about" className="btn btn-primary btn-large">Learn more</a></p>
+            </div>
+            <div className="row pb-5">
+              <div className="col-lg-6 col-12 pb-5">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Let's Get Started!</h5>
+                    <p className="card-text">Log in or register as a new user.</p>
+                    <a href="/login" className="btn btn-primary mr-2">Log in</a>
+                    <a href="/login" className="btn btn-primary">Register</a>
+
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6 col-12 pb-5">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Recent Recipe Review</h5>
+                    <p className="card-text">Check out the recipe.</p>
+                    <a href="/" className="btn btn-primary mr-2">Get the recipe</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+          {this.props.user.id &&
             <div>
               <div className="mb-5 p-5 bg-white hero-unit rounded border">
                   <h1>Welcome to the Party Planner App!</h1>

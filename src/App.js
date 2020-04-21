@@ -41,7 +41,7 @@ class App extends React.Component {
     return (
         <Provider store={this.store}>
           <div className="container-fluid bg-pattern">
-            <HeaderContainer/>
+            <HeaderContainer />
               <div className="container-content container pt-5 pb-5">
               <Router>
                 <Route

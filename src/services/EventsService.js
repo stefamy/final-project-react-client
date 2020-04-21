@@ -17,6 +17,7 @@ export const findEventById = (eventId) =>
     })
     .then( response => response.json());
 
+
 // READ
 export const findEventsForUser = (userId) =>
     fetch(`http://localhost:8080/api/events/host/${userId}`, {

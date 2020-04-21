@@ -1,20 +1,20 @@
 import React from "react";
-// import _ from 'lodash';
+import { connect } from "react-redux";
+import {Link} from "react-router-dom";
 import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
-import {Link} from "react-router-dom";
-import { connect } from "react-redux";
 
 class Profile extends React.Component {
 
     state = {
-        profile: {}
+        profile: this.props.user
     }
 
     handleProfileInput(attribute, newContent) {
       let newState = Object.assign({}, this.state);
       newState.profile[attribute] = newContent;
       this.setState(newState);
+      console.log('this.state', this.state);
     }
 
     componentDidMount() {
@@ -24,6 +24,9 @@ class Profile extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+      if ((prevProps.user.id !== this.props.user.id) && this.props.user.id) {
+        this.setState({profile: this.props.user});
+      }
     }
 
     handleProfileSubmit(e) {

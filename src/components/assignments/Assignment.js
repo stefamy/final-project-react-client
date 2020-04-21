@@ -41,13 +41,6 @@ class Assignment extends React.Component {
     }, 1000);
   }
 
-  handleUpdateAssignment(e) {
-    e.preventDefault();
-    this.setState({ isUpdating: true});
-    assignmentsService.updateAssignment(this.state.assignment.id, this.state.assignment)
-    .then(success => this.showUpdateSuccess());
-  }
-
   render() {
     return (
         <>

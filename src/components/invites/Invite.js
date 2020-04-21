@@ -26,7 +26,6 @@ import invitesService from "../../services/InvitesService";
    }
 
    componentDidUpdate(prevProps) {
-     console.log('updated!');
    }
 
    updateResponseChoice(e) {

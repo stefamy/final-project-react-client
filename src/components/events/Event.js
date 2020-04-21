@@ -1,28 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
+import Invite from "../invites/Invite";
+import CreateInvite from "../invites/CreateInvite";
+import invitesActions from "../../actions/InvitesActions";
+import invitesService from "../../services/InvitesService";
+import Assignment from "../assignments/Assignment";
+import CreateAssignment from "../assignments/CreateAssignment";
+import assignmentsActions from "../../actions/AssignmentsActions";
+import assignmentsService from "../../services/AssignmentsService";
 import eventsService from "../../services/EventsService";
-// import assignmentsService from "../../services/AssignmentsService"
-// import Assignment from "../assignments/Assignment";
-// import userService from "../../services/UserService";
-// import userActions from "../../actions/UserActions";
-// import assignmentsActions from "../../actions/AssignmentsActions";
-// import {connect} from "react-redux";
-// import {Link} from "react-router-dom";
+import CreateEvent from "./CreateEvent";
 
 class Event extends React.Component {
 
   state = { }
 
   componentDidMount() {
-    this.setState({
-      event: {...this.props.event}
-    });
     if (!this.props.event) {
-      eventsService.findEventById(this.props.eventId)
-      .then((event) => {
+      eventsService.findEventById(this.props.eventId).then((event) => {
         this.setState({event: event});
+        this.props.loadAllEventData(this.state.event.id);
       });
     } else {
-      this.setState({event: this.props.event});
+      this.setState({ event: this.props.event });
+      this.props.loadAllEventData(this.state.event.id);
     }
   }
 
@@ -33,11 +34,10 @@ class Event extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('this.props', this.props);
+    console.log('this.state', this.state);
   }
 
-  updateResponseChoice(e) {
-    this.handleResponseChange('response', e.target.value);
-  }
 
   showUpdateSuccess() {
     this.setState({
@@ -56,6 +56,18 @@ class Event extends React.Component {
     .then(success => this.showUpdateSuccess());
   }
 
+  doShowCreateAssignment() {
+    this.setState({
+      showCreateAssignment: true
+    })
+  }
+
+  doShowCreateInvite() {
+    this.setState({
+      showCreateAInvite: true
+    })
+  }
+
   render() {
     return (
         <>
@@ -63,71 +75,57 @@ class Event extends React.Component {
             {this.state.event &&
             <>
               <h3>Event: {this.state.event.name} </h3>
-              <h5>{this.state.event.description} </h5>
+              <h4>{this.state.event.description} </h4>
               <p>{this.state.event.date} </p>
-              {/*{this.state.assignments &&*/}
-              {/*    <>*/}
-              {/*  {this.state.assignments.map((assignment, index) => (*/}
-              {/*      <Assignment*/}
-              {/*          key={index}*/}
-              {/*          assignment={assignment}*/}
-              {/*          history={this.props.history}*/}
-              {/*          // userId={this.state.user.id}*/}
-              {/*          event={this.state.event}*/}
-              {/*      />*/}
-              {/*  ))}*/}
-              {/*  </>}*/}
 
-              {/*<Link to={`/events/${this.state.event.id}/assignments`} >View assignments</Link>*/}
-              {/*<form onSubmit={(e) => this.handleUpdateEvent(e)}>*/}
-              {/*  <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>*/}
-              {/*    <div className="form-check form-check-inline">*/}
-              {/*      <label className="form-check-label" htmlFor={`response1 + ${this.props.event.id}`}>*/}
-              {/*        <input className="form-check-input"*/}
-              {/*               id={`response1 + ${this.props.event.id}`}*/}
-              {/*               type="radio"*/}
-              {/*               name={`response + ${this.props.event.id}`}*/}
-              {/*               value="YES"*/}
-              {/*               defaultChecked={this.props.event.response === "YES"}*/}
-              {/*        />*/}
-              {/*        Yes</label>*/}
-              {/*    </div>*/}
-              {/*    <div className="form-check form-check-inline">*/}
-              {/*      <label className="form-check-label" htmlFor={`response2 + ${this.props.event.id}`}>*/}
-              {/*        <input className="form-check-input"*/}
-              {/*               id={`response2 + ${this.props.event.id}`}*/}
-              {/*               type="radio"*/}
-              {/*               name={`response + ${this.props.event.id}`}*/}
-              {/*               value="NO"*/}
-              {/*               defaultChecked={this.props.event.response === "NO"}*/}
-              {/*        />*/}
-              {/*        No</label>*/}
-              {/*    </div>*/}
-              {/*    <div className="form-check form-check-inline">*/}
-              {/*      <label className="form-check-label" htmlFor={`response3 + ${this.props.event.id}`}>*/}
-              {/*        <input className="form-check-input"*/}
-              {/*               id={`response3 + ${this.props.event.id}`}*/}
-              {/*               type="radio"*/}
-              {/*               name={`response + ${this.props.event.id}`}*/}
-              {/*               value="PENDING"*/}
-              {/*               defaultChecked={this.props.event.response === "PENDING"}*/}
-              {/*        />*/}
-              {/*        Pending</label>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*  <div className="form-group">*/}
-              {/*    <input type="text"*/}
-              {/*           className="form-control"*/}
-              {/*           placeholder={'Comments for host'}*/}
-              {/*           defaultValue={this.props.event.comments || ''}*/}
-              {/*           onChange={(e) => this.handleResponseChange('assigneeComments', e.target.value)}*/}
-              {/*    />*/}
-              {/*  </div>*/}
-              {/*  {!this.state.isUpdating && <button type="submit" className={`btn btn-primary`}>Update Response</button> }*/}
-              {/*  {this.state.showSuccess && <span className="text-success success-saved"> Updated!</span> }*/}
-              {/*  {this.state.isUpdating && <button type="submit" disabled className={`btn btn-primary`}>Update Response</button> }*/}
-              {/*</form>*/}
-
+              {this.props.eventAssignments && <>
+                    <h3>Assignments</h3>
+                    {this.props.eventAssignments.map((assignment, index) => (
+                    <Assignment
+                        key={index}
+                        assignment={assignment}
+                        event={this.state.event}
+                        history={this.props.history}
+                        userId={this.props.user.id}
+                    />
+                ))}
+                </>}
+              <button
+                  onClick={() => this.doShowCreateAssignment()}
+                  className="btn btn-primary">
+                Add New Assignment
+              </button>
+              {/*{this.state.showCreateAssignment &&*/}
+                  <CreateAssignment
+                      createAssignment={this.props.createAssignment}
+                      user={this.props.user}
+                      eventId={this.state.event.id}
+                  />
+              {/*}*/}
+              <hr/>
+              {this.props.eventInvites && <>
+                  <h3>Invites</h3>
+                  {this.props.eventInvites.map((invite, index) => (
+                      <Invite
+                          key={index}
+                          invite={invite}
+                          event={this.state.event}
+                          history={this.props.history}
+                          userId={this.props.user.id}
+                      />
+                  ))}
+                </>}
+              <button
+                  onClick={() => this.doShowCreateInvite()}
+                  className="btn btn-primary">
+                Add New Invitation
+              </button>
+              {this.state.showCreateInvite &&
+              <CreateInvite
+                  createInvite={this.props.createInvite}
+                  user={this.props.user}
+                  eventId={this.state.event.id}
+              /> }
             </>
             }
           </div>
@@ -138,33 +136,42 @@ class Event extends React.Component {
 
 }
 
-export default Event;
-//
-// const stateToPropertyMapper = state => {
-//   return {
-//     user: state.user.user,
-//     events: state.events.events,
-//     assignments: state.assignments.assignments
-//   };
-// };
-//
-// const dispatchToPropertyMapper = dispatch => {
-//   return {
-//     findUser: () => {
-//       userService.findUser()
-//       .then(user => dispatch(userActions.findUser(user)));
-//     },
-//     findAllAssignmentsForEvent: userId => {
-//       assignmentsService.findAssignmentByAssigneeUserId(userId).then(assignments => {
-//         dispatch(assignmentsActions.findAllAssignments(assignments));
-//       });
-//     }
-//   };
-// };
-//
-//
-// export default connect(
-//     stateToPropertyMapper,
-//     dispatchToPropertyMapper
-// )(Event);
-//
+const stateToPropertyMapper = state => {
+  return {
+    user: state.user.user,
+    eventAssignments: state.assignments.eventAssignments,
+    eventInvites: state.invites.eventInvites
+  };
+};
+
+
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    loadAllEventData: (eventId) => {
+      invitesService.findAllInvitesForEvent(eventId).then(invites => {
+        dispatch(invitesActions.findAllInvitesForEvent(invites));
+      });
+      assignmentsService.findAllAssignmentsForEvent(eventId).then(assignments => {
+        dispatch(assignmentsActions.findAllAssignmentsForEvent(assignments));
+      });
+    },
+    createInvite: (eventId, invite) => {
+      invitesService.createInvite(eventId, invite).then(invite => {
+        dispatch(invitesActions.createInvite(invite));
+      });
+    },
+    createAssignment: (eventId, assignment) => {
+      assignmentsService.createAssignment(eventId, assignment).then(assignment => {
+        dispatch(assignmentsActions.createAssignment(assignment));
+      });
+    },
+  };
+
+};
+
+
+export default connect(
+    stateToPropertyMapper,
+  dispatchToPropertyMapper
+)(Event);
+

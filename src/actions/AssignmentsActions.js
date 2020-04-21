@@ -1,7 +1,9 @@
 import {
   CREATE_ASSIGNMENT,
   FIND_ALL_ASSIGNMENTS,
-  UPDATE_ASSIGNMENT
+  FIND_ALL_ASSIGNMENTS_FOR_EVENT,
+  UPDATE_ASSIGNMENT,
+  DELETE_ASSIGNMENT
 } from "../common/AssignmentsConstants";
 
 
@@ -17,15 +19,31 @@ export const findAllAssignments = (assignments) => ({
   assignments: assignments
 })
 
+
+// READ
+export const findAllAssignmentsForEvent = (assignments) => ({
+  type: FIND_ALL_ASSIGNMENTS_FOR_EVENT,
+  assignments: assignments
+})
+
 // READ
 export const updateAssignment = (assignment) => ({
   type: UPDATE_ASSIGNMENT,
-  invite: assignment
+  assignment: assignment
+})
+
+
+// READ
+export const deleteAssignment = (assignment) => ({
+  type: DELETE_ASSIGNMENT,
+  assignment: assignment
 })
 
 
 export default {
   createAssignment,
   findAllAssignments,
-  updateAssignment
+  findAllAssignmentsForEvent,
+  updateAssignment,
+  deleteAssignment
 }

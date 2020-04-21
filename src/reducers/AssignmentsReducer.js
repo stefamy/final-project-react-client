@@ -1,30 +1,38 @@
 import {
   CREATE_ASSIGNMENT,
   FIND_ALL_ASSIGNMENTS,
+  FIND_ALL_ASSIGNMENTS_FOR_EVENT,
   UPDATE_ASSIGNMENT
 } from "../common/AssignmentsConstants";
 import _ from 'lodash';
 
 const initialState = {
-  assignments: []
+  assignments: [],
+  eventAssignments: []
 }
 
 const assignmentsReducer = (state = initialState, action) => {
-  let assignments;
+  let assignments, eventAssignments;
   switch (action.type) {
 
     case CREATE_ASSIGNMENT:
-      assignments = [...state.assignments];
-      assignments.push(action.assignments);
+      eventAssignments = [...state.eventAssignments];
+      eventAssignments.push(action.assignment);
 
       return {
-        assignments: assignments
+        eventAssignments: eventAssignments
       }
 
     case FIND_ALL_ASSIGNMENTS:
       assignments = _.sortBy(action.assignments, 'date')
       return {
         assignments: assignments
+      }
+
+    case FIND_ALL_ASSIGNMENTS_FOR_EVENT:
+      eventAssignments = _.sortBy(action.assignments, 'date')
+      return {
+        eventAssignments: eventAssignments
       }
 
     case UPDATE_ASSIGNMENT:
@@ -35,6 +43,8 @@ const assignmentsReducer = (state = initialState, action) => {
       return {
         assignments: _.cloneDeep(assignments)
       }
+
+
 
     default:
       return state

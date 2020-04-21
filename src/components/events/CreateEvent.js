@@ -158,9 +158,7 @@ export default class CreateEvent extends Component {
               />
             </div>
             <div className="form-group mt-3">
-              <button type="submit"
-                      className={`btn btn-primary btn-block`}>Create Your Event!
-              </button>
+              <button type="submit" className="btn btn-primary btn-block">Create Your Event!</button>
             </div>
           </form>
         </>

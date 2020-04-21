@@ -9,7 +9,6 @@ import invitesActions from "../actions/InvitesActions";
 import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 
-
 /**
  */
 class HeaderContainer extends React.Component {
@@ -30,6 +29,7 @@ class HeaderContainer extends React.Component {
         this.props.findAllUserData();
       }
     }
+
   }
 
   render() {
@@ -41,7 +41,7 @@ class HeaderContainer extends React.Component {
                     </div>
                 {this.props.user.username &&
                     <ul className="nav navbar-nav">
-                      <li><a href="/profile" className="nav-link btn">Your Profile</a></li>
+                      <li><a href="/profile" className={`nav-link btn`}>Your Profile</a></li>
                       <li><button onClick={this.props.logout} className="nav-link btn">Logout</button></li>
                     </ul>
                 }

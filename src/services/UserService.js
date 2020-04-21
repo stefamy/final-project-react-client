@@ -17,15 +17,15 @@ export const findUser = () =>
       method: 'POST',
       credentials: "include"
     })
-    .then( res => res.json())
+    .then( response => response.json())
     .catch(() => '');
 
 // READ
-export const findPublicProfile = (username) =>
-    fetch(`http://localhost:8080/api/user/${username}`, {
+export const findPublicProfile = (userId) =>
+    fetch(`http://localhost:8080/api/user/${userId}`, {
       method: 'GET'
     })
-    .then( res => res.json());
+    .then( response => response.json());
 
 
 // DELETE
