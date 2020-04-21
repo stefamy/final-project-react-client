@@ -16,8 +16,6 @@ import invitesService from "../../services/InvitesService";
        eventsService.findEventById(this.props.invite.eventId)
        .then((event) => this.setState({event: event}));
      }
-     console.log('this props', this.props);
-     console.log('this state', this.state);
    }
 
 
@@ -25,9 +23,6 @@ import invitesService from "../../services/InvitesService";
      let newState = Object.assign({}, this.state);
      newState.invite[attribute] = newContent;
      this.setState(newState);
-   }
-
-   componentDidUpdate(prevProps) {
    }
 
    updateResponseChoice(e) {
@@ -54,7 +49,7 @@ import invitesService from "../../services/InvitesService";
    render() {
      return (
          <>
-           <div className="col pb-4">
+           <div className="invite mb-3">
              {this.state.event &&
                  <>
                    {!this.props.hideEventDetails && <>
@@ -62,55 +57,57 @@ import invitesService from "../../services/InvitesService";
                      <h5>{this.state.event.description} </h5>
                      <p>{this.state.event.date} </p>
                    </>}
-                   <form onSubmit={(e) => this.handleUpdateInvite(e)}>
-                     <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>
-                       <div className="form-check form-check-inline">
-                        <label className="form-check-label" htmlFor={`response1 + ${this.props.invite.id}`}>
-                        <input className="form-check-input"
-                               id={`response1 + ${this.props.invite.id}`}
-                               type="radio"
-                               name={`response + ${this.props.invite.id}`}
-                               value="Yes"
-                               defaultChecked={this.props.invite.response === "Yes"}
-                        />
-                       Yes</label>
-                       </div>
-                       <div className="form-check form-check-inline">
-                        <label className="form-check-label" htmlFor={`response2 + ${this.props.invite.id}`}>
-                        <input className="form-check-input"
-                               id={`response2 + ${this.props.invite.id}`}
-                               type="radio"
-                               name={`response + ${this.props.invite.id}`}
-                               value="No"
-                               defaultChecked={this.props.invite.response === "No"}
-                        />
-                        No</label>
-                       </div>
-                       <div className="form-check form-check-inline">
-                        <label className="form-check-label" htmlFor={`response3 + ${this.props.invite.id}`}>
-                        <input className="form-check-input"
-                               id={`response3 + ${this.props.invite.id}`}
-                               type="radio"
-                               name={`response + ${this.props.invite.id}`}
-                               value="Pending"
-                               defaultChecked={this.props.invite.response === "Pending"}
-                        />
-                        Pending</label>
-                       </div>
-                     </div>
-                     <div className="form-group">
-                       <input type="text"
-                              className="form-control"
-                              placeholder={'Comments for host'}
-                              defaultValue={this.props.invite.comments || ''}
-                              onChange={(e) => this.handleResponseChange('comments', e.target.value)}
-                       />
-                     </div>
-                      {!this.state.isUpdating && <button type="submit" className={`btn btn-primary`}>Update Response</button> }
-                      {this.state.showSuccess && <span className="text-success success-saved"> Updated!</span> }
-                      {this.state.isUpdating && <button type="submit" disabled className={`btn btn-primary`}>Update Response</button> }
-                   </form>
+                   <div className="invite-response-form border mb-3">
 
+                     <div className="assignment-header d-flex justify-content-between align-items-center pl-3 pr-3 pt-2 pb-2 bg-light border-bottom">
+                       <div className="form-group m-0" onChange={this.updateResponseChoice.bind(this)}>
+                         <div className="form-check form-check-inline pr-3">
+                          <label className="form-check-label" htmlFor={`response1 + ${this.props.invite.id}`}>
+                          <input className="form-check-input"
+                                 id={`response1 + ${this.props.invite.id}`}
+                                 type="radio"
+                                 name={`response + ${this.props.invite.id}`}
+                                 value="Yes"
+                                 defaultChecked={this.props.invite.response === "Yes"}
+                          />I'll be there!</label>
+                         </div>
+                           <div className="form-check form-check-inline pr-3">
+                              <label className="form-check-label" htmlFor={`response2 + ${this.props.invite.id}`}>
+                              <input className="form-check-input"
+                                     id={`response2 + ${this.props.invite.id}`}
+                                     type="radio"
+                                     name={`response + ${this.props.invite.id}`}
+                                     value="No"
+                                     defaultChecked={this.props.invite.response === "No"}
+                              />Can't make it</label>
+                           </div>
+                           <div className="form-check form-check-inline">
+                              <label className="form-check-label" htmlFor={`response3 + ${this.props.invite.id}`}>
+                              <input className="form-check-input"
+                                     id={`response3 + ${this.props.invite.id}`}
+                                     type="radio"
+                                     name={`response + ${this.props.invite.id}`}
+                                     value="Pending"
+                                     defaultChecked={this.props.invite.response === "Pending"}
+                              />No response yet</label>
+                           </div>
+                       </div>
+                     </div>
+
+                     <div className="invite-response-body d-flex col pl-0 pr-0 input-group border-0 align-items-stretch">
+                         <input type="text"
+                                className="form-control border-0"
+                                placeholder="Comments for host"
+                                defaultValue={this.props.invite.comments || ''}
+                                onChange={(e) => this.handleResponseChange('comments', e.target.value)}
+                         />
+                       <div className="input-group-addon border-left bg-light">
+                        {!this.state.isUpdating && !this.state.showSuccess && <button type="submit" onClick={(e) => this.handleUpdateInvite(e)} className="btn btn-primary special-border-radius">Update Response</button> }
+                        {!this.state.isUpdating && this.state.showSuccess && <button type="submit" disabled className="btn btn-success special-border-radius">Updated!</button> }
+                        {this.state.isUpdating && !this.state.showSuccess && <button type="submit" disabled className="btn btn-light special-border-radius">Update Response</button> }
+                       </div>
+                     </div>
+                   </div>
                  </>
              }
            </div>

@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9533d462-0b40-4a4c-b9af-b7ceb848f3cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/actions/AssignmentsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/AssignmentsActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/AssignmentsConstants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/AssignmentsConstants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/assignments/CreateAssignment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/assignments/CreateAssignment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/events/CreateEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/events/CreateEvent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/events/Event.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/events/Event.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/invites/Invite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invites/Invite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/AssignmentsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/AssignmentsReducer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,14 +16,14 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6285347">
+    <splitter split-orientation="horizontal" split-proportion="0.47285464">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="354">
-                  <caret line="75" column="43" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="43" />
+                <state relative-caret-position="260">
+                  <caret line="60" column="66" selection-start-line="60" selection-start-column="66" selection-end-line="60" selection-end-column="66" />
                 </state>
               </provider>
             </entry>
@@ -56,11 +49,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/events/Event.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="198">
-                  <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+                <state relative-caret-position="2340">
+                  <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -87,8 +80,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/invites/InviteList.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="312">
-                  <caret line="37" column="20" lean-forward="true" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
+                <state relative-caret-position="102">
+                  <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -108,8 +101,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/components/invites/Invite.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+                <state relative-caret-position="67">
+                  <caret line="65" column="61" lean-forward="true" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -271,15 +264,15 @@
         <option value="$PROJECT_DIR$/src/components/assignments/Assignment.js" />
         <option value="$PROJECT_DIR$/src/services/AssignmentsService.js" />
         <option value="$PROJECT_DIR$/src/index.css" />
-        <option value="$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js" />
         <option value="$PROJECT_DIR$/src/common/AssignmentsConstants.js" />
         <option value="$PROJECT_DIR$/src/actions/AssignmentsActions.js" />
         <option value="$PROJECT_DIR$/src/reducers/AssignmentsReducer.js" />
         <option value="$PROJECT_DIR$/src/components/events/CreateEvent.js" />
         <option value="$PROJECT_DIR$/src/components/assignments/CreateAssignment.js" />
         <option value="$PROJECT_DIR$/src/components/invites/InviteResponse.js" />
-        <option value="$PROJECT_DIR$/src/components/invites/Invite.js" />
         <option value="$PROJECT_DIR$/src/components/events/Event.js" />
+        <option value="$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js" />
+        <option value="$PROJECT_DIR$/src/components/invites/Invite.js" />
       </list>
     </option>
   </component>
@@ -432,18 +425,18 @@
       <workItem from="1587338129714" duration="1461000" />
       <workItem from="1587344932634" duration="10911000" />
       <workItem from="1587403436739" duration="50266000" />
-      <workItem from="1587488588301" duration="15244000" />
+      <workItem from="1587488588301" duration="16634000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127223000" />
+    <option name="totallyTimeSpent" value="128613000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="11" y="23" width="1920" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16702355" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.082976446" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -460,7 +453,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3288889" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.041439477" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2780807" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -868,23 +861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="75" column="43" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/invites/InviteList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="37" column="20" lean-forward="true" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/invites/InviteResponse.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -892,20 +868,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/invites/Invite.js">
+    <entry file="file://$PROJECT_DIR$/src/components/events/Event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+        <state relative-caret-position="2340">
+          <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/events/Event.js">
+    <entry file="file://$PROJECT_DIR$/src/components/invites/InviteList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        <state relative-caret-position="102">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/assignments/AssignmentResponse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-549">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/invites/Invite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="65" column="61" lean-forward="true" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

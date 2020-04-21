@@ -58,7 +58,7 @@ class AssignmentResponse extends React.Component {
           </div>
           <div className="assignment-body d-flex">
           <div className="col-auto pl-0 pr-0 input-group-addon bg-light assignment-checkbox-wrap border-right">
-            <label className="special-checkbox p-3">
+            <label className="special-checkbox pl-3 pr-3 pt-2 pb-2">
               <input
                   disabled={assignment.status === "Assigned" && assignment.assigneeUserId !== user.id}
                   onChange={(e) => this.handleResponseChange(e.target.checked ? "Assigned" : "Unassigned")}
