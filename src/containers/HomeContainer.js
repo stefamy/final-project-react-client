@@ -92,7 +92,7 @@ class HomeContainer extends React.Component {
                       <h5 className="card-title">Create an Event</h5>
                       <p className="card-text">With supporting text below as a
                         natural lead-in to additional content.</p>
-                      <Link to="/events" className="btn outline-info">Go to
+                      <Link to="/events" className="btn btn-outline-info">Go to
                         events</Link>
                     </div>
                   </div>}
@@ -110,7 +110,7 @@ class HomeContainer extends React.Component {
                   </div>
                 </div>
                 <div className="row pb-5">
-                  <div className="col">
+                  <div className="col-12">
                     <div className="card">
                       <h5 className="card-header">Unsure what to bring to your
                         next party?</h5>
@@ -124,7 +124,7 @@ class HomeContainer extends React.Component {
                   </div>
                 </div>
               </div>
-              }
+
             </div>
 
             }
