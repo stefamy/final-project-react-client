@@ -6,6 +6,8 @@ import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 import {connect} from "react-redux";
 import Assignment from "./assignments/Assignment";
+import SearchBarComponent from "./SearchBarComponent";
+import {Link} from "react-router-dom";
 
 
 class RecipeDetailsComponent extends React.Component {
@@ -68,8 +70,8 @@ class RecipeDetailsComponent extends React.Component {
     return (
         <div>
           <div className="title-area d-flex align-items-center justify-content-between p-3 border rounded bg-white mb-3">
-          <h1>Recipe Details</h1>
-            <button type="button" className="btn btn-primary" onClick={this.props.history.goBack}>Back</button>
+            <h4>Recipe Details</h4>
+            <button type="button" className="btn btn-info" onClick={this.props.history.goBack}>Back</button>
           </div>
           {recipe &&
             <div className="recipe-details row">
@@ -85,8 +87,15 @@ class RecipeDetailsComponent extends React.Component {
                   />
               <a href={`${recipe.sourceUrl}`}><span className="recipe-source"> Source: {recipe.sourceName}</span></a>
               </div>
-              {!this.state.guestUser && this.props.assignments &&
+
               <div className="col-md-5 col-12">
+                <div className=" bg-white border rounded p-3 mb-3">
+                <h5>Search again</h5>
+                <SearchBarComponent
+                  history={this.props.history}/>
+                </div>
+              {!this.state.guestUser && this.props.assignments &&
+              <div className=" bg-white border rounded p-3 mb-3">
                 <h5>Your Upcoming Assignments</h5>
                 {this.props.assignments.map((assignment, index) => (
                     <Assignment
@@ -99,6 +108,15 @@ class RecipeDetailsComponent extends React.Component {
                 ))}
               </div>
               }
+                {this.state.guestUser  &&
+                <div className=" bg-white border rounded p-3 mb-3">
+                  <h5 className="card-title">Plan or RSVP to an Event!</h5>
+                  <p className="card-text">Log in or register as a new user.</p>
+                  <Link to="/login" className="btn btn-outline-info mr-2">Log in</Link>
+                  <Link to="/register" className="btn btn-outline-info">Register</Link>
+                </div>
+                }
+              </div>
           </div>
           }
         </div>

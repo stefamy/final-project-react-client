@@ -90,8 +90,7 @@ class HomeContainer extends React.Component {
                     <h5 className="card-header">No upcoming events.</h5>
                     <div className="card-body">
                       <h5 className="card-title">Create an Event</h5>
-                      <p className="card-text">With supporting text below as a
-                        natural lead-in to additional content.</p>
+                      <p className="card-text"></p>
                       <Link to="/events" className="btn btn-outline-info">Go to
                         events</Link>
                     </div>

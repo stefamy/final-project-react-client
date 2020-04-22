@@ -10,6 +10,7 @@ import assignmentsActions from "../../actions/AssignmentsActions";
 import assignmentsService from "../../services/AssignmentsService";
 import eventsService from "../../services/EventsService";
 import Invite from "../invites/Invite";
+import {Link} from "react-router-dom";
 
 class Event extends React.Component {
 
@@ -133,6 +134,8 @@ class Event extends React.Component {
                   </p>
                 </>
                 }
+                {this.state.guestUser &&
+                <p>If you are attending this event, please <Link className="text-info" to="/login">log in</Link> to view additional event details.</p>}
             </div>
 
               <div className="col-12 bg-white p-3">
