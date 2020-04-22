@@ -1,16 +1,24 @@
 import React from "react";
 import {login} from "../../services/UserService";
+import {Link} from "react-router-dom";
 
 export default class Login extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    userPasswordNotFound: false
   }
 
   handleLogin(event, user) {
     event.preventDefault();
     login(user).then(currentUser => {
-      this.props.history.push('/');
+      if (currentUser) {
+        this.props.history.push('/');
+      } else {
+        this.setState({
+          userPasswordNotFound: true,
+        });
+      }
     })
   }
 
@@ -29,9 +37,12 @@ export default class Login extends React.Component {
                       onChange={(e) => this.setState({
                         username: e.target.value
                       })}
-                      className={`form-control`}
+                      className={`form-control` + (this.state.userPasswordNotFound ? " is-invalid" : '')}
                       placeholder="username"
                       required/>
+                  <div className="invalid-feedback">
+                    That username/password combination was not found.
+                  </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="passwordInput">Password</label>
@@ -41,10 +52,13 @@ export default class Login extends React.Component {
                       onChange={(e) => this.setState({
                         password: e.target.value
                       })}
-                      className={`form-control`}
+                      className={`form-control` + (this.state.userPasswordNotFound ? " is-invalid" : '')}
                       type="password"
                       placeholder="password"
                       required/>
+                  <div className="invalid-feedback">
+                    That username/password combination was not found.
+                  </div>
                 </div>
                 <div className="form-group">
                   <button

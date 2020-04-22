@@ -13,8 +13,11 @@ const EventPreview = ({ event, headerText, canDelete, handleDeleteEvent, outerWr
                 <div className="card-body">
                   <h5 className="card-title">{event.name}</h5>
                   <h6 className="card-subtitle">{event.description}</h6>
-                  <p className="card-text mt-2">{event.locationName && event.locationName + ' • '}{event.locationCity}{event.locationState && event.locationCity ? ', ' + event.locationState : ''}
-                    {/*{event.startTime ? event.startTime : ''} {event.endTime ? ' - ' + event.endTime : ''}*/}
+                  <p className="card-text mt-2">
+                      {event.locationName && <span>{event.locationName}<br/></span>}
+                      {event.locationCity && event.locationState && <span>{event.locationCity}, {event.locationState}<br/></span>}
+                      {event.locationCity && !event.locationState && <span>{event.locationCity}<br/></span>}
+                      {!event.locationCity && event.locationState && <span>{event.locationState}<br/></span>}
                   </p>
                   <Link to={`/events/${event.id}`}className="btn btn-outline-info">Go to event</Link>
                 </div>

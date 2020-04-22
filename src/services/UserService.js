@@ -80,7 +80,7 @@ export const login = (user) =>
       },
       credentials: "include"
     }).then(response => response.json())
-    .catch(res => '');
+    .catch(res => null);
 
 
 
