@@ -10,6 +10,10 @@ body {
   background-size: auto;
 }
 
+.container-all {
+  min-height: 100vh;
+}
+
 .bg-pattern {
   background-image: url('assets/confetti.png');
   background-repeat: repeat;

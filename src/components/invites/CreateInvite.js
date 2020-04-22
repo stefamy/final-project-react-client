@@ -64,6 +64,7 @@ export default class CreateInvite extends Component {
                   onChange={(e) => this.handleNewInviteInput('lastName', e.target.value)}
                   className="form-control"
                   placeholder="Last name of the invitee"
+                  required
               />
             </div>
             <div className="form-group">

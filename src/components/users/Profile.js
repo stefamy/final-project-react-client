@@ -18,9 +18,7 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-      if (!this.props.user.id) {
-        this.props.findUser();
-      }
+      this.props.findUser();
     }
 
     componentDidUpdate(prevProps) {
@@ -36,7 +34,7 @@ class Profile extends React.Component {
 
     render() {
         return(
-            <div className="bg-white border p-4">
+            <div className="bg-white border p-5">
               <h1>Profile</h1>
               {!this.props.user.id &&
               <p>You are not logged in.<br/>
@@ -47,7 +45,7 @@ class Profile extends React.Component {
                 <p>Hi {this.props.user.username}!</p>
                 <hr/>
               <div className="row">
-                <div className="col-md-4 col-lg-6 col">
+                <div className="col-md-6 col-lg-8 col">
                 <form onSubmit={(e) => this.handleProfileSubmit(e)}>
                   <div className="form-group">
                     <label htmlFor="usernameInput">Username</label>

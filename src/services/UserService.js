@@ -12,17 +12,28 @@ export const register = (user) =>
     }).then(response => response.json())
 
 // READ
+export const areEmailAndUsernameAvailable = (user) =>
+    fetch(`http://localhost:8080/register/validate`, {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).then(response => response.json());
+
+
+// READ
 export const findUser = () =>
     fetch(`http://localhost:8080/profile`, {
       method: 'POST',
       credentials: "include"
     })
     .then( response => response.json())
-    .catch(() => '');
+    .catch(res => '');
 
 // READ
-export const findPublicProfile = (userId) =>
-    fetch(`http://localhost:8080/api/user/${userId}`, {
+export const findPublicProfile = (username) =>
+    fetch(`http://localhost:8080/api/user/${username}`, {
       method: 'GET'
     })
     .then( response => response.json());

@@ -88,7 +88,7 @@ class HomeContainer extends React.Component {
                             userId={this.props.user.id}
                         />
                     </>}
-                    {this.state && this.state.nextEvent &&
+                    {((!this.state) || (!this.state.nextEvent) || (!this.state.nextEvent.id)) &&
                     <div className="card">
                       <h5 className="card-header">No upcoming events.</h5>
                         <div className="card-body">

@@ -1,36 +1,153 @@
 import React from "react";
 import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
+import inviteService from "../../services/InvitesService";
 import { connect } from "react-redux";
 
 class User extends React.Component {
 
   state = {
-    userData: { }
+    userViewing: { },
+    viewingOwnProfile: false,
+    viewingGuestMutualEvent: false
   }
 
   componentDidMount() {
-    userService.findPublicProfile(this.props.id)
-    .then(profile =>
-      this.setState({userData: profile} ));
+    this.props.findUser();
+    userService.findPublicProfile(this.props.username)
+    .then(profile => {
+      this.setState({ userViewing: profile });
+      if (this.props.user && this.props.user.id) {
+        this.checkUserRelationship();
+      }
+    });
   }
 
-  componentDidUpdate() {
-    
+  checkUserRelationship() {
+    if (this.state.userViewing.id === this.props.user.id) {
+      this.setState({viewingOwnProfile: true, viewingGuestMutualEvent: true})
+    } else {
+      inviteService.findInvitesByGuestId(this.state.userViewing.id).then(
+          invites => {
+            this.setState({
+              userViewingInvites: invites
+            });
+            inviteService.findInvitesByGuestId(this.props.user.id).then(
+                invitesUser => {
+                  this.setState({
+                    userInvites: invitesUser
+                  });
+                  this.setState({
+                    viewingGuestMutualEvent: this.haveMutualEvents()
+                  })
+                });
+          });
+    }
+  }
+
+  haveMutualEvents() {
+    for (let i = 0; i < this.state.userInvites.length; i++) {
+      if (this.state.userViewingInvites.find(invite => invite.eventId === this.state.userInvites[i].eventId)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
   }
 
   render() {
     return(
-        <div>
-          <h1>Profile</h1>
-          <span> You are: {this.props.user.firstName} </span><br/>
-
-          <hr />
-          <span>VIEWING </span>
-          <span>User: {this.props.username}</span> <br/>
-          {this.state.userData && <>
-          <span>Name: {this.state.userData.firstName} {this.state.userData.lastName}.</span> <br/>
-        </>}
+        <div className="bg-white border p-5">
+          <div className="row">
+            <div className="col">
+              <h1>Profile</h1>
+              <hr/>
+              {this.state.userViewing && <>
+                <h3>{this.state.userViewing.firstName} {String(this.state.userViewing.lastName).charAt(0)}.</h3>
+                {this.state.userViewing.city && !this.state.userViewing.state && <p>{this.state.userViewing.city}</p> }
+                {this.state.userViewing.city && this.state.userViewing.state &&
+                  <p>{this.state.userViewing.city}, {this.state.userViewing.state}</p> }
+                <hr/>
+                <h4>Location & Contact</h4>
+                {!this.state.viewingGuestMutualEvent &&
+                <p>Contact information is only visible to users with mutual events.</p>
+                }
+                {this.state.viewingGuestMutualEvent &&
+                <p>
+                  {this.state.userViewing.email && <span>{this.state.userViewing.email}<br/></span>}
+                  {this.state.userViewing.phone && <span>{this.state.userViewing.phone}<br/></span>}
+                </p>
+                }
+                {this.state.viewingGuestMutualEvent &&
+                <p>
+                  {this.state.viewingOwnProfile && <>
+                    {this.state.userViewing.streetAddress1 &&
+                    <span>{this.state.userViewing.streetAddress1}<br/></span>}
+                    {this.state.userViewing.streetAddress2 &&
+                    <span>{this.state.userViewing.streetAddress2}<br/></span>}
+                  </> }
+                  {this.state.userViewing.city && !this.state.userViewing.state
+                  && <span>{this.state.userViewing.city}</span>}
+                  {this.state.userViewing.city && this.state.userViewing.state
+                  &&
+                  <span>{this.state.userViewing.city}, {this.state.userViewing.state} </span>}
+                  {this.state.userViewing.zip &&
+                  <span>{this.state.userViewing.zip} <br/></span>}
+                </p>
+                }
+                <hr/>
+                <h4>Dietary Preferences</h4>
+                {!this.state.viewingGuestMutualEvent &&
+                  <p>Dietary preferences are only visible to users with mutual events.</p>
+                }
+                {this.state.viewingGuestMutualEvent &&
+                <ul className="list-group list-group-flush ml-0">
+                  <li className="list-group-item ml-0 pl-0">
+                    Gluten Free:
+                    {this.state.userViewing.glutenFree === 1 && " Yes"}
+                    {this.state.userViewing.glutenFree === 0 && " No"}
+                    {(this.state.userViewing.glutenFree !== 1
+                    || this.state.userViewing.glutenFree !== 1) && " Unknown"}
+                  </li>
+                  <li className="list-group-item ml-0 pl-0">
+                    Vegetarian:
+                    {this.state.userViewing.vegetarian === 1 && " Yes"}
+                    {this.state.userViewing.vegetarian === 0 && " No"}
+                    {(this.state.userViewing.vegetarian !== 1
+                    || this.state.userViewing.vegetarian !== 1) && " Unknown"}
+                  </li>
+                  <li className="list-group-item ml-0 pl-0">
+                    Vegan:
+                    {this.state.userViewing.vegan === 1 && " Yes"}
+                    {this.state.userViewing.vegan === 0 && " No"}
+                    {(this.state.userViewing.vegan !== 1
+                    || this.state.userViewing.vegan !== 1) && " Unknown"}
+                  </li>
+                  <li className="list-group-item ml-0 pl-0">
+                    Nut Allergy:
+                    {this.state.userViewing.nutAllergy === 1 && " Yes"}
+                    {this.state.userViewing.nutAllergy === 0 && " No"}
+                    {(this.state.userViewing.nutAllergy !== 1
+                    || this.state.userViewing.nutAllergy !== 1) && " Unknown"}
+                  </li>
+                  <li className="list-group-item ml-0 pl-0">
+                    Other Dietary Restrictions:
+                    {" " + (this.state.userViewing.otherDietaryRestrictions
+                        || "None listed")}
+                  </li>
+                  <li className="list-group-item ml-0 pl-0">
+                    Special Requests:
+                    {" " + (this.state.userViewing.specialRequests
+                        || "None listed")}
+                  </li>
+                </ul>
+                }
+              </>}
+            </div>
+          </div>
         </div>)
   }
 
@@ -39,7 +156,8 @@ class User extends React.Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    invites: state.invites.invites
   };
 };
 

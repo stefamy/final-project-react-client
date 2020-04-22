@@ -16,10 +16,10 @@ export default class Login extends React.Component {
 
   render() {
     return(
-        <div>
+        <div className="bg-white border p-5">
           <h1>Login</h1>
           <div className="row">
-            <div className="col-md-4 col-lg-6 col">
+            <div className="col-md-6 col-lg-8 col">
               <form onSubmit={(e) => this.handleLogin(e, this.state)}>
                 <div className="form-group">
                   <label htmlFor="usernameInput">Username</label>
