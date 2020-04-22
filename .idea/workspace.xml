@@ -93,8 +93,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/containers/HomeContainer.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="158">
-                  <caret line="94" column="60" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
+                <state relative-caret-position="578">
+                  <caret line="122" column="24" selection-start-line="122" selection-start-column="24" selection-end-line="122" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -447,12 +447,12 @@
       <workItem from="1587338129714" duration="1461000" />
       <workItem from="1587344932634" duration="10911000" />
       <workItem from="1587403436739" duration="50266000" />
-      <workItem from="1587488588301" duration="63880000" />
+      <workItem from="1587488588301" duration="64060000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175859000" />
+    <option name="totallyTimeSpent" value="176039000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="23" width="1920" height="1057" extended-state="6" />
@@ -931,8 +931,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/HomeContainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="94" column="60" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
+        <state relative-caret-position="578">
+          <caret line="122" column="24" selection-start-line="122" selection-start-column="24" selection-end-line="122" selection-end-column="24" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

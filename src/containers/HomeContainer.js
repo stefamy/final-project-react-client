@@ -109,7 +109,6 @@ class HomeContainer extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="row pb-5">
                   <div className="col-12">
                     <div className="card">
                       <h5 className="card-header">Unsure what to bring to your
@@ -122,7 +121,6 @@ class HomeContainer extends React.Component {
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
 
             </div>
