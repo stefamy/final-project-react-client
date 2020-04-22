@@ -1,8 +1,11 @@
 import React from "react";
 import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
-import inviteService from "../../services/InvitesService";
+import assignmentsService from "../../services/AssignmentsService";
+import EventPreview from "../events/EventPreview";
 import { connect } from "react-redux";
+import eventsService from "../../services/EventsService";
+import AssignmentList from "../assignments/AssignmentList";
 
 class User extends React.Component {
 
@@ -24,30 +27,28 @@ class User extends React.Component {
   }
 
   checkUserRelationship() {
-    if (this.state.userViewing.id === this.props.user.id) {
-      this.setState({viewingOwnProfile: true, viewingGuestMutualEvent: true})
-    } else {
-      inviteService.findInvitesByGuestId(this.state.userViewing.id).then(
-          invites => {
+    eventsService.findGuestEventsForUser(this.props.user.id).then(
+        eventsUser => {
+          this.setState({userEvents: eventsUser});
+          if (this.state.userViewing.username === this.props.user.username) {
             this.setState({
-              userViewingInvites: invites
+              viewingOwnProfile: true,
+              viewingGuestMutualEvent: true,
+              userViewingEvents: [...this.state.userEvents]
+            })
+          } else {
+            eventsService.findGuestEventsForUser(this.state.userViewing.id)
+            .then(events => {
+              this.setState({userViewingEvents: events});
+              this.setState({viewingGuestMutualEvent: this.haveMutualEvents()});
             });
-            inviteService.findInvitesByGuestId(this.props.user.id).then(
-                invitesUser => {
-                  this.setState({
-                    userInvites: invitesUser
-                  });
-                  this.setState({
-                    viewingGuestMutualEvent: this.haveMutualEvents()
-                  })
-                });
-          });
-    }
+          }
+        });
   }
 
   haveMutualEvents() {
-    for (let i = 0; i < this.state.userInvites.length; i++) {
-      if (this.state.userViewingInvites.find(invite => invite.eventId === this.state.userInvites[i].eventId)) {
+    for (let i = 0; i < this.state.userEvents.length; i++) {
+      if (this.state.userViewingEvents.find(event => event.id === this.state.userEvents[i].id)) {
         return true;
       }
     }
@@ -55,18 +56,21 @@ class User extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-
+    console.log('this.state', this.state);
+    console.log('this.props', this.props);
   }
 
   render() {
     return(
         <div className="bg-white border p-5">
           <div className="row">
-            <div className="col">
-              <h1>Profile</h1>
-              <hr/>
-              {this.state.userViewing && <>
-                <h3>{this.state.userViewing.firstName} {String(this.state.userViewing.lastName).charAt(0)}.</h3>
+              <div className="col-12">
+                <h1>Profile</h1>
+                <hr/>
+              </div>
+              {this.state.userViewing &&
+              <div className="col-lg-7 col-12">
+                <h2>{this.state.userViewing.firstName} {String(this.state.userViewing.lastName).charAt(0)}. {this.state.viewingOwnProfile && " (that's you!)"}</h2>
                 {this.state.userViewing.city && !this.state.userViewing.state && <p>{this.state.userViewing.city}</p> }
                 {this.state.userViewing.city && this.state.userViewing.state &&
                   <p>{this.state.userViewing.city}, {this.state.userViewing.state}</p> }
@@ -104,7 +108,7 @@ class User extends React.Component {
                   <p>Dietary preferences are only visible to users with mutual events.</p>
                 }
                 {this.state.viewingGuestMutualEvent &&
-                <ul className="list-group list-group-flush ml-0">
+                <ul className="list-group list-group-flush">
                   <li className="list-group-item ml-0 pl-0">
                     Gluten Free:
                     {this.state.userViewing.glutenFree === 1 && " Yes"}
@@ -145,9 +149,30 @@ class User extends React.Component {
                   </li>
                 </ul>
                 }
-              </>}
+              </div>}
+              <div className="col-lg-5 col-12">
+                {(this.state.viewingGuestMutualEvent || this.state.viewingOwnProfile) && this.state.userViewingEvents && <>
+                  <h4 className="pt-2 pb-2">Upcoming Events</h4>
+                  {this.state.userViewingEvents.map((event, index) => (
+                  <EventPreview
+                      key={index}
+                      event={event}
+                      history={this.props.history}
+                      userId={this.props.user.id}
+                  />
+                  ))}
+                </>}
+                {(this.state.viewingGuestMutualEvent || this.state.viewingOwnProfile) && <>
+                  <h4 className="pt-2 pb-2">Assignments</h4>
+                      <AssignmentList
+                          history={this.props.history}
+                          userId={this.props.user.id}
+                          hideForm={true}
+                      />
+                </>}
+              </div>
+
             </div>
-          </div>
         </div>)
   }
 

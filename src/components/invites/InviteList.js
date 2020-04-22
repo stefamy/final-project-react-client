@@ -13,19 +13,22 @@ class InviteList extends Component {
   componentDidMount() {
     if (this.props.user.id) {
       this.props.findInvitesByGuestId(this.props.user.id);
+    } else {
+      this.setState({guestUser: true})
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.user !== this.props.user) {
       this.props.findInvitesByGuestId(this.props.user.id);
+      this.setState({guestUser: false})
     }
   }
 
   render() {
     return (
         <>
-          {this.props.invites &&
+          {!this.state.guestUser && this.props.invites &&
               <div>
                 {this.props.invites.map((invite, index) => (
                 <Invite
@@ -37,11 +40,15 @@ class InviteList extends Component {
                 ))}
               </div>
           }
+          {this.state.guestUser &&
+          <p>Please log in to view your invites.</p>
+          }
           {!this.props.invites &&
           <div>
             No invites yet...
           </div>
           }
+
         </>
     );
   }

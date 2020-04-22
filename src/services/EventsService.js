@@ -26,6 +26,15 @@ export const findEventsForUser = (userId) =>
     .then( response => response.json());
 
 
+// READ
+export const findGuestEventsForUser = (userId) =>
+    fetch(`http://localhost:8080/api/events/guest/${userId}`, {
+      method: 'GET',
+    })
+    .then( response => response.json());
+
+
+
 // DELETE
 export const deleteEvent = (eventId) =>
     fetch(`http://localhost:8080/api/events/${eventId}`, {
@@ -49,6 +58,7 @@ export default {
   createEvent,
   findEventById,
   findEventsForUser,
+  findGuestEventsForUser,
   deleteEvent,
   updateEvent
 

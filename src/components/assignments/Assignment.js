@@ -1,5 +1,7 @@
 import React from "react";
 import eventsService from "../../services/EventsService";
+import {Link} from "react-router-dom";
+import assignmentsService from "../../services/AssignmentsService";
 
 class Assignment extends React.Component {
 
@@ -23,10 +25,21 @@ class Assignment extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+
   }
 
-  updateResponseChoice(e) {
-    this.handleResponseChange('status', e.target.value);
+  updateResponseChoice(value) {
+    let newState = Object.assign({}, this.state);
+    if (value === "Unassigned") {
+        newState.assignment.status = "Unassigned";
+        newState.assignment.assigneeUserId = "";
+        newState.assignment.assigneeFirstName = "";
+        newState.assignment.assigneeLastName = "";
+        newState.assignment.assigneeEmail = "";
+        newState.assignment.dateOfResponse = "";
+        newState.assignment.assigneeComments = "";
+    }
+    this.setState(newState);
   }
 
   showUpdateSuccess() {
@@ -39,52 +52,64 @@ class Assignment extends React.Component {
     }, 1000);
   }
 
+  handleUpdateAssignment(e) {
+    e.preventDefault();
+    this.setState({isUpdating: true});
+    if (this.props.updateAssignment) {
+      this.props.updateAssignment(this.state.assignment.id,
+          this.state.assignment);
+      this.showUpdateSuccess();
+      } else {
+        assignmentsService.updateAssignment(this.state.assignment.id,
+            this.state.assignment).then(response => this.showUpdateSuccess());
+      }
+    }
+
   render() {
     return (
-        <>
-          <div className="col pb-4">
-            {this.state.event &&
             <>
-              <h3>Event: {this.state.event.name} </h3>
-              <h5>{this.state.event.description} </h5>
-              <p>{this.state.event.date} </p>
-              <p>{this.props.assignment.title}</p>
-              <p>{this.props.assignment.description}</p>
-              {/*<p>{this.props.assignment.dateOfRequest}</p>*/}
-              {/*<p>{this.props.assignment.dateOfResponse}</p>*/}
-              <p>{this.props.assignment.type}</p>
-              <form onSubmit={(e) => this.handleUpdateAssignment(e)}>
-                <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor={`response1 + ${this.props.assignment.id}`}>
-                      <input className="form-check-input"
-                             id={`response1 + ${this.props.assignment.id}`}
-                             type="checkbox"
-                             name={`response + ${this.props.assignment.id}`}
-                             value="YES"
-                             defaultChecked={this.props.assignment.status === "ASSIGNED"}
-                      />
-                      I can do it!</label>
-                  </div>
-                  <div className="form-group">
-                    <input type="text"
-                           className="form-control"
-                           placeholder={'Comments for host'}
-                           defaultValue={this.props.assignment.assigneeComments || ''}
-                           onChange={(e) => this.handleResponseChange('assigneeComments', e.target.value)}
-                    />
-                  </div>
+              {this.state.event &&
+              <div className="card mb-3">
+                <h5 className="card-header">Event: {this.state.event.name} <Link to={`/events/${this.state.event.id}`}><i className="ml-2 fa fa-link"></i></Link></h5>
+                <div className="card-body">
+                  <div className="card-text">
+                  {this.props.assignment.type}: {this.props.assignment.title}<br/>
+                  {this.props.assignment.description}</div>
                 </div>
-                {!this.state.isUpdating && <button type="submit" className={`btn btn-primary`}>Update Response</button> }
-                {this.state.showSuccess && <span className="text-success success-saved"> Updated!</span> }
-                {this.state.isUpdating && <button type="submit" disabled className={`btn btn-primary`}>Update Response</button> }
-              </form>
-            </>
-            }
-          </div>
-        </>
-    );
+                {!this.props.hideForm &&
+                <form className="d-flex">
+                  <div className=" col-auto pl-0 pr-0 input-group-addon bg-light assignment-checkbox-wrap border-right border-top">
+                    <label className="special-checkbox pl-3 pr-3 pt-2 pb-2">
+                      <input
+                          onChange={(e) => this.updateResponseChoice(e.target.checked ? "Assigned" : "Unassigned")}
+                          id={`assignmentCheckboxInput` + this.props.assignment.id}
+                          type="checkbox"
+                          checked={this.state.assignment.status === "Assigned" ? 1 : 0}
+                          name="assignmentCheckbox"/>
+                    </label>
+                  </div>
+                    <div className="col pl-0 pr-0 input-group border-top">
+                      <input id={`assigneeCommentsInput` + this.props.assignment.id}
+                             name="assigneeComments"
+                             type="text"
+                             className="form-control border-0"
+                             placeholder="Comments for event organizer"
+                             onChange={(e) => this.handleResponseChange('assigneeComments', e.target.value)}
+                      />
+                      <div className="input-group-addon border-left bg-light">
+                        {!this.state.isUpdating && !this.state.showSuccess && <button type="submit" onClick={(e) => this.handleUpdateAssignment(e)} className="btn btn-primary special-border-radius">Save</button>}
+                        {this.state.showSuccess && !this.state.isUpdating && <button type="submit" className="btn btn-success success-saved special-border-radius"> Updated!</button>}
+                        {this.state.isUpdating && !this.state.showSuccess && <button type="submit" disabled className="btn btn-primary special-border-radius">Saving</button>}
+                      </div>
+                    </div>
 
+                </form>
+                }
+              </div>
+              }
+            </>
+
+    );
   }
 
 }

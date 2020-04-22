@@ -14,7 +14,9 @@ import Invite from "../invites/Invite";
 
 class Event extends React.Component {
 
-  state = { }
+  state = {
+    guestUser: true
+  }
 
   componentDidMount() {
     if (!this.props.event) {
@@ -25,7 +27,6 @@ class Event extends React.Component {
     } else {
       this.setState({event: this.props.event});
       this.props.loadAllEventData(this.props.eventId);
-
     }
   }
 
@@ -44,7 +45,8 @@ class Event extends React.Component {
     if (this.props.user && (prevProps.eventInvites !== this.props.eventInvites)) {
       const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
       this.setState({
-        userInvite: invite
+        userInvite: invite,
+        guestUser: (invite && invite.id)
       });
     }
     if (prevProps.eventAssignments && (this.props.eventAssignments.length !== prevProps.eventAssignments.length)) {
@@ -53,8 +55,6 @@ class Event extends React.Component {
     if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
       this.stopShowCreateInvite();
     }
-    console.log('this state', this.state);
-    console.log('this props', this.props);
   }
 
   showUpdateSuccess() {
@@ -92,13 +92,11 @@ class Event extends React.Component {
     })
   }
 
-
   stopShowCreateInvite() {
     this.setState({
       showCreateInvite: false
     })
   }
-
 
   getUserInvite(userId) {
     return this.props.eventInvites.find(invite => invite.guestId === userId);
@@ -107,17 +105,40 @@ class Event extends React.Component {
 
   render() {
     return (
-          <div className="row pb-4">
+        <div className="bg-white border p-lg-5 p-3">
+          <div className="row">
             {this.state.event && <>
-              <div className="col-12 bg-white p-3">
+              <div className="col-12 p-3">
                 <h3>Event: {this.state.event.name} </h3>
                 <h4>{this.state.event.description} </h4>
                 <p>{this.state.event.date} </p>
-              </div>
+
+                {((this.state.event.hostId === this.props.user.id) || !this.state.guestUser) &&
+                <>
+                  <p>
+                    {this.state.event.locationName &&
+                    <span>{this.state.event.locationName}<br/></span>}
+                    {this.state.event.locationStreet1 &&
+                    <span>{this.state.event.locationStreet1}<br/></span>}
+                    {this.state.event.locationStreet2 &&
+                    <span>{this.state.event.locationStreet2}<br/></span>}
+                    {this.state.event.locationCity && !this.state.event.locationState
+                    && <span>{this.state.event.locationCity}</span>}
+                    {this.state.event.locationCity && this.state.event.locationState
+                    &&
+                    <span>{this.state.event.locationCity}, {this.state.event.locationState} </span>}
+                    {this.state.event.locationZip &&
+                    <span>{this.state.event.locationZip} <br/></span>}
+                    {this.state.event.locationNotes &&
+                    <span>{this.state.event.locationNotes} <br/></span>}
+                  </p>
+                </>
+                }
+            </div>
 
               <div className="col-12 bg-white p-3">
-                <h3>Assignments</h3>
-                 {!this.state.event.privateEvent && this.props.eventAssignments && <>
+                {((this.state.event.hostId === this.props.user.id) || !this.state.guestUser) && this.props.eventAssignments && <>
+                  <h3>Assignments</h3>
                       <div className="mb-3">
                       {this.props.eventAssignments.map((assignment, index) => (
                           <AssignmentResponse
@@ -147,7 +168,7 @@ class Event extends React.Component {
                           />
                       }
                       </>}
-                  {!this.state.isEventGuest && this.state.event.privateEvent &&
+                  {this.state.guestUser && (!this.state.event.hostId === this.props.user.id) &&
                   <p>For privacy reasons, only event guests can see the invite list. <br/>
                     If you are on the invite list, please sign in to view the full event details.</p>}
                 </div>
@@ -198,6 +219,7 @@ class Event extends React.Component {
                   }
                 </>}
           </div>
+        </div>
       );
 
     }

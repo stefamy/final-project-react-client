@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import assignmentsService from "../../services/AssignmentsService";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import Assignment from "./Assignment";
+import {Link} from "react-router-dom";
 
 class AssignmentList extends Component {
 
@@ -29,28 +30,33 @@ class AssignmentList extends Component {
   render() {
     return (
         <>
-          {!this.state.guestUser && this.props.assignments &&
-          <div>
-            {this.props.assignments.map((assignment, index) => (
-                <Assignment
-                    key={index}
-                    assignment={assignment}
-                    history={this.props.history}
-                    userId={this.props.user.id}
-                    event={this.props.event}
-                />
-            ))}
-          </div>
-          }
-          {this.state.guestUser &&
-          <p>Please log in to view your assignments.</p>
-          }
-          {!this.props.assignments &&
-          <div>
-            No assignments yet...
-          </div>
-          }
-        </>
+          {!this.props.hideForm  && <h2 className="pb-2">Your Assignments</h2> }
+            {!this.state.guestUser && this.props.assignments &&
+              <div>
+                {this.props.assignments.map((assignment, index) => (
+                    <Assignment
+                        key={index}
+                        assignment={assignment}
+                        history={this.props.history}
+                        userId={this.props.user.id}
+                        event={this.props.event}
+                        hideForm={this.props.hideForm}
+                        updateAssignment={this.props.updateAssignment}
+                    />
+                ))}
+              </div>
+              }
+              {this.state.guestUser &&
+              <div className="bg-white p-3 border">
+                Please log in to view your assignments.
+              </div>
+              }
+              {(!this.props.assignments || !this.props.assignments.length) &&
+              <div className="bg-white p-3 border">
+                No assignments yet...<br/>
+              </div>
+              }
+            </>
     );
   }
 }
@@ -68,6 +74,11 @@ const dispatchToPropertyMapper = dispatch => {
     findUser: () => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
+    },
+    updateAssignment: (assignmentId, assignment) => {
+      assignmentsService.updateAssignment(assignmentId, assignment).then(assignment => {
+        dispatch(assignmentsActions.updateAssignment(assignment));
+      });
     },
     findAssignmentByAssigneeUserId: userId => {
       assignmentsService.findAssignmentByAssigneeUserId(userId).then(assignments => {

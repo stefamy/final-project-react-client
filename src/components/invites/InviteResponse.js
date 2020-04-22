@@ -22,7 +22,7 @@ const InviteResponse = ({ invite, deleteInvite }) => {
         <li className="list-group-item d-flex justify-content-between align-items-center">
           <div>
             {invite.guest.accountClaimed === 1 &&
-            <Link to={`profile/` + invite.guest.username}>{invite.firstName} {invite.lastName}</Link>
+            <Link to={`/profile/` + invite.guest.username}>{invite.firstName} {invite.lastName}</Link>
             }
             {invite.guest.accountClaimed !== 1 && <>
               {invite.firstName} {invite.lastName}

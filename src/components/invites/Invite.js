@@ -1,6 +1,7 @@
 import React from "react";
 import eventsService from "../../services/EventsService";
 import invitesService from "../../services/InvitesService";
+import {Link} from "react-router-dom";
 
 
  class Invite extends React.Component {
@@ -42,10 +43,13 @@ import invitesService from "../../services/InvitesService";
    handleUpdateInvite(e) {
      e.preventDefault();
      this.setState({ isUpdating: true});
-     this.props.updateInvite(this.state.invite.id, this.state.invite);
-     // invitesService.updateInvite(this.state.invite.id, this.state.invite)
-     // .then(success => this.showUpdateSuccess());
-     this.showUpdateSuccess();
+     if (this.props.updateInvite) {
+       this.props.updateInvite(this.state.invite.id, this.state.invite);
+       this.showUpdateSuccess();
+     } else {
+        invitesService.updateInvite(this.state.invite.id,
+        this.state.invite).then(response => this.showUpdateSuccess());
+     }
    }
 
    render() {
@@ -55,9 +59,20 @@ import invitesService from "../../services/InvitesService";
              {this.state.event &&
                  <>
                    {!this.props.hideEventDetails && <>
-                     <h3>Event: {this.state.event.name} </h3>
-                     <h5>{this.state.event.description} </h5>
-                     <p>{this.state.event.date} </p>
+                    <div className="invite-response-form bg-white border-top border-left border-right p-3">
+                      <div className="row justify-content-between align-items-start">
+                        <div className="col">
+                         <h3 className="mt-1">{this.state.event.name} </h3>
+                         <h5>{this.state.event.description} </h5>
+                         <p className="mb-0">{this.state.event.date}</p>
+                         <p className="mb-0">{this.state.event.locationName}</p>
+                         <p className="mb-0">{this.state.event.locationCity} {this.state.event.locationState}</p>
+                        </div>
+                        <div className="col-auto">
+                          <Link to={`/events/${this.state.event.id}`} className="btn btn-primary">Visit Event Page</Link>
+                        </div>
+                      </div>
+                    </div>
                    </>}
                    <div className="invite-response-form border mb-3">
 
