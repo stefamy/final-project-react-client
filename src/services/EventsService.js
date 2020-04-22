@@ -2,7 +2,7 @@ import {API_URL} from '../common/constants';
 
 // CREATE
 export const createEvent = (userId, event) =>
-    fetch(`http://localhost:8080/api/events/${userId}`, {
+    fetch(`${API_URL}/api/events/${userId}`, {
       method: 'POST',
       body: JSON.stringify(event),
       headers: {
