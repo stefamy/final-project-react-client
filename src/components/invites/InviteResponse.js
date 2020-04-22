@@ -21,8 +21,12 @@ const InviteResponse = ({ invite, deleteInvite }) => {
   return (
         <li className="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            {invite.firstName}
-            {/*<Link to={`profile/` + invite.user.username}>{invite.firstName} {invite.lastName}</Link>*/}
+            {invite.guest.username &&
+            <Link to={`profile/` + invite.guest.username}>{invite.firstName} {invite.lastName}</Link>
+            }
+            {!invite.guest.username && <>
+              {invite.firstName} {invite.lastName}
+            </>}
             <span className={`ml-3 badge badge-pill ` + badgeClass(invite.response)}>{invite.response}</span>
           </div>
           <div>

@@ -6,6 +6,7 @@ import {
   UPDATE_INVITE
 } from "../common/InvitesConstants";
 import _ from 'lodash';
+import {cloneDeep} from "@babel/types";
 
 const initialState = {
   invites: [],
@@ -18,7 +19,9 @@ const invitesReducer = (state = initialState, action) => {
 
     case CREATE_INVITE:
       eventInvites = [...state.eventInvites];
-      eventInvites.push(action.invite);
+      const invite = _.cloneDeep(action.invite);
+      invite["guest"] = _.cloneDeep(action.guest)
+      eventInvites.push(invite);
 
       return {
         eventInvites: eventInvites

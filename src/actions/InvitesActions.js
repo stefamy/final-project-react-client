@@ -7,9 +7,10 @@ import {
 } from "../common/InvitesConstants";
 
 // CREATE
-export const createInvite = (invite) => ({
+export const createInvite = (newInvite) => ({
   type: CREATE_INVITE,
-  invite: invite
+  guest: newInvite.user,
+  invite: newInvite.invite
 })
 
 // READ
