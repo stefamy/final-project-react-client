@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
+import User from "./User";
 
 class Profile extends React.Component {
 
     state = {
-        profile: this.props.user
+        profile: this.props.user,
+        isEditing: false
     }
 
     handleProfileInput(attribute, newContent) {
@@ -21,27 +23,40 @@ class Profile extends React.Component {
       this.props.findUser();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
       if ((prevProps.user.id !== this.props.user.id) && this.props.user.id) {
         this.setState({profile: this.props.user});
+      }
+      if (prevState.isEditing !== this.state.isEditing) {
+        this.props.findUser();
       }
     }
 
     handleProfileSubmit(e) {
       e.preventDefault();
-      this.props.updateUser(this.state.profile);
+      userService.updateUser(this.state.profile).then(user => {
+        userActions.updateUser(user);
+        this.setState({isEditing: false});
+      });
     }
+
+  handleProfileEdit() {
+    this.setState({isEditing: true});
+  }
 
     render() {
         return(
-            <div className="bg-white border p-5">
-              <h1>Profile</h1>
+            <>
               {!this.props.user.id &&
-              <p>You are not logged in.<br/>
-              <Link to="/login">Log in to</Link> or <Link to="/register">register a new</Link> account.</p>
+              <div className="bg-white border p-5">
+                <h1>Profile</h1>
+                <p>You are not logged in.<br/>
+                <Link to="/login">Log in to</Link> or <Link to="/register">register a new</Link> account.</p>
+              </div>
               }
-              {this.props.user.id &&
-                <div>
+              {this.props.user.id && this.state.isEditing &&
+              <div className="bg-white border p-5">
+                <h1>Profile</h1>
                 <p>Hi {this.props.user.username}!</p>
                 <hr/>
               <div className="row">
@@ -230,7 +245,16 @@ class Profile extends React.Component {
               </div>
                 </div>
                   }
-            </div>
+
+              {this.props.user.id && !this.state.isEditing &&
+                <User
+                    edit={() => this.handleProfileEdit()}
+                    viewingOwnProfile={true}
+                    profile={this.props.user}
+                />
+              }
+
+            </>
         )
     }
 }

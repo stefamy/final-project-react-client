@@ -33,7 +33,7 @@ const userReducer = (state = initialState, action) => {
       }
 
     case UPDATE_USER:
-      user = _.cloneDeep(action.user)
+      user = _.cloneDeep(action.newUser)
 
       return {
         user: user

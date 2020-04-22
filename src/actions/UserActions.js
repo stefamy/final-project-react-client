@@ -25,7 +25,7 @@ export const logout = () => ({
 // UPDATE
 export const updateUser = (user) => ({
   type: UPDATE_USER,
-  user: user
+  newUser: user
 })
 
 export default {

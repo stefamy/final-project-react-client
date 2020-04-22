@@ -16,14 +16,27 @@ class User extends React.Component {
   }
 
   componentDidMount() {
-    this.props.findUser();
-    userService.findPublicProfile(this.props.username)
-    .then(profile => {
-      this.setState({ userViewing: profile });
-      if (this.props.user && this.props.user.id) {
-        this.checkUserRelationship();
-      }
-    });
+    if (this.props.profile && this.props.viewingOwnProfile) {
+      this.setState({
+        userViewing: this.props.profile,
+        viewingOwnProfile: true,
+        viewingGuestMutualEvent: true
+      });
+      eventsService.findGuestEventsForUser(this.props.user.id)
+      .then(events => {
+        this.setState({userViewingEvents: events});
+        this.setState({viewingGuestMutualEvent: true});
+      });
+    } else {
+      this.props.findUser();
+      userService.findPublicProfile(this.props.username)
+      .then(profile => {
+        this.setState({userViewing: profile});
+        if (this.props.user && this.props.user.id) {
+          this.checkUserRelationship();
+        }
+      });
+    }
   }
 
   checkUserRelationship() {
@@ -56,8 +69,7 @@ class User extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('this.state', this.state);
-    console.log('this.props', this.props);
+
   }
 
   render() {
@@ -65,7 +77,7 @@ class User extends React.Component {
         <div className="bg-white border p-5">
           <div className="row">
               <div className="col-12">
-                <h1>Profile</h1>
+                <h1>Profile {this.props.profile && <button className="btn pt-0" type="submit" onClick={this.props.edit}><i className="fa fa-pencil text-success"></i></button>}</h1>
                 <hr/>
               </div>
               {this.state.userViewing &&
