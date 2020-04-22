@@ -4,7 +4,6 @@ import CreateEvent from "./CreateEvent";
 import eventsService from "../../services/EventsService";
 import eventsActions from "../../actions/EventsActions";
 import { connect } from "react-redux";
-import CreateAssignment from "../assignments/CreateAssignment";
 
 class EventList extends Component {
 

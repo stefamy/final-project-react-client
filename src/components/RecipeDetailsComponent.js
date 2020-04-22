@@ -14,10 +14,6 @@ class RecipeDetailsComponent extends React.Component {
     recipeData: ''
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.retrieveRecipe();
     if (this.props.user.id) {

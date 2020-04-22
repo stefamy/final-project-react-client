@@ -9,11 +9,6 @@ export default class SearchResultsComponent extends React.Component {
     count: 0,
   };
 
-  constructor(props) {
-    super(props);
-
-  }
-
   sendQuery() {
     const query = this.props.queryText;
     fetch(

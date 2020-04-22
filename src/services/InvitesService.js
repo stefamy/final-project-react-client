@@ -1,4 +1,4 @@
-import {API_URL} from '../common/constants';
+import {API_URL} from '../common/ApiConstants';
 
 // CREATE
 export const createInvite = (eventId, invite) =>

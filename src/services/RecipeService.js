@@ -1,4 +1,4 @@
-import {X_RAPIDAPI_HOST, X_RAPIDAPI_KEY, X_RAPIDAPI_URL} from '../common/constants';
+import {X_RAPIDAPI_HOST, X_RAPIDAPI_KEY, X_RAPIDAPI_URL} from '../common/ApiConstants';
 
 export const findRecipesByQueryTerm = async (queryTerm) =>  {
 

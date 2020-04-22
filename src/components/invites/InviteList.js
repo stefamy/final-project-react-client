@@ -23,6 +23,8 @@ class InviteList extends Component {
       this.props.findInvitesByGuestId(this.props.user.id);
       this.setState({guestUser: false})
     }
+    console.log('this state', this.state);
+    console.log('this props', this.props);
   }
 
   render() {
@@ -40,14 +42,18 @@ class InviteList extends Component {
                 ))}
               </div>
           }
-          {this.state.guestUser &&
+
+          {this.state.guestUser && <>
+          <h2 className="pb-2">Your Invites</h2>
           <p>Please log in to view your invites.</p>
-          }
-          {!this.props.invites &&
-          <div>
+          </> }
+
+          {(!this.props.invites || !this.props.invites.length) &&  <>
+          <div className="bg-white p-3 border">
+            <h2 className="pb-2">Your Invites</h2>
             No invites yet...
           </div>
-          }
+         </> }
 
         </>
     );

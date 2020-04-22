@@ -24,6 +24,7 @@ class AssignmentList extends Component {
       this.props.findAssignmentByAssigneeUserId(this.props.user.id);
       this.setState({guestUser: false})
     }
+
   }
 
   render() {
@@ -47,11 +48,13 @@ class AssignmentList extends Component {
               }
               {this.state.guestUser &&
               <div className="bg-white p-3 border">
+                <h2 className="pb-2">Your Assignments</h2>
                 Please log in to view your assignments.
               </div>
               }
               {(!this.props.assignments || !this.props.assignments.length) &&
               <div className="bg-white p-3 border">
+                <h2 className="pb-2">Your Assignments</h2>
                 No assignments yet...<br/>
               </div>
               }
