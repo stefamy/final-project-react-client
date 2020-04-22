@@ -1,8 +1,8 @@
-// import {API_URL} from '../common/constants';
+import {API_URL} from '../common/constants';
 
 // CREATE
 export const createAssignment = (eventId, assignment) =>
-    fetch(`http://localhost:8080/api/events/${eventId}/assignments`, {
+    fetch(`${API_URL}/api/events/${eventId}/assignments`, {
       method: 'POST',
       body: JSON.stringify(assignment),
       headers: {
@@ -12,7 +12,7 @@ export const createAssignment = (eventId, assignment) =>
 
 // READ
 export const findAssignmentById = (assignmentId) =>
-    fetch(`http://localhost:8080/api/assignments/${assignmentId}`, {
+    fetch(`${API_URL}/api/assignments/${assignmentId}`, {
       method: 'GET',
     })
     .then( res => res.json());
@@ -20,21 +20,21 @@ export const findAssignmentById = (assignmentId) =>
 
 // READ
 export const findAssignmentByAssigneeUserId = (userId) =>
-    fetch(`http://localhost:8080/api/user/${userId}/assignments`, {
+    fetch(`${API_URL}/api/user/${userId}/assignments`, {
       method: 'GET'
     }).then(response => response.json());
 
 
 // READ
 export const findAllAssignmentsForEvent = (eventId) =>
-    fetch(`http://localhost:8080/api/events/${eventId}/assignments`, {
+    fetch(`${API_URL}/api/events/${eventId}/assignments`, {
       method: 'GET',
     })
     .then( res => res.json());
 
 // UPDATE
 export const updateAssignment = (assignmentId, assignment) =>
-    fetch(`http://localhost:8080/api/assignments/${assignmentId}`, {
+    fetch(`${API_URL}/api/assignments/${assignmentId}`, {
       method: 'PUT',
       body: JSON.stringify(assignment),
       headers: {
@@ -45,7 +45,7 @@ export const updateAssignment = (assignmentId, assignment) =>
 
 // DELETE
 export const deleteAssignment = (assignmentId) =>
-    fetch(`http://localhost:8080/api/assignments/${assignmentId}`, {
+    fetch(`${API_URL}/api/assignments/${assignmentId}`, {
       method: 'DELETE'
     }).then(response => response.json());
 

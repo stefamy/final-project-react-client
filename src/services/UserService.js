@@ -1,8 +1,8 @@
-// import {API_URL} from '../common/constants';
+import {API_URL} from '../common/constants';
 
 // CREATE
 export const register = (user) =>
-    fetch(`http://localhost:8080/register`, {
+    fetch(`${API_URL}/register`, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -13,7 +13,7 @@ export const register = (user) =>
 
 // READ
 export const areEmailAndUsernameAvailable = (user) =>
-    fetch(`http://localhost:8080/register/validate`, {
+    fetch(`${API_URL}/register/validate`, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -24,7 +24,7 @@ export const areEmailAndUsernameAvailable = (user) =>
 
 // READ
 export const findUser = () =>
-    fetch(`http://localhost:8080/profile`, {
+    fetch(`${API_URL}/profile`, {
       method: 'POST',
       credentials: "include"
     })
@@ -33,7 +33,7 @@ export const findUser = () =>
 
 // READ
 export const findPublicProfile = (username) =>
-    fetch(`http://localhost:8080/api/user/${username}`, {
+    fetch(`${API_URL}/api/user/${username}`, {
       method: 'GET'
     })
     .then( response => response.json())
@@ -42,7 +42,7 @@ export const findPublicProfile = (username) =>
 
 // DELETE
 export const deleteUser = () =>
-    fetch(`http://localhost:8080/profile`, {
+    fetch(`${API_URL}/profile`, {
       method: 'DELETE',
       credentials: "include"
     }).then(response => response.json())
@@ -51,7 +51,7 @@ export const deleteUser = () =>
 
 // UPDATE
 export const updateUser = (user) =>
-    fetch(`http://localhost:8080/profile`, {
+    fetch(`${API_URL}/profile`, {
       method: 'PUT',
       body: JSON.stringify(user),
       headers: {
@@ -64,7 +64,7 @@ export const updateUser = (user) =>
 
 // LOGOUT
 export const logout = () =>
-    fetch(`http://localhost:8080/logout`, {
+    fetch(`${API_URL}/logout`, {
       method: 'POST',
       credentials: "include"
     }).then(response => response.json())
@@ -72,7 +72,7 @@ export const logout = () =>
 
 // LOGIN
 export const login = (user) =>
-    fetch(`http://localhost:8080/login`, {
+    fetch(`${API_URL}/login`, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {

@@ -1,4 +1,4 @@
-// import {API_URL} from '../common/constants';
+import {API_URL} from '../common/constants';
 
 // CREATE
 export const createEvent = (userId, event) =>
@@ -12,7 +12,7 @@ export const createEvent = (userId, event) =>
 
 // READ
 export const findEventById = (eventId) =>
-    fetch(`http://localhost:8080/api/events/${eventId}`, {
+    fetch(`${API_URL}/api/events/${eventId}`, {
       method: 'GET',
     })
     .then( response => response.json())
@@ -21,7 +21,7 @@ export const findEventById = (eventId) =>
 
 // READ
 export const findHostEventsForUser = (userId) =>
-    fetch(`http://localhost:8080/api/events/host/${userId}`, {
+    fetch(`${API_URL}/api/events/host/${userId}`, {
       method: 'GET',
     })
     .then( response => response.json());
@@ -29,7 +29,7 @@ export const findHostEventsForUser = (userId) =>
 
 // READ
 export const findGuestEventsForUser = (userId) =>
-    fetch(`http://localhost:8080/api/events/guest/${userId}`, {
+    fetch(`${API_URL}/api/events/guest/${userId}`, {
       method: 'GET',
     })
     .then( response => response.json());
@@ -38,14 +38,14 @@ export const findGuestEventsForUser = (userId) =>
 
 // DELETE
 export const deleteEvent = (eventId) =>
-    fetch(`http://localhost:8080/api/events/${eventId}`, {
+    fetch(`${API_URL}/api/events/${eventId}`, {
       method: 'DELETE'
     }).then(response => response.json());
 
 
 // UPDATE
 export const updateEvent = (eventId, event) =>
-    fetch(`http://localhost:8080/api/events/${eventId}`, {
+    fetch(`${API_URL}/api/events/${eventId}`, {
       method: 'PUT',
       body: JSON.stringify(event),
       headers: {

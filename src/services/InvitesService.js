@@ -1,8 +1,8 @@
-// import {API_URL} from '../common/constants';
+import {API_URL} from '../common/constants';
 
 // CREATE
 export const createInvite = (eventId, invite) =>
-    fetch(`http://localhost:8080/api/events/${eventId}/invites`, {
+    fetch(`${API_URL}/api/events/${eventId}/invites`, {
       method: 'POST',
       body: JSON.stringify(invite),
       headers: {
@@ -12,14 +12,14 @@ export const createInvite = (eventId, invite) =>
 
 // READ
 export const findInviteById = (inviteId) =>
-    fetch(`http://localhost:8080/api/invites/${inviteId}`, {
+    fetch(`${API_URL}/api/invites/${inviteId}`, {
       method: 'GET',
     })
     .then( res => res.json());
 
 // READ
 export const findAllInvitesForEvent = (eventId) =>
-    fetch(`http://localhost:8080/api/events/${eventId}/invites`, {
+    fetch(`${API_URL}/api/events/${eventId}/invites`, {
       method: 'GET',
     })
     .then( res => res.json());
@@ -27,14 +27,14 @@ export const findAllInvitesForEvent = (eventId) =>
 
 // READ
 export const findInvitesByGuestId = (userId) =>
-    fetch(`http://localhost:8080/api/user/${userId}/invites`, {
+    fetch(`${API_URL}/api/user/${userId}/invites`, {
       method: 'GET'
     }).then(response => response.json());
 
 
 // UPDATE
 export const updateInvite = (inviteId, invite) =>
-    fetch(`http://localhost:8080/api/invites/${inviteId}`, {
+    fetch(`${API_URL}/api/invites/${inviteId}`, {
       method: 'PUT',
       body: JSON.stringify(invite),
       headers: {
