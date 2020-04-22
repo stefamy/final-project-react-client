@@ -46,7 +46,7 @@ class Event extends React.Component {
       const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
       this.setState({
         userInvite: invite,
-        guestUser: (invite && invite.id)
+        guestUser: !(invite && invite.id)
       });
     }
     if (prevProps.eventAssignments && (this.props.eventAssignments.length !== prevProps.eventAssignments.length)) {
@@ -113,7 +113,7 @@ class Event extends React.Component {
                 <h4>{this.state.event.description} </h4>
                 <p>{this.state.event.date} </p>
 
-                {((this.state.event.hostId === this.props.user.id) || !this.state.guestUser) &&
+                {((this.state.event.hostId === this.props.user.id) || this.state.userInvite) &&
                 <>
                   <p>
                     {this.state.event.locationName &&
@@ -134,8 +134,6 @@ class Event extends React.Component {
                   </p>
                 </>
                 }
-                {this.state.guestUser &&
-                <p>If you are attending this event, please <Link className="text-info" to="/login">log in</Link> to view additional event details.</p>}
             </div>
 
               <div className="col-12 bg-white p-3">
