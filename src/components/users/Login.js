@@ -49,7 +49,7 @@ export default class Login extends React.Component {
                 <div className="form-group">
                   <button
                       type="submit"
-                      className={`btn btn-primary btn-block`}>
+                      className={`btn btn-info btn-block`}>
                     Login
                   </button>
                 </div>

@@ -55,7 +55,7 @@ class Register extends React.Component {
           }
           {(!this.props.user || !this.props.user.id) &&
           <div className="row bg-white">
-            <div className="col-md-4 col-lg-6 col">
+            <div className="col-12">
               <form onSubmit={(e) => this.handleRegister(e, this.state)}>
 
                 {!this.state.usernameNotAvailable &&
@@ -152,7 +152,7 @@ class Register extends React.Component {
                 <div className="form-group">
                   <button
                       type="submit"
-                      className={`btn btn-primary btn-block`}>
+                      className={`btn btn-info btn-block`}>
                     Register
                   </button>
                 </div>

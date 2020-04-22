@@ -34,9 +34,9 @@ class HeaderContainer extends React.Component {
                     </ul>
                 }
                 {!this.props.user.username &&
-                  <ul className="nav navbar-nav">
+                  <ul className="nav navbar-nav flex-row col align-items-center justify-content-end">
                     <li><a href="/login" className="nav-link btn">Log in</a></li>
-                    <li><a href="/register" className="nav-link btn" >Register</a></li>
+                    <li className="ml-2"><a href="/register" className="nav-link btn" >Register</a></li>
                   </ul>
                   }
               </nav>
