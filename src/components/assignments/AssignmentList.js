@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import assignmentsService from "../../services/AssignmentsService";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import Assignment from "./Assignment";
-import {Link} from "react-router-dom";
 
 class AssignmentList extends Component {
 

@@ -14,12 +14,8 @@ import assignmentsActions from "../actions/AssignmentsActions";
 class HeaderContainer extends React.Component {
 
   componentDidMount() {
-    if (this.props.user.id) {
-      this.props.findAllUserData();
-    } else {
-      this.props.findUser();
-    }
-  }
+     this.props.findUser();
+   }
 
   componentDidUpdate(prevProps) {
   }
@@ -67,13 +63,15 @@ const dispatchToPropertyMapper = dispatch => {
     },
     findAllUserData: () => {
       userService.findUser().then(user => {
-        dispatch(userActions.findUser(user));
-        eventsService.findEventsForUser(user.id)
-        .then(events => dispatch(eventsActions.findAllEvents(events)));
-        invitesService.findInvitesByGuestId(user.id)
-        .then(invites => dispatch(invitesActions.findAllInvites(invites)));
-        assignmentsService.findAssignmentByAssigneeUserId(user.id)
-        .then(assignments => dispatch(assignmentsActions.findAllAssignments(assignments)));
+        if (user && user.id) {
+          dispatch(userActions.findUser(user));
+          eventsService.findEventsForUser(user.id)
+          .then(events => dispatch(eventsActions.findAllEvents(events)));
+          invitesService.findInvitesByGuestId(user.id)
+          .then(invites => dispatch(invitesActions.findAllInvites(invites)));
+          assignmentsService.findAssignmentByAssigneeUserId(user.id)
+          .then(assignments => dispatch(assignmentsActions.findAllAssignments(assignments)));
+        }
       });
     },
     logout: () => {

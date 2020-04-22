@@ -10,7 +10,7 @@ export default class Login extends React.Component {
   handleLogin(event, user) {
     event.preventDefault();
     login(user).then(currentUser => {
-      this.props.history.push('/profile');
+      this.props.history.push('/');
     })
   }
 

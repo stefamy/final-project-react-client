@@ -1,4 +1,4 @@
-import { CREATE_EVENT, FIND_ALL_EVENTS } from "../common/EventsConstants";
+import { CREATE_EVENT, FIND_ALL_EVENTS, DELETE_EVENT } from "../common/EventsConstants";
 import _ from 'lodash';
 
 const initialState = {
@@ -22,6 +22,14 @@ const eventsReducer = (state = initialState, action) => {
         return {
           events: events
         }
+
+    case DELETE_EVENT:
+      events = [...state.events];
+      _.remove(events, {id: action.eventId})
+
+      return {
+        events: events
+      }
 
     default:
       return state

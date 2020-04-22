@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import InviteResponse from "../invites/InviteResponse";
 import AssignmentResponse from "../assignments/AssignmentResponse";
-import Assignment from "../assignments/Assignment";
 import CreateInvite from "../invites/CreateInvite";
 import invitesActions from "../../actions/InvitesActions";
 import invitesService from "../../services/InvitesService";

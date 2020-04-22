@@ -36,7 +36,8 @@ export const findPublicProfile = (username) =>
     fetch(`http://localhost:8080/api/user/${username}`, {
       method: 'GET'
     })
-    .then( response => response.json());
+    .then( response => response.json())
+    .catch(res => '');
 
 
 // DELETE
@@ -44,7 +45,8 @@ export const deleteUser = () =>
     fetch(`http://localhost:8080/profile`, {
       method: 'DELETE',
       credentials: "include"
-    }).then(response => response.json());
+    }).then(response => response.json())
+    .catch(res => '');
 
 
 // UPDATE
@@ -57,6 +59,7 @@ export const updateUser = (user) =>
       },
       credentials: "include"
     }).then(response => response.json())
+      .catch(res => '');
 
 
 // LOGOUT
@@ -77,6 +80,7 @@ export const login = (user) =>
       },
       credentials: "include"
     }).then(response => response.json())
+    .catch(res => '');
 
 
 

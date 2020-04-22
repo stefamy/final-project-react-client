@@ -69,7 +69,10 @@ class AssignmentResponse extends React.Component {
             </label>
           </div>
           <div className="col d-flex justify-content-between align-items-center border-0">
-            <span>{assignment.title} {assignment.description}</span>
+            <div className="pt-3 pb-3">
+              <div><h5 className="mb-1">{assignment.title}</h5></div>
+              <div>{assignment.description}</div>
+            </div>
             {(this.state.updatedAssignment.status === assignment.status) && <>
               {(assignment.status === "Assigned" && assignment.assigneeUserId !== user.id) &&
                 <span className="badge badge-pill badge-light text-secondary border">{this.state.updatedAssignment.status}</span> }

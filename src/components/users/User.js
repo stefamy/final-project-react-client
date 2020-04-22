@@ -1,7 +1,6 @@
 import React from "react";
 import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
-import assignmentsService from "../../services/AssignmentsService";
 import EventPreview from "../events/EventPreview";
 import { connect } from "react-redux";
 import eventsService from "../../services/EventsService";

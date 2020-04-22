@@ -15,11 +15,12 @@ export const findEventById = (eventId) =>
     fetch(`http://localhost:8080/api/events/${eventId}`, {
       method: 'GET',
     })
-    .then( response => response.json());
+    .then( response => response.json())
+    .catch(res => console.log(res, eventId));
 
 
 // READ
-export const findEventsForUser = (userId) =>
+export const findHostEventsForUser = (userId) =>
     fetch(`http://localhost:8080/api/events/host/${userId}`, {
       method: 'GET',
     })
@@ -57,7 +58,7 @@ export const updateEvent = (eventId, event) =>
 export default {
   createEvent,
   findEventById,
-  findEventsForUser,
+  findHostEventsForUser,
   findGuestEventsForUser,
   deleteEvent,
   updateEvent

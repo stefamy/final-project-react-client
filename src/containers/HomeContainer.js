@@ -11,16 +11,11 @@ import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 import EventPreview from "../components/events/EventPreview";
 
-/**
- * @param {{queryText:string}} queryText
- * @param {{recipeId:string}} recipeId
- */
+
 class HomeContainer extends React.Component {
 
   componentDidMount() {
-    if (this.props.user) {
-      this.props.findAllUserData();
-    }
+     this.props.findAllUserData();
   }
 
 
@@ -28,8 +23,6 @@ class HomeContainer extends React.Component {
     if (prevProps.events.length !== this.props.events.length) {
       this.setState({nextEvent: this.getNextUpcomingEvent()})
     }
-    console.log(this.state);
-    console.log('this.props', this.props);
   }
 
   getNextUpcomingEvent() {
@@ -143,20 +136,23 @@ class HomeContainer extends React.Component {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findEventsForUser: userId => {
-      eventsService.findEventsForUser(userId).then(events => {
+    findHostEventsForUser: userId => {
+      eventsService.findHostEventsForUser(userId).then(events => {
         dispatch(eventsActions.findAllEvents(events));
       });
     },
     findAllUserData: () => {
       userService.findUser().then(user => {
-        dispatch(userActions.findUser(user));
-        eventsService.findEventsForUser(user.id)
-        .then(events => dispatch(eventsActions.findAllEvents(events)));
-        invitesService.findInvitesByGuestId(user.id)
-        .then(invites => dispatch(invitesActions.findAllInvites(invites)));
-        assignmentsService.findAssignmentByAssigneeUserId(user.id)
-        .then(assignments => dispatch(assignmentsActions.findAllAssignments(assignments)));
+        if (user && user.id) {
+          dispatch(userActions.findUser(user));
+          eventsService.findHostEventsForUser(user.id)
+          .then(events => dispatch(eventsActions.findAllEvents(events)));
+          invitesService.findInvitesByGuestId(user.id)
+          .then(invites => dispatch(invitesActions.findAllInvites(invites)));
+          assignmentsService.findAssignmentByAssigneeUserId(user.id)
+          .then(assignments => dispatch(
+              assignmentsActions.findAllAssignments(assignments)));
+        }
       });
     },
   };

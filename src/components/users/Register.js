@@ -1,5 +1,5 @@
 import React from "react";
-import userService, {login, register, areEmailAndUsernameAvailable} from "../../services/UserService";
+import userService, {register, areEmailAndUsernameAvailable} from "../../services/UserService";
 import {isMatching} from "../../util/passwords";
 import {Link} from "react-router-dom";
 import userActions from "../../actions/UserActions";
@@ -35,8 +35,6 @@ class Register extends React.Component {
     this.props.findUser();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-  }
 
   render() {
     return(
