@@ -3,10 +3,11 @@ import {
   DELETE_INVITE_FOR_EVENT,
   FIND_ALL_INVITES,
   FIND_ALL_INVITES_FOR_EVENT,
-  UPDATE_INVITE
+  UPDATE_INVITE,
+  UPDATE_INVITE_FOR_EVENT
 } from "../common/InvitesConstants";
 import _ from 'lodash';
-import {cloneDeep} from "@babel/types";
+
 
 const initialState = {
   invites: [],
@@ -53,6 +54,16 @@ const invitesReducer = (state = initialState, action) => {
 
       return {
         invites: _.cloneDeep(invites)
+      }
+
+
+    case UPDATE_INVITE_FOR_EVENT:
+      eventInvites = [...state.eventInvites];
+      const indexInEventList = _.findIndex(eventInvites, {id: action.invite.id});
+      eventInvites.splice(indexInEventList, 1, action.invite);
+
+      return {
+        eventInvites: _.cloneDeep(eventInvites)
       }
 
 

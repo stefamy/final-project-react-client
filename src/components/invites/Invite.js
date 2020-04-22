@@ -42,8 +42,10 @@ import invitesService from "../../services/InvitesService";
    handleUpdateInvite(e) {
      e.preventDefault();
      this.setState({ isUpdating: true});
-     invitesService.updateInvite(this.state.invite.id, this.state.invite)
-     .then(success => this.showUpdateSuccess());
+     this.props.updateInvite(this.state.invite.id, this.state.invite);
+     // invitesService.updateInvite(this.state.invite.id, this.state.invite)
+     // .then(success => this.showUpdateSuccess());
+     this.showUpdateSuccess();
    }
 
    render() {

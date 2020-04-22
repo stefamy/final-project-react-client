@@ -191,6 +191,8 @@ class Event extends React.Component {
                          event={this.state.event}
                          userId={this.props.user.id}
                          hideEventDetails={true}
+                         isHost={this.state.event.hostId === this.props.user.id}
+                         updateInvite={this.props.updateInvite}
                      />
                   </div>
                   }
@@ -239,6 +241,11 @@ const dispatchToPropertyMapper = dispatch => {
     deleteAssignment: (assignmentId) => {
       assignmentsService.deleteAssignment(assignmentId).then(response => {
         dispatch(assignmentsActions.deleteAssignmentForEvent(assignmentId));
+      });
+    },
+    updateInvite: (inviteId, invite) => {
+      invitesService.updateInvite(inviteId, invite).then(response => {
+        dispatch(invitesActions.updateInviteForEvent(invite));
       });
     },
     updateAssignment: (assignmentId, assignment) => {
