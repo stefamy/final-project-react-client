@@ -9,9 +9,9 @@ import eventsReducer from "./reducers/EventsReducer";
 import assignmentsReducer from "./reducers/AssignmentsReducer";
 import invitesReducer from "./reducers/InvitesReducer";
 import HeaderContainer from "./containers/HeaderContainer";
-// import SearchContainer from "./containers/SearchContainer";
-// import SearchResultsComponent from "./components/SearchResultsComponent";
-// import RecipeDetailsComponent from "./components/RecipeDetailsComponent";
+import SearchContainer from "./containers/SearchContainer";
+import SearchResultsComponent from "./components/SearchResultsComponent";
+import RecipeDetailsComponent from "./components/RecipeDetailsComponent";
 import Register from "./components/users/Register";
 import Profile from "./components/users/Profile";
 import User from "./components/users/User";
@@ -85,28 +85,6 @@ class App extends React.Component {
                         />
                     )}
                 />
-                {/*<Route*/}
-                {/*    path="/events/:eventId/assignments"*/}
-                {/*    exact={true}*/}
-                {/*    render={props => (*/}
-                {/*        <AssignmentList*/}
-                {/*            {...props}*/}
-                {/*            eventId={props.match.params.eventId}*/}
-                {/*            history={props.history}*/}
-                {/*        />*/}
-                {/*    )}*/}
-                {/*/>*/}
-                {/*<Route*/}
-                {/*    path="/events/:eventId/invites"*/}
-                {/*    exact={true}*/}
-                {/*    render={props => (*/}
-                {/*        <InviteList*/}
-                {/*            {...props}*/}
-                {/*            eventId={props.match.params.eventId}*/}
-                {/*            history={props.history}*/}
-                {/*        />*/}
-                {/*    )}*/}
-                {/*/>*/}
                 <Route
                     path="/invites"
                     exact={true}
@@ -160,32 +138,32 @@ class App extends React.Component {
                         />
                     )}
                 />
-              {/*<Route*/}
-              {/*    path="/search"*/}
-              {/*    exact={true}*/}
-              {/*    render={props => (*/}
-              {/*        <SearchContainer {...props} />*/}
-              {/*    )}*/}
-              {/*/>*/}
-              {/*<Route*/}
-              {/*    path="/results/:queryText"*/}
-              {/*    exact={true}*/}
-              {/*    render={props => (*/}
-              {/*        <SearchResultsComponent*/}
-              {/*            {...props}*/}
-              {/*            queryText={props.match.params.queryText}*/}
-              {/*        />*/}
-              {/*    )}*/}
-              {/*/>*/}
-              {/*<Route*/}
-              {/*    path="/recipe/:recipeId"*/}
-              {/*    render={props => (*/}
-              {/*        <RecipeDetailsComponent*/}
-              {/*            {...props}*/}
-              {/*            recipeId={props.match.params.recipeId}*/}
-              {/*        />*/}
-              {/*    )}*/}
-              {/*/>*/}
+              <Route
+                  path="/search"
+                  exact={true}
+                  render={props => (
+                      <SearchContainer {...props} />
+                  )}
+              />
+              <Route
+                  path="/results/:queryText"
+                  exact={true}
+                  render={props => (
+                      <SearchResultsComponent
+                          {...props}
+                          queryText={props.match.params.queryText}
+                      />
+                  )}
+              />
+              <Route
+                  path="/recipe/:recipeId"
+                  render={props => (
+                      <RecipeDetailsComponent
+                          {...props}
+                          recipeId={props.match.params.recipeId}
+                      />
+                  )}
+              />
             </Router>
               </div>
           </div>

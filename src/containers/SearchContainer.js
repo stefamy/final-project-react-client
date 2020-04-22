@@ -1,5 +1,5 @@
 import React from 'react'
-
+import SearchBarComponent from "../components/SearchBarComponent";
 
 
 
@@ -26,16 +26,11 @@ export default class SearchContainer extends React.Component {
 
   render() {
     return (
-          <div className="row">
-            <div className="col-4">
+          <div className="bg-white border rounded p-3 col-auto">
               <h3>Recipe Finder Tool</h3>
-              <form className="search-form" onSubmit={(e) => this.submitQuery(e)}>
-                <input className="form-control" type="text" value={this.state.queryText} placeholder="Search for recipes..."
-                 onChange={e => this.handleChange(e)}/>
-                  <button type="button" className="btn btn-primary" onClick={(e) => this.submitQuery(e)}>Search</button>
-              </form>
-            </div>
-            <div className="col-8"></div>
+              <SearchBarComponent
+                  history={this.props.history}
+              />
           </div>
     );
   }

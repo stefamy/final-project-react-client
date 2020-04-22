@@ -25,7 +25,7 @@ class HeaderContainer extends React.Component {
         <header className="bg-white  border-bottom">
               <nav className="container navbar navbar-expand-lg navbar-default justify-content-between">
                     <div className="navbar-header">
-                      <a className="navbar-brand" href="/">Potluck Party Planner</a>
+                      <a className="navbar-brand-info text-info" href="/">Potluck Party Planner</a>
                     </div>
                 {this.props.user.username &&
                     <ul className="nav navbar-nav">

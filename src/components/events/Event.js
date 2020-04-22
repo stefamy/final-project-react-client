@@ -155,7 +155,7 @@ class Event extends React.Component {
                       {!this.state.showCreateAssignment &&
                         <button
                           onClick={() => this.doShowCreateAssignment()}
-                          className="btn btn-primary">
+                          className="btn btn-outline-info">
                           Add New Assignment
                           </button>
                       }
@@ -191,7 +191,7 @@ class Event extends React.Component {
                     {!this.state.showCreateInvite &&
                       <button
                           onClick={() => this.doShowCreateInvite()}
-                          className="btn btn-primary">
+                          className="btn btn-outline-info">
                         Add New Invitation
                       </button>
                     }

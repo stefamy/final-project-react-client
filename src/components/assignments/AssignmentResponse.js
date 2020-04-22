@@ -25,6 +25,12 @@ class AssignmentResponse extends React.Component {
       newState.updatedAssignment.assigneeEmail = "";
       newState.updatedAssignment.dateOfResponse = "";
       newState.updatedAssignment.assigneeComments = "";
+      newState.updatedAssignment.glutenFree = 0;
+      newState.updatedAssignment.vegan = 0;
+      newState.updatedAssignment.vegetarian = 0;
+      newState.updatedAssignment.nutFree = 0;
+      newState.updatedAssignment.otherDietaryNotes = "";
+      newState.updatedAssignment.recipeLink = "";
     }
     this.setState(newState);
   }
@@ -38,6 +44,7 @@ class AssignmentResponse extends React.Component {
   handleUpdateAssignment(e) {
     e.preventDefault();
     this.props.updateAssignment(this.state.updatedAssignment.id, this.state.updatedAssignment)
+    this.setState({isEditingAssignment: false})
   }
 
   handleDeleteAssignment(e) {
@@ -47,6 +54,13 @@ class AssignmentResponse extends React.Component {
 
   handleNewDishCategory(e) {
     this.handleAssignmentInput('dishCat', e.target.value);
+  }
+
+  editAssignment(e) {
+    e.preventDefault();
+    this.setState({
+      isEditingAssignment: true
+    })
   }
 
   render() {
@@ -84,13 +98,13 @@ class AssignmentResponse extends React.Component {
             <div className="pt-3 pb-3">
               <div><h5 className="mb-1">{assignment.title}</h5></div>
               <div>{assignment.description}</div>
-              {assignment.type === 'Food/Drink' && assignment.status === 'Unassigned' && <div><Link to="/search" className="text-info">Find a recipe<i className="ml-2 fa fa-link"></i></Link></div>}
+              {assignment.type === 'Food/Drink' && assignment.status === 'Assigned' && assignment.recipeLink && <div><Link to={assignment.recipeLink} className="text-info">Link to recipe<i className="ml-2 fa fa-link"></i></Link></div>}
             </div>
             {(this.state.updatedAssignment.status === assignment.status) && <>
               {(assignment.status === "Assigned" && assignment.assigneeUserId !== user.id) &&
                 <span className="badge badge-pill badge-light text-secondary border">{this.state.updatedAssignment.status}</span> }
               {(assignment.status === "Assigned" && assignment.assigneeUserId === user.id) &&
-                <span className="badge badge-pill badge-success">{this.state.updatedAssignment.status} to you</span> }
+                <span className="btn badge badge-pill badge-success" onClick={(e) => this.editAssignment(e)}>{this.state.updatedAssignment.status} to you</span> }
               {assignment.status !== "Assigned" && <span className="badge badge-pill badge-warning">{this.state.updatedAssignment.status}</span>}
              </>}
           </div>
@@ -101,26 +115,16 @@ class AssignmentResponse extends React.Component {
             <div className="pt-3 pb-3"> Notes from assignee: {assignment.assigneeComments || "None provided"}</div>
           </div>
           }
-          {assignment.type === "Food/Drink" &&
-            <>
-            {assignment.recipeLink &&
-            <div className="col d-flex align-items-center justify-content-between border-top">
-                <div className="pt-3 pb-3 d-flex align-items-center">
-                 <Link to={assignment.recipeLlink}>Recipe link</Link>
-                </div>
-             </div>
-            }
-          </>
-          }
-          {(this.state.updatedAssignment.status !== assignment.status) && <>
+          {(this.state.updatedAssignment.status !== assignment.status || this.state.isEditingAssignment) && <>
             <div className="col pl-0 pr-0 input-group border-top">
             {(this.state.updatedAssignment.type === "Food/Drink") &&
               <div className="col-12 pt-3 border-bottom">
               <div className="form-group">
                 <label htmlFor="foodCategoryInput">Type Of Dish</label>
-                <select value={this.state.value} className="form-control"
+                <select defaultValue={assignment.dishCat || ""} className="form-control"
                         id="foodCategoryInput"
                         onChange={this.handleNewDishCategory.bind(this)}>
+                  <option value="" disabled>Dish Category</option>
                   <option value="Breakfast">Breakfast</option>
                   <option value="Lunch">Lunch</option>
                   <option value="Main">Main</option>
@@ -130,7 +134,7 @@ class AssignmentResponse extends React.Component {
                   <option value="Side">Side</option>
                   <option value="Meat">Meat</option>
                   <option value="Beverage">Beverage</option>
-                  <option value="Any/No Preference">Any/No Preference</option>
+                  <option value="Any/No Preference">Any/Other</option>
                 </select>
               </div>
               <div className="form-group">
@@ -216,9 +220,10 @@ class AssignmentResponse extends React.Component {
               <div className="input-group-addon border-left bg-light">
                 <button type="submit"
                         onClick={(e) => this.handleUpdateAssignment(e)}
-                        className="btn btn-primary special-border-radius">Save
+                        className="btn btn-info special-border-radius">Save
                 </button>
-              </div>
+
+            </div>
             </div>
           </>
           }

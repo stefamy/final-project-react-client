@@ -10,6 +10,7 @@ import invitesActions from "../actions/InvitesActions";
 import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 import EventPreview from "../components/events/EventPreview";
+import SearchBarComponent from "../components/SearchBarComponent";
 
 
 class HomeContainer extends React.Component {
@@ -57,7 +58,7 @@ class HomeContainer extends React.Component {
                   <div className="card-body">
                     <h5 className="card-title">Recent Recipe Review</h5>
                     <p className="card-text">Check out the recipe.</p>
-                    <Link to="/" className="btn btn-primary mr-2">Get the recipe</Link>
+                    <Link to="/" className="btn btn-outline-info mr-2">Get the recipe</Link>
                   </div>
                 </div>
               </div>
@@ -67,9 +68,8 @@ class HomeContainer extends React.Component {
           {this.props.user.id &&
             <div>
               <div className="mb-5 p-5 bg-white hero-unit rounded border">
-                  <h1>Welcome to the Party Planner App!</h1>
-                  <p>Tagline</p>
-                  <p><Link to="/" className="btn btn-primary btn-large">Learn more</Link></p>
+                  <h1>Welcome to the Party Planner App  🥳</h1>
+                  <p>Organizing and delegating tasks for your next group event so that you don't have to!</p>
               </div>
               <div className="row">
                   <div className="col-lg-6 col-12 pb-5">
@@ -88,37 +88,38 @@ class HomeContainer extends React.Component {
                             <h5 className="card-title">Create an Event</h5>
                             <p className="card-text">With supporting text below as a
                               natural lead-in to additional content.</p>
-                            <Link to="/events" className="btn btn-primary">Go to events</Link>
+                            <Link to="/events" className="btn outline-info">Go to events</Link>
                           </div>
                     </div> }
                 </div>
                 <div className="col-lg-6 col-12 pb-5">
-                <div className="card">
-                  <h5 className="card-header">Receive an Invite?</h5>
-                  <div className="card-body">
-                    <h5 className="card-title">RSVP to an Event</h5>
-                    <p className="card-text">With supporting text below as a
-                      natural lead-in to additional content.</p>
-                    <Link to="/invites" className="btn btn-primary">Go to invites</Link>
-                  </div>
-                </div>
-                </div>
-              </div>
-              <div className="row pb-5">
-                <div className="col">
                   <div className="card">
-                    <h5 className="card-header">Featured</h5>
+                    <h5 className="card-header">Receive an invite?</h5>
                     <div className="card-body">
-                      <h5 className="card-title">Special title treatment</h5>
+                      <h5 className="card-title">RSVP to an Event</h5>
                       <p className="card-text">With supporting text below as a
                         natural lead-in to additional content.</p>
-                      <Link to="/assignments" className="btn btn-primary">Go to assignments</Link>
+                      <Link to="/invites" className="btn btn-outline-info">Go to invites</Link>
                     </div>
-                 </div>
+                  </div>
                 </div>
               </div>
             </div>
-          }
+              }
+              <div className="row pb-5">
+                <div className="col">
+                  <div className="card">
+                    <h5 className="card-header">Unsure what to bring to your next party?</h5>
+                    <div className="card-body">
+                      <h5 className="card-titlcol-md-6e">Search through our database of 1000s of recipes.</h5>
+                        <SearchBarComponent
+                          history={this.props.history} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
         </>
     );
   }

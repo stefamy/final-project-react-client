@@ -78,9 +78,9 @@ export default class CreateInvite extends Component {
               />
             </div>
             <div className="form-group mt-3">
-              {!this.state.isSaving && <button type="submit" className="btn btn-primary">Add Invite</button> }
+              {!this.state.isSaving && <button type="submit" className="btn btn-info">Add Invite</button> }
               {this.state.showSuccess && <span className="text-success success-saved"> Added!</span> }
-              {this.state.isSaving && <button type="submit" disabled className="btn btn-primary">Update Response</button> }
+              {this.state.isSaving && <button type="submit" disabled className="btn btn-info">Update Response</button> }
             </div>
           </form>
         </div>
