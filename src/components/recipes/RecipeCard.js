@@ -5,7 +5,6 @@ function round_to_precision(x, precision) {
   return y - (y % (precision === undefined ? 1 : +precision));
 }
 
-
 const RecipeCard = ({ title, image, time, servings, ingredients, instructions, courses}) => (
         <div className="card">
           <img className="card-img-top" src={image} alt='' />

@@ -22,7 +22,6 @@ export default class CreateInvite extends Component {
 
   handleCreateInvite(e) {
     e.preventDefault();
-    console.log('this event invite', this.state.newInvite);
     this.props.createInvite(this.state.newInvite.eventId, this.state.newInvite);
     this.setState({
       newInvite: {

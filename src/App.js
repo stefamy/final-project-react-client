@@ -8,10 +8,11 @@ import userReducer from "./reducers/UserReducer";
 import eventsReducer from "./reducers/EventsReducer";
 import assignmentsReducer from "./reducers/AssignmentsReducer";
 import invitesReducer from "./reducers/InvitesReducer";
+import reviewsReducer from "./reducers/ReviewsReducer";
 import HeaderContainer from "./containers/HeaderContainer";
 import SearchContainer from "./containers/SearchContainer";
-import SearchResultsComponent from "./components/SearchResultsComponent";
-import RecipeDetailsComponent from "./components/RecipeDetailsComponent";
+import SearchResultsComponent from "./search/SearchResultsComponent";
+import RecipeDetailsComponent from "./components/recipes/RecipeDetailsComponent";
 import Register from "./components/users/Register";
 import Profile from "./components/users/Profile";
 import User from "./components/users/User";
@@ -29,7 +30,8 @@ class App extends React.Component {
     user: userReducer,
     events: eventsReducer,
     assignments: assignmentsReducer,
-    invites: invitesReducer
+    invites: invitesReducer,
+    reviews: reviewsReducer
   });
 
   store = createStore(this.rootReducer);

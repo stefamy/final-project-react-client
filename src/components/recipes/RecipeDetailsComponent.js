@@ -1,13 +1,14 @@
 import React from "react";
 import RecipeCard from './RecipeCard';
-import userService from "../services/UserService";
-import userActions from "../actions/UserActions";
-import assignmentsService from "../services/AssignmentsService";
-import assignmentsActions from "../actions/AssignmentsActions";
+import userService from "../../services/UserService";
+import userActions from "../../actions/UserActions";
+import assignmentsService from "../../services/AssignmentsService";
+import assignmentsActions from "../../actions/AssignmentsActions";
 import {connect} from "react-redux";
-import Assignment from "./assignments/Assignment";
-import SearchBarComponent from "./SearchBarComponent";
+import Assignment from "../assignments/Assignment";
+import SearchBarComponent from "../../search/SearchBarComponent";
 import {Link} from "react-router-dom";
+import {retrieveRecipe} from "../../services/RecipeService";
 
 
 class RecipeDetailsComponent extends React.Component {
@@ -17,7 +18,7 @@ class RecipeDetailsComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.retrieveRecipe();
+    this.handleRetrieveRecipe();
     if (this.props.user.id) {
       this.props.findAssignmentByAssigneeUserId(this.props.user.id);
     } else {
@@ -27,36 +28,20 @@ class RecipeDetailsComponent extends React.Component {
 
   }
 
-
-  retrieveRecipe() {
-    const recipeId = this.props.recipeId;
-    console.log('querying', recipeId);
-    fetch(
-        "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipeId + "/information",
-        {
-          "method": "GET",
-          "headers": {
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key": "4cb3ca57e6msh641ab0b4d2376ecp1f48f6jsna9a5d36c8e28"
-          }
-        })
-    .then(response => response.json()) // Getting the actual response data
-    .then(data => {
-      this.setState({
-        recipeData: data
-      });
-      console.log('this', this)
-      return data;
-    })
-    .catch(err => {
-      console.log(err);
+  handleRetrieveRecipe() {
+    retrieveRecipe(this.props.recipeId).then(data => {
+      if (data) {
+        this.setState({ recipeData: data });
+      } else {
+        this.setState({recipeNotFound: true});
+      }
     });
-
   }
+
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.recipeId !== this.props.recipeId) {
-      this.retrieveRecipe();
+      this.handleRetrieveRecipe();
     }
     if (prevProps.user && (this.props.user.id !== prevProps.user.id)) {
       this.props.findAssignmentByAssigneeUserId(this.props.user.id);

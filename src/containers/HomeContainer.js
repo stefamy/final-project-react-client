@@ -10,7 +10,7 @@ import invitesActions from "../actions/InvitesActions";
 import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 import EventPreview from "../components/events/EventPreview";
-import SearchBarComponent from "../components/SearchBarComponent";
+import SearchBarComponent from "../search/SearchBarComponent";
 
 
 class HomeContainer extends React.Component {

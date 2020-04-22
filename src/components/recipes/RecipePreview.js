@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 
 
-const RecipeResult = ({ recipeData }) => (
+const RecipePreview = ({ recipeData }) => (
       <div className="col-4 pb-3">
         <div className="card recipe-card">
           <div className="card-body">
@@ -17,4 +17,4 @@ const RecipeResult = ({ recipeData }) => (
       </div>
 );
 
-export default RecipeResult;
+export default RecipePreview;

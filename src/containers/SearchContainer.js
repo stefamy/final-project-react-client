@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchBarComponent from "../components/SearchBarComponent";
+import SearchBarComponent from "../search/SearchBarComponent";
 
 
 
