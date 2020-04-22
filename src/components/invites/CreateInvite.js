@@ -7,7 +7,10 @@ export default class CreateInvite extends Component {
     newInvite: {
       eventId: this.props.eventId,
       invitationDate: new Date(),
-      response: 'Pending'
+      response: 'Pending',
+      firstName: '',
+      lastName: '',
+      email: ''
     }
   }
 
@@ -20,6 +23,13 @@ export default class CreateInvite extends Component {
   handleCreateInvite(e) {
     e.preventDefault();
     this.props.createInvite(this.state.newInvite.eventId, this.state.newInvite);
+    this.setState({
+      newInvite: {
+        firstName: '',
+        lastName: '',
+        email: ''
+      }
+    })
   }
 
   showSaveSuccess() {
@@ -54,7 +64,7 @@ export default class CreateInvite extends Component {
                   onChange={(e) => this.handleNewInviteInput('lastName', e.target.value)}
                   className="form-control"
                   placeholder="Last name of the invitee"
-                  />
+              />
             </div>
             <div className="form-group">
               <label htmlFor="inviteEmailInput">Email Address</label>

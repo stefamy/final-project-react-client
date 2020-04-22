@@ -47,6 +47,14 @@ class Event extends React.Component {
         userInvite: invite
       });
     }
+    if (prevProps.eventAssignments && (this.props.eventAssignments.length !== prevProps.eventAssignments.length)) {
+      this.stopShowCreateAssignment();
+    }
+    if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
+      this.stopShowCreateInvite();
+    }
+    console.log('this state', this.state);
+    console.log('this props', this.props);
   }
 
   showUpdateSuccess() {
@@ -83,6 +91,14 @@ class Event extends React.Component {
       showCreateInvite: true
     })
   }
+
+
+  stopShowCreateInvite() {
+    this.setState({
+      showCreateInvite: false
+    })
+  }
+
 
   getUserInvite(userId) {
     return this.props.eventInvites.find(invite => invite.guestId === userId);
@@ -147,15 +163,18 @@ class Event extends React.Component {
                               key={index}
                               invite={invite}
                               event={this.state.event}
+                              deleteInvite={this.props.deleteInvite}
                           />
                       ))}
                     </ul>
                     </>}
-                  <button
-                      onClick={() => this.doShowCreateInvite()}
-                      className="btn btn-primary">
-                    Add New Invitation
-                  </button>
+                    {!this.state.showCreateInvite &&
+                      <button
+                          onClick={() => this.doShowCreateInvite()}
+                          className="btn btn-primary">
+                        Add New Invitation
+                      </button>
+                    }
                     {this.state.showCreateInvite &&
                     <CreateInvite
                         createInvite={this.props.createInvite}
@@ -207,6 +226,11 @@ const dispatchToPropertyMapper = dispatch => {
         dispatch(invitesActions.createInvite(invite));
       });
     },
+    deleteInvite: (inviteId) => {
+      invitesService.deleteInvite(inviteId).then(response => {
+        dispatch(invitesActions.deleteInviteForEvent(inviteId));
+      });
+    },
     createAssignment: (eventId, assignment) => {
       assignmentsService.createAssignment(eventId, assignment).then(assignment => {
         dispatch(assignmentsActions.createAssignment(assignment));
@@ -214,7 +238,7 @@ const dispatchToPropertyMapper = dispatch => {
     },
     deleteAssignment: (assignmentId) => {
       assignmentsService.deleteAssignment(assignmentId).then(response => {
-        dispatch(assignmentsActions.deleteAssignment(assignmentId));
+        dispatch(assignmentsActions.deleteAssignmentForEvent(assignmentId));
       });
     },
     updateAssignment: (assignmentId, assignment) => {

@@ -53,7 +53,7 @@ class AssignmentResponse extends React.Component {
     return (
         <div className="assignment border mb-3">
           <div className="assignment-header d-flex justify-content-between align-items-center pl-3 pr-3 pt-2 pb-2 bg-light border-bottom">
-            {assignment.type}
+            {assignment.type || 'Task'}
             {this.props.isHost && <button className="btn" onClick={(e) => this.handleDeleteAssignment(e)}><i className="text-danger fa fa-close"></i></button>}
           </div>
           <div className="assignment-body d-flex">

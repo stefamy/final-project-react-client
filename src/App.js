@@ -50,6 +50,7 @@ class App extends React.Component {
                     render={props => (
                         <HomeContainer
                             {...props}
+                            history={props.history}
                         />
                     )}
                 />

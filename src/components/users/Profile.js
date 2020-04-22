@@ -36,7 +36,7 @@ class Profile extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className="bg-white border p-4">
               <h1>Profile</h1>
               {!this.props.user.id &&
               <p>You are not logged in.<br/>
@@ -154,50 +154,45 @@ class Profile extends React.Component {
                   <div className="form-group">
 
                   <div className="form-check">
-                    <label htmlFor="glutenFreeInput">Gluten Free</label>
-
+                    <label htmlFor="glutenFreeInput">
                     <input
                         checked={this.props.user.glutenFree ? 1 : 0}
                         type="checkbox"
                         id="glutenFreeInput"
                         onChange={(e) => this.handleProfileInput('glutenFree',e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
-                    />
-
+                    /> Gluten Free</label>
                   </div>
                   <div className="form-check">
-                    <label htmlFor="vegetarianInput">Vegetarian</label>
+                    <label htmlFor="vegetarianInput">
                     <input
                         checked={this.props.user.vegetarian ? 1 : 0}
                         type="checkbox"
                         id="vegetarianInput"
                         onChange={(e) => this.handleProfileInput('vegetarian', e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
-                    />
+                    />Vegetarian</label>
                   </div>
                   <div className="form-check">
-                    <label htmlFor="veganInput">Vegan</label>
-
+                    <label htmlFor="veganInput">
                     <input
                         checked={this.props.user.vegan ? 1 : 0}
                         type="checkbox"
                         id="veganInput"
                         onChange={(e) => this.handleProfileInput('vegan', e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
-                    />
+                    />Vegan</label>
 
                   </div>
                   <div className="form-check">
-                    <label htmlFor="nutAllergyInput">Nut Allergy</label>
-
+                    <label htmlFor="nutAllergyInput">
                     <input
                         checked={this.props.user.nutAllergy ? 1 : 0}
                         type="checkbox"
                         id="nutAllergyInput"
                         onChange={(e) => this.handleProfileInput('nutAllergy', e.target.checked ? 1 : 0)}
                         className={`form-check-input`}
-                    />
-
+                    />Nut Allergy</label>
                   </div>
                     <div className="form-group">
                       <label htmlFor="otherDietaryInput">Other Dietary Restrictions</label>

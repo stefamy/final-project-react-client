@@ -1,6 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
+import eventsService from "../services/EventsService";
+import eventsActions from "../actions/EventsActions";
+import userService from "../services/UserService";
+import userActions from "../actions/UserActions";
+import invitesService from "../services/InvitesService";
+import invitesActions from "../actions/InvitesActions";
+import assignmentsService from "../services/AssignmentsService";
+import assignmentsActions from "../actions/AssignmentsActions";
+import EventPreview from "../components/events/EventPreview";
 
 /**
  * @param {{queryText:string}} queryText
@@ -9,10 +18,22 @@ import {Link} from "react-router-dom";
 class HomeContainer extends React.Component {
 
   componentDidMount() {
+    if (this.props.user) {
+      this.props.findAllUserData();
+    }
   }
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.events.length !== this.props.events.length) {
+      this.setState({nextEvent: this.getNextUpcomingEvent()})
+    }
+    console.log(this.state);
+    console.log('this.props', this.props);
+  }
+
+  getNextUpcomingEvent() {
+    return this.props.events.find(event => new Date(event.date) >= new Date());
   }
 
   render() {
@@ -58,16 +79,25 @@ class HomeContainer extends React.Component {
                   <p><Link to="/" className="btn btn-primary btn-large">Learn more</Link></p>
               </div>
               <div className="row">
-                <div className="col-lg-6 col-12 pb-5">
-                  <div className="card">
-                    <h5 className="card-header">Hosting a Party?</h5>
-                    <div className="card-body">
-                      <h5 className="card-title">Create an Event</h5>
-                      <p className="card-text">With supporting text below as a
-                        natural lead-in to additional content.</p>
-                      <Link to="/events" className="btn btn-primary">Go to events</Link>
-                    </div>
-                  </div>
+                  <div className="col-lg-6 col-12 pb-5">
+                    {this.state && this.state.nextEvent && <>
+                       <EventPreview
+                            headerText="Next Upcoming Event: "
+                            event={this.state.nextEvent}
+                            history={this.props.history}
+                            userId={this.props.user.id}
+                        />
+                    </>}
+                    {this.state && this.state.nextEvent &&
+                    <div className="card">
+                      <h5 className="card-header">No upcoming events.</h5>
+                        <div className="card-body">
+                            <h5 className="card-title">Create an Event</h5>
+                            <p className="card-text">With supporting text below as a
+                              natural lead-in to additional content.</p>
+                            <Link to="/events" className="btn btn-primary">Go to events</Link>
+                          </div>
+                    </div> }
                 </div>
                 <div className="col-lg-6 col-12 pb-5">
                 <div className="card">
@@ -110,6 +140,29 @@ class HomeContainer extends React.Component {
     };
   };
 
+
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    findEventsForUser: userId => {
+      eventsService.findEventsForUser(userId).then(events => {
+        dispatch(eventsActions.findAllEvents(events));
+      });
+    },
+    findAllUserData: () => {
+      userService.findUser().then(user => {
+        dispatch(userActions.findUser(user));
+        eventsService.findEventsForUser(user.id)
+        .then(events => dispatch(eventsActions.findAllEvents(events)));
+        invitesService.findInvitesByGuestId(user.id)
+        .then(invites => dispatch(invitesActions.findAllInvites(invites)));
+        assignmentsService.findAssignmentByAssigneeUserId(user.id)
+        .then(assignments => dispatch(assignmentsActions.findAllAssignments(assignments)));
+      });
+    },
+  };
+};
+
   export default connect(
-      stateToPropertyMapper
+      stateToPropertyMapper,
+      dispatchToPropertyMapper
   )(HomeContainer);

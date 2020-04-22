@@ -12,7 +12,7 @@ class InviteList extends Component {
 
   componentDidMount() {
     if (this.props.user.id) {
-      this.props.findInviteByGuestId(this.props.user.id);
+      this.props.findInvitesByGuestId(this.props.user.id);
     }
   }
 

@@ -43,7 +43,6 @@ export const updateInvite = (inviteId, invite) =>
     }).then(response => response.json())
 
 
-
 // DELETE
 export const deleteInvite = (inviteId) =>
     fetch(`http://localhost:8080/api/invites/${inviteId}`, {

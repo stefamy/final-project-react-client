@@ -2,9 +2,9 @@ import {
   CREATE_INVITE,
   FIND_ALL_INVITES,
   FIND_ALL_INVITES_FOR_EVENT,
+  DELETE_INVITE_FOR_EVENT,
   UPDATE_INVITE
 } from "../common/InvitesConstants";
-
 
 // CREATE
 export const createInvite = (invite) => ({
@@ -19,11 +19,11 @@ export const findAllInvites = (invites) => ({
 })
 
 // READ
-export const findAllInvitesForEvent = (invites) => ({
+export const findAllInvitesForEvent = (guestList) => ({
   type: FIND_ALL_INVITES_FOR_EVENT,
-  invites: invites
+  guests: guestList.users,
+  invites: guestList.invites
 })
-
 
 // READ
 export const updateInvite = (invite) => ({
@@ -31,10 +31,18 @@ export const updateInvite = (invite) => ({
   invite: invite
 })
 
+// READ
+export const deleteInviteForEvent = (inviteId) => ({
+  type: DELETE_INVITE_FOR_EVENT,
+  inviteId: inviteId
+})
+
+
 
 export default {
   createInvite,
   findAllInvites,
   findAllInvitesForEvent,
+  deleteInviteForEvent,
   updateInvite
 }

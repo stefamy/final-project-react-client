@@ -1,4 +1,10 @@
-import { CREATE_INVITE, FIND_ALL_INVITES, FIND_ALL_INVITES_FOR_EVENT, UPDATE_INVITE } from "../common/InvitesConstants";
+import {
+  CREATE_INVITE,
+  DELETE_INVITE_FOR_EVENT,
+  FIND_ALL_INVITES,
+  FIND_ALL_INVITES_FOR_EVENT,
+  UPDATE_INVITE
+} from "../common/InvitesConstants";
 import _ from 'lodash';
 
 const initialState = {
@@ -7,7 +13,7 @@ const initialState = {
 }
 
 const invitesReducer = (state = initialState, action) => {
-  let invites, eventInvites;
+  let invites, eventInvites, guests;
   switch (action.type) {
 
     case CREATE_INVITE:
@@ -24,12 +30,18 @@ const invitesReducer = (state = initialState, action) => {
         invites: invites
       }
 
+
     case FIND_ALL_INVITES_FOR_EVENT:
-      eventInvites = _.sortBy(action.invites, 'invitationDate')
+      guests = _.sortBy(action.guests, 'firstName');
+      eventInvites = _.sortBy(action.invites, 'invitationDate');
+      eventInvites.forEach(invite => {
+        const guestIndex = _.findIndex(guests, {id: invite.guestId});
+        invite.guest = _.cloneDeep(guests[guestIndex]);
+      });
+
       return {
         eventInvites: eventInvites
       }
-
 
     case UPDATE_INVITE:
       invites = [...state.invites];
@@ -39,6 +51,16 @@ const invitesReducer = (state = initialState, action) => {
       return {
         invites: _.cloneDeep(invites)
       }
+
+
+    case DELETE_INVITE_FOR_EVENT:
+      eventInvites = [...state.eventInvites];
+      _.remove(eventInvites, {id: action.inviteId})
+
+      return {
+        eventInvites: eventInvites
+      }
+
 
     default:
       return state
