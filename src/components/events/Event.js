@@ -143,7 +143,7 @@ class Event extends React.Component {
                           <AssignmentResponse
                               key={index}
                               assignment={assignment}
-                              isHost={this.state.event.id === this.props.user.id}
+                              isHost={this.state.event.hostId === this.props.user.id}
                               user={this.props.user}
                               updateAssignment={this.props.updateAssignment}
                               deleteAssignment={this.props.deleteAssignment}

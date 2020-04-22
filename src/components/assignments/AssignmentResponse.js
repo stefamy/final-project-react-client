@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class AssignmentResponse extends React.Component {
 
@@ -44,6 +45,9 @@ class AssignmentResponse extends React.Component {
     this.props.deleteAssignment(this.state.updatedAssignment.id);
   }
 
+  handleNewDishCategory(e) {
+    this.handleAssignmentInput('dishCat', e.target.value);
+  }
 
   render() {
     const assignment = this.props.assignment;
@@ -53,7 +57,15 @@ class AssignmentResponse extends React.Component {
     return (
         <div className="assignment border mb-3">
           <div className="assignment-header d-flex justify-content-between align-items-center pl-3 pr-3 pt-2 pb-2 bg-light border-bottom">
-            {assignment.type || 'Task'}
+            <div>{assignment.type || 'Task'} {assignment.type === "Food/Drink" &&
+                  <span className="pl-3 pr-3">
+                    {this.state.updatedAssignment.vegan === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Vegan</span> }
+                    {this.state.updatedAssignment.vegetarian === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Vegetarian</span> }
+                    {this.state.updatedAssignment.glutenFree === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Gluten Free</span> }
+                    {this.state.updatedAssignment.nutFree === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Nut Free</span> }
+                  </span>
+             }
+            </div>
             {this.props.isHost && <button className="btn" onClick={(e) => this.handleDeleteAssignment(e)}><i className="text-danger fa fa-close"></i></button>}
           </div>
           <div className="assignment-body d-flex">
@@ -72,6 +84,7 @@ class AssignmentResponse extends React.Component {
             <div className="pt-3 pb-3">
               <div><h5 className="mb-1">{assignment.title}</h5></div>
               <div>{assignment.description}</div>
+              {assignment.type === 'Food/Drink' && assignment.status === 'Unassigned' && <div><Link to="/search" className="text-info">Find a recipe<i className="ml-2 fa fa-link"></i></Link></div>}
             </div>
             {(this.state.updatedAssignment.status === assignment.status) && <>
               {(assignment.status === "Assigned" && assignment.assigneeUserId !== user.id) &&
@@ -82,17 +95,132 @@ class AssignmentResponse extends React.Component {
              </>}
           </div>
         </div>
-          {(this.state.updatedAssignment.status !== assignment.status) &&
-          <div className="col pl-0 pr-0 input-group border-top">
+          {assignment.status === "Assigned" && this.props.isHost &&
+          <div className="col d-flex align-items-center justify-content-between border-top">
+            <div className="pt-3 pb-3">Assigned to: {assignment.assigneeFirstName} {assignment.assigneeLastName}</div>
+            <div className="pt-3 pb-3"> Notes from assignee: {assignment.assigneeComments || "None provided"}</div>
+          </div>
+          }
+          {assignment.type === "Food/Drink" &&
+            <>
+            {assignment.recipeLink &&
+            <div className="col d-flex align-items-center justify-content-between border-top">
+                <div className="pt-3 pb-3 d-flex align-items-center">
+                 <Link to={assignment.recipeLlink}>Recipe link</Link>
+                </div>
+             </div>
+            }
+          </>
+          }
+          {(this.state.updatedAssignment.status !== assignment.status) && <>
+            <div className="col pl-0 pr-0 input-group border-top">
+            {(this.state.updatedAssignment.type === "Food/Drink") &&
+              <div className="col-12 pt-3 border-bottom">
+              <div className="form-group">
+                <label htmlFor="foodCategoryInput">Type Of Dish</label>
+                <select value={this.state.value} className="form-control"
+                        id="foodCategoryInput"
+                        onChange={this.handleNewDishCategory.bind(this)}>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Lunch">Lunch</option>
+                  <option value="Main">Main</option>
+                  <option value="Snack">Snack</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Starch">Starch</option>
+                  <option value="Side">Side</option>
+                  <option value="Meat">Meat</option>
+                  <option value="Beverage">Beverage</option>
+                  <option value="Any/No Preference">Any/No Preference</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="glutenFreeInput">
+                    <input
+                        defaultChecked={assignment.glutenFree}
+                        type="checkbox"
+                        id="glutenFreeInput"
+                        onChange={(e) => this.handleAssignmentInput(
+                            'glutenFree', e.target.checked ? 1 : 0)}
+                        className="form-check-input"
+                    />Gluten Free</label>
+                </div>
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="vegetarianInput">
+                    <input
+                        defaultChecked={assignment.vegetarian}
+                        type="checkbox"
+                        id="vegetarianInput"
+                        onChange={(e) => this.handleAssignmentInput(
+                            'vegetarian', e.target.checked ? 1 : 0)}
+                        className="form-check-input"
+                    />
+                    Vegetarian</label>
+                </div>
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="veganInput">
+                    <input
+                        defaultChecked={assignment.vegan}
+                        type="checkbox"
+                        id="veganInput"
+                        onChange={(e) => this.handleAssignmentInput('vegan',
+                            e.target.checked ? 1 : 0)}
+                        className="form-check-input"
+                    />
+                    Vegan</label>
+                </div>
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="nutFreeInput">
+                    <input
+                        defaultChecked={assignment.nutFree}
+                        type="checkbox"
+                        id="nutFreeInput"
+                        onChange={(e) => this.handleAssignmentInput('nutFree',
+                            e.target.checked ? 1 : 0)}
+                        className="form-check-input"
+                    />
+                    Nut Allergy</label>
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="otherDietaryNotes">Other Dietary Notes</label>
+                <input
+                    id="otherDietaryNotes"
+                    onChange={(e) => this.handleAssignmentInput(
+                        'otherDietaryNotes', e.target.value)}
+                    className={`form-control`}
+                    placeholder='Example: Something with low-sugar content'
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="recipeLinkInput">Recipe Link</label>
+                <input
+                    id="recipeLinkInput"
+                    onChange={(e) => this.handleAssignmentInput('recipeLink',
+                        e.target.value)}
+                    className={`form-control`}
+                    placeholder='Example: https://www.kingarthurflour.com/recipes/cornbread-recipe'
+                />
+              </div>
+
+            </div>
+            }
               <input id={`assigneeCommentsInput` + assignment.id}
                      name="assigneeComments"
                      type="text"
                      className="form-control border-0"
                      placeholder="Comments for event organizer"
-                     onChange={(e) => this.handleAssignmentInput('assigneeComments', e.target.value)}
+                     onChange={(e) => this.handleAssignmentInput(
+                         'assigneeComments', e.target.value)}
               />
-              <div className="input-group-addon border-left bg-light"><button type="submit" onClick={(e) => this.handleUpdateAssignment(e)} className="btn btn-primary special-border-radius">Save</button></div>
-          </div>
+              <div className="input-group-addon border-left bg-light">
+                <button type="submit"
+                        onClick={(e) => this.handleUpdateAssignment(e)}
+                        className="btn btn-primary special-border-radius">Save
+                </button>
+              </div>
+            </div>
+          </>
           }
 
         </div>
