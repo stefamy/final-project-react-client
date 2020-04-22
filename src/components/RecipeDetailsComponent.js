@@ -71,7 +71,7 @@ class RecipeDetailsComponent extends React.Component {
     const recipe = this.state.recipeData;
     return (
         <div>
-          <div class="title-area d-flex align-items-center justify-content-between p-3 border rounded bg-white mb-3">
+          <div className="title-area d-flex align-items-center justify-content-between p-3 border rounded bg-white mb-3">
           <h1>Recipe Details</h1>
             <button type="button" className="btn btn-primary" onClick={this.props.history.goBack}>Back</button>
           </div>
