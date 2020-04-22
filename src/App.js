@@ -118,6 +118,17 @@ class App extends React.Component {
                     )}
                 />
                 <Route
+                    path="/profile/user/edit"
+                    exact={true}
+                    render={props => (
+                        <Profile
+                            {...props}
+                            history={props.history}
+                            isEditing={true}
+                        />
+                    )}
+                />
+                <Route
                     path="/profile/:username"
                     exact={true}
                     render={props => (

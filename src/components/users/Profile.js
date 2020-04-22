@@ -9,14 +9,13 @@ class Profile extends React.Component {
 
     state = {
         profile: this.props.user,
-        isEditing: false
+        isEditing: this.props.isEditing
     }
 
     handleProfileInput(attribute, newContent) {
       let newState = Object.assign({}, this.state);
       newState.profile[attribute] = newContent;
       this.setState(newState);
-      console.log('this.state', this.state);
     }
 
     componentDidMount() {
@@ -29,15 +28,13 @@ class Profile extends React.Component {
       }
       if (prevState.isEditing !== this.state.isEditing) {
         this.props.findUser();
+        this.setState({profile: this.props.user});
       }
     }
 
     handleProfileSubmit(e) {
       e.preventDefault();
-      userService.updateUser(this.state.profile).then(user => {
-        userActions.updateUser(user);
-        this.setState({isEditing: false});
-      });
+      this.props.updateUser(this.state.profile, () => this.setState({isEditing: false}));
     }
 
   handleProfileEdit() {
@@ -169,7 +166,7 @@ class Profile extends React.Component {
                   <div className="form-check">
                     <label htmlFor="glutenFreeInput">
                     <input
-                        checked={this.props.user.glutenFree ? 1 : 0}
+                        checked={this.state.profile.glutenFree ? 1 : 0}
                         type="checkbox"
                         id="glutenFreeInput"
                         onChange={(e) => this.handleProfileInput('glutenFree',e.target.checked ? 1 : 0)}
@@ -179,7 +176,7 @@ class Profile extends React.Component {
                   <div className="form-check">
                     <label htmlFor="vegetarianInput">
                     <input
-                        checked={this.props.user.vegetarian ? 1 : 0}
+                        checked={this.state.profile.vegetarian ? 1 : 0}
                         type="checkbox"
                         id="vegetarianInput"
                         onChange={(e) => this.handleProfileInput('vegetarian', e.target.checked ? 1 : 0)}
@@ -189,7 +186,7 @@ class Profile extends React.Component {
                   <div className="form-check">
                     <label htmlFor="veganInput">
                     <input
-                        checked={this.props.user.vegan ? 1 : 0}
+                        checked={this.state.profile.vegan ? 1 : 0}
                         type="checkbox"
                         id="veganInput"
                         onChange={(e) => this.handleProfileInput('vegan', e.target.checked ? 1 : 0)}
@@ -200,7 +197,7 @@ class Profile extends React.Component {
                   <div className="form-check">
                     <label htmlFor="nutAllergyInput">
                     <input
-                        checked={this.props.user.nutAllergy ? 1 : 0}
+                        checked={this.state.profile.nutAllergy ? 1 : 0}
                         type="checkbox"
                         id="nutAllergyInput"
                         onChange={(e) => this.handleProfileInput('nutAllergy', e.target.checked ? 1 : 0)}
@@ -279,10 +276,11 @@ const dispatchToPropertyMapper = dispatch => {
       userService.logout()
       .then(() => dispatch(userActions.logout()));
     },
-    updateUser: (user) => {
+    updateUser: (user, reSetState) => {
       userService.updateUser(user)
-      .then(user => {
-        dispatch(userActions.updateUser(user));
+      .then(newUser => {
+        dispatch(userActions.updateUser(newUser));
+        reSetState();
       });
     },
   };

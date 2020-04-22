@@ -5,6 +5,7 @@ import EventPreview from "../events/EventPreview";
 import { connect } from "react-redux";
 import eventsService from "../../services/EventsService";
 import AssignmentList from "../assignments/AssignmentList";
+import {Link} from "react-router-dom";
 
 class User extends React.Component {
 
@@ -15,9 +16,10 @@ class User extends React.Component {
   }
 
   componentDidMount() {
+    this.props.findUser();
     if (this.props.profile && this.props.viewingOwnProfile) {
       this.setState({
-        userViewing: this.props.profile,
+        userViewing: this.props.user,
         viewingOwnProfile: true,
         viewingGuestMutualEvent: true
       });
@@ -27,7 +29,6 @@ class User extends React.Component {
         this.setState({viewingGuestMutualEvent: true});
       });
     } else {
-      this.props.findUser();
       userService.findPublicProfile(this.props.username)
       .then(profile => {
         this.setState({userViewing: profile});
@@ -76,12 +77,16 @@ class User extends React.Component {
         <div className="bg-white border p-5">
           <div className="row">
               <div className="col-12">
-                <h1>Profile {this.props.profile && <button className="btn pt-0" type="submit" onClick={this.props.edit}><i className="fa fa-pencil text-success"></i></button>}</h1>
+                <h1>Profile
+                  {this.props.profile && <button className="btn pt-0" type="submit" onClick={this.props.edit}><i className="fa fa-pencil text-success"></i></button>}
+                  {!this.props.profile &&  this.state.viewingOwnProfile && <Link to="/profile/user/edit" className="btn pt-0" type="submit" onClick={this.props.edit}><i className="fa fa-pencil text-success"></i></Link>}</h1>
+
                 <hr/>
               </div>
               {this.state.userViewing &&
               <div className="col-lg-7 col-12">
-                <h2>{this.state.userViewing.firstName} {String(this.state.userViewing.lastName).charAt(0)}. {this.state.viewingOwnProfile && " (that's you!)"}</h2>
+                <h2>
+                  {this.state.userViewing.firstName} {String(this.state.userViewing.lastName).charAt(0)}. {this.state.viewingOwnProfile && " (that's you!)"}</h2>
                 {this.state.userViewing.city && !this.state.userViewing.state && <p>{this.state.userViewing.city}</p> }
                 {this.state.userViewing.city && this.state.userViewing.state &&
                   <p>{this.state.userViewing.city}, {this.state.userViewing.state}</p> }
@@ -122,31 +127,31 @@ class User extends React.Component {
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item ml-0 pl-0">
                     Gluten Free:
-                    {this.state.userViewing.glutenFree === 1 && " Yes"}
+                    {this.state.userViewing.glutenFree === 1 && <b> Yes</b>}
                     {this.state.userViewing.glutenFree === 0 && " No"}
                     {(this.state.userViewing.glutenFree !== 1
-                    || this.state.userViewing.glutenFree !== 1) && " Unknown"}
+                        && this.state.userViewing.glutenFree !== 0) && " Unknown"}
                   </li>
                   <li className="list-group-item ml-0 pl-0">
                     Vegetarian:
-                    {this.state.userViewing.vegetarian === 1 && " Yes"}
+                    {this.state.userViewing.vegetarian === 1 && <b> Yes</b>}
                     {this.state.userViewing.vegetarian === 0 && " No"}
                     {(this.state.userViewing.vegetarian !== 1
-                    || this.state.userViewing.vegetarian !== 1) && " Unknown"}
+                    && this.state.userViewing.vegetarian !== 0) && " Unknown"}
                   </li>
                   <li className="list-group-item ml-0 pl-0">
                     Vegan:
-                    {this.state.userViewing.vegan === 1 && " Yes"}
+                    {this.state.userViewing.vegan === 1 && <b> Yes</b>}
                     {this.state.userViewing.vegan === 0 && " No"}
                     {(this.state.userViewing.vegan !== 1
-                    || this.state.userViewing.vegan !== 1) && " Unknown"}
+                        && this.state.userViewing.vegan !== 0) && " Unknown"}
                   </li>
                   <li className="list-group-item ml-0 pl-0">
                     Nut Allergy:
-                    {this.state.userViewing.nutAllergy === 1 && " Yes"}
+                    {this.state.userViewing.nutAllergy === 1 && <b> Yes</b>}
                     {this.state.userViewing.nutAllergy === 0 && " No"}
                     {(this.state.userViewing.nutAllergy !== 1
-                    || this.state.userViewing.nutAllergy !== 1) && " Unknown"}
+                        && this.state.userViewing.nutAllergy !== 0) && " Unknown"}
                   </li>
                   <li className="list-group-item ml-0 pl-0">
                     Other Dietary Restrictions:
@@ -161,7 +166,10 @@ class User extends React.Component {
                 </ul>
                 }
               </div>}
-              <div className="col-lg-5 col-12">
+            {!this.state.userViewing &&
+            <p>No profile found for that username.</p>
+            }
+            <div className="col-lg-5 col-12">
                 {(this.state.viewingGuestMutualEvent || this.state.viewingOwnProfile) && this.state.userViewingEvents && <>
                   <h4 className="pt-2 pb-2">Upcoming Events</h4>
                   {this.state.userViewingEvents.map((event, index) => (
