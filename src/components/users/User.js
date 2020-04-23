@@ -191,6 +191,9 @@ class User extends React.Component {
                         userId={this.props.user.id}
                     />
                 ))}
+                {!this.state.userViewingEvents.length &&
+                <div className="border p-3">No events found.</div>
+                }
               </>}
               {(this.state.viewingGuestMutualEvent
                   || this.state.viewingOwnProfile) && <>

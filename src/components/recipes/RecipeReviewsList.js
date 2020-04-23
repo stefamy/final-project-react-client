@@ -74,7 +74,7 @@ class RecipeReviewsList extends Component {
             ))
             }
             {this.props.userReviews && this.props.userReviews.length === 0 &&
-            <li className="list-group-item">This user has not created any reviews.</li> }
+            <li className="list-group-item">No reviews found.</li> }
           </ul>
           }
           {this.props.allReviews &&

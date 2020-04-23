@@ -57,7 +57,7 @@ class AssignmentList extends Component {
               }
               {(!this.props.assignments || !this.props.assignments.length) &&
               <div className="bg-white p-3 border">
-                No assignments yet...<br/>
+                No assignments found.<br/>
               </div>
               }
             </>
