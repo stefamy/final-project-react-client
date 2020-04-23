@@ -123,8 +123,8 @@ class HomeContainer extends React.Component {
                     <div className="card">
                       <h5 className="card-header">No upcoming events.</h5>
                       <div className="card-body">
-                        <h5 className="card-title">Create an Event</h5>
-                        <p className="card-text"></p>
+                        <h5 className="card-title">Want to create one?</h5>
+                        <p className="card-text">Plan your next event or party and get organized!</p>
                         <Link to="/events" className="btn btn-outline-info">Go to
                           events</Link>
                       </div>
