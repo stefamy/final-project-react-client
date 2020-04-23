@@ -127,8 +127,6 @@ class HomeContainer extends React.Component {
                             limit={1}
                             linkToRecipe={true}
                             wrapClass=""
-                            hideForm={true}
-
                         />
                       </div>
                   </div>

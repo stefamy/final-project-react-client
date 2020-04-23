@@ -79,17 +79,19 @@ class RecipeReviewsList extends Component {
           }
           {this.props.allReviews &&
           <ul className={this.props.alignHorizontal ? "list-group border-0 flex-row justify-content-around" : "list-group list-group-flush"}>
-            {this.props.allReviews.map((review, index) => (
+            {this.props.allReviews.map((review, index) =>
+                (index <= this.props.limit) ?
                 <Review
                     key={index}
                     review={review}
                     history={this.props.history}
-                    hideForm={this.props.hideForm || this.props.user.id !== review.userId}
+                    hideForm={this.props.hideForm || this.props.user.id
+                    !== review.userId}
                     linkToRecipe={this.props.linkToRecipe}
                     alignHorizontal={this.props.alignHorizontal}
-                />
-            ))
-            }
+                /> : '' )
+              }
+
           </ul>
           }
           </div>

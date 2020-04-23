@@ -19,6 +19,7 @@ export default class CreateInvite extends Component {
     let newState = Object.assign({}, this.state);
     newState.newInvite[attribute] = newContent;
     this.setState(newState);
+
   }
 
   handleCreateInvite(e) {
