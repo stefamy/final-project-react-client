@@ -28,14 +28,14 @@ class HeaderContainer extends React.Component {
                       <li><a href="/assignments" className={`nav-link btn`}>Assignments</a></li>
                       <li><a href="/invites" className={`nav-link btn`}>Invites</a></li>
                       <li><a href="/profile" className={`nav-link btn`}>Profile</a></li>
-                      <li><button onClick={this.props.logout} className="nav-link btn">Logout</button></li>
+                      <li>< a href="logout">Logout</a></li>
                     </ul>
                 }
                 {!this.props.user.username &&
                   <ul className="nav navbar-nav d-flex align-items-center justify-content-between">
                     <li><a href="/search" className="nav-link btn">Recipe Finder</a></li>
                     <li><a href="/login" className="nav-link btn">Log in</a></li>
-                    <li className="ml-2"><a href="/register" className="nav-link btn" >Register</a></li>
+                    <li className="nav-link btn ml-2"><a href="/register" className="nav-link btn" >Register</a></li>
                   </ul>
                   }
               </nav>

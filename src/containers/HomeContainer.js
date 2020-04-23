@@ -80,7 +80,7 @@ class HomeContainer extends React.Component {
                 <RecipeReviewsList
                       findRecent={true}
                       linkToRecipe={true}
-                      limit={4}
+                      limit={3}
                       alignHorizontal={true}
                       wrapClass="text-center"
                       hideForm={true}
@@ -118,6 +118,17 @@ class HomeContainer extends React.Component {
 
                       />
                     </> }
+                    {((!this.state) || (!this.state.nextEvent)
+                        || (!this.state.nextInvite)) &&
+                    <div className="card">
+                      <h5 className="card-header">No upcoming events.</h5>
+                      <div className="card-body">
+                        <h5 className="card-title">Create an Event</h5>
+                        <p className="card-text"></p>
+                        <Link to="/events" className="btn btn-outline-info">Go to
+                          events</Link>
+                      </div>
+                    </div>}
                   </div>
 
                 <div className="col-lg-6 col-12 pb-5">
