@@ -98,7 +98,7 @@ class AssignmentResponse extends React.Component {
             <div className="pt-3 pb-3">
               <div><h5 className="mb-1">{assignment.title}</h5></div>
               <div>{assignment.description}</div>
-              {assignment.type === 'Food/Drink' && assignment.status === 'Assigned' && assignment.recipeLink && <div><Link to={assignment.recipeLink} className="text-info">Link to recipe<i className="ml-2 fa fa-link"></i></Link></div>}
+              {assignment.type === 'Food/Drink' && assignment.status === 'Assigned' && assignment.recipeLink && <div><Link to={`${assignment.recipeLink}`} className="text-info">Link to recipe<i className="ml-2 fa fa-link"></i></Link></div>}
             </div>
             {(this.state.updatedAssignment.status === assignment.status) && <>
               {(assignment.status === "Assigned" && assignment.assigneeUserId !== user.id) &&
