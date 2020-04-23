@@ -60,11 +60,14 @@ class User extends React.Component {
         });
   }
 
-  haveMutualEvents() {
+  haveMutualEvents()  {
+  if (this.state.userEvents) {
     for (let i = 0; i < this.state.userEvents.length; i++) {
-      if (this.state.userViewingEvents.find(event => event.id === this.state.userEvents[i].id)) {
+      if (this.state.userViewingEvents.find(
+          event => event.id === this.state.userEvents[i].id)) {
         return true;
       }
+    }
     }
     return false;
   }
@@ -194,12 +197,15 @@ class User extends React.Component {
                     hideForm={true}
                 />
               </>}
-              <h4 className="pt-2 pb-2">Recipe Reviews</h4>
-              <RecipeReviewsList
-                  userId={this.props.user.id}
-                  linkToRecipe={true}
-                  wrapClass="border rounded p-2 mb-3"
-              />
+              {this.props.user.id && <>
+                <h4 className="pt-2 pb-2">Recipe Reviews</h4>
+                <RecipeReviewsList
+                    userId={this.state.userViewing.id}
+                    linkToRecipe={true}
+                    wrapClass="border rounded p-2 mb-3"
+                />
+              </>
+              }
             </div>
             }
             </div>

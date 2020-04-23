@@ -16,6 +16,9 @@ class RecipeReviewsList extends Component {
     if (this.props.userId) {
       this.props.findAllReviewsByUserId(this.props.userId);
     }
+    if (this.props.findRecent) {
+      this.props.findAllReviews(this.props.limit);
+    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -25,6 +28,7 @@ class RecipeReviewsList extends Component {
     if (prevProps.recipeId !== this.props.recipeId) {
       this.props.findAllReviewsForFoodId(this.props.recipeId);
     }
+    console.log('this.props', this.props);
   }
 
   render() {
@@ -70,6 +74,23 @@ class RecipeReviewsList extends Component {
                 />
             ))
             }
+            {this.props.userReviews && this.props.userReviews.length === 0 &&
+            <li className="list-group-item">This user has not created any reviews.</li> }
+          </ul>
+          }
+          {this.props.allReviews &&
+          <ul className={this.props.alignHorizontal ? "list-group border-0 flex-row justify-content-around" : "list-group list-group-flush"}>
+            {this.props.allReviews.map((review, index) => (
+                <Review
+                    key={index}
+                    review={review}
+                    history={this.props.history}
+                    hideForm={this.props.user.id !== review.userId}
+                    linkToRecipe={this.props.linkToRecipe}
+                    alignHorizontal={this.props.alignHorizontal}
+                />
+            ))
+            }
           </ul>
           }
           </div>
@@ -83,7 +104,8 @@ const stateToPropertyMapper = state => {
     user: state.user.user,
     assignments: state.assignments.assignments,
     foodReviews: state.reviews.foodReviews,
-    userReviews: state.reviews.userReviews
+    userReviews: state.reviews.userReviews,
+    allReviews: state.reviews.allReviews
   };
 };
 
@@ -92,6 +114,11 @@ const dispatchToPropertyMapper = dispatch => {
     findUser: () => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
+    },
+    findAllReviews: (limit) => {
+      reviewsService.findAllReviews(limit).then(reviews => {
+        dispatch(reviewsActions.findAllReviews(reviews));
+      });
     },
     findAllReviewsByUserId: userId => {
       reviewsService.findAllReviewsByUserId(userId).then(reviews => {

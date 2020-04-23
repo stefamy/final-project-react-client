@@ -11,6 +11,7 @@ import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 import EventPreview from "../components/events/EventPreview";
 import SearchBarComponent from "../search/SearchBarComponent";
+import RecipeReviewsList from "../components/recipes/RecipeReviewsList";
 
 
 class HomeContainer extends React.Component {
@@ -50,7 +51,7 @@ class HomeContainer extends React.Component {
                     <Link to="/register" className="btn btn-outline-info">Register</Link>
                   </div>
                 </div>
-              </div>
+            </div>
               <div className="col-lg-6 col-12 pb-5">
                 <div className="card">
                   <div className="card-body">
@@ -63,10 +64,21 @@ class HomeContainer extends React.Component {
                   </div>
                 </div>
               </div>
+            <div className="col-12 p-0 bg-white border rounded mb-3">
+              <h5 className="card-header">Recent Recipe Reviews</h5>
+              <div className="card-body">
+              <RecipeReviewsList
+                    findRecent={true}
+                    linkToRecipe={true}
+                    limit={4}
+                    alignHorizontal={true}
+                    wrapClass="text-center"
+                />
+              </div>
             </div>
           </div>
+          </div>
           }
-
             {this.props.user.id &&
             <div>
               <div className="mb-5 p-5 bg-white hero-unit rounded border">
@@ -86,28 +98,34 @@ class HomeContainer extends React.Component {
                   </>}
                   {((!this.state) || (!this.state.nextEvent)
                       || (!this.state.nextEvent.id)) &&
-                  <div className="card">
-                    <h5 className="card-header">No upcoming events.</h5>
-                    <div className="card-body">
-                      <h5 className="card-title">Create an Event</h5>
-                      <p className="card-text"></p>
-                      <Link to="/events" className="btn btn-outline-info">Go to
-                        events</Link>
+                    <div className="col-12 p-0 bg-white rounded mb-3">
+                      <div className="card">
+                      <h5 className="card-header">Recent Recipe Review</h5>
+                      <div className="card-body p-0">
+                        <RecipeReviewsList
+                            findRecent={true}
+                            limit={1}
+                            linkToRecipe={true}
+                            wrapClass=""
+                        />
+                      </div>
                     </div>
                   </div>}
                 </div>
+
                 <div className="col-lg-6 col-12 pb-5">
                   <div className="card">
-                    <h5 className="card-header">Receive an invite?</h5>
-                    <div className="card-body">
-                      <h5 className="card-title">RSVP to an Event</h5>
-                      <p className="card-text">View all of your invites and
-                        upate your responses.</p>
-                      <Link to="/invites" className="btn btn-outline-info">Go to
-                        invites</Link>
-                    </div>
+                    <h5 className="card-header">Recent Recipe Reviews</h5>
+                  <div className="card-body p-0">
+                    <RecipeReviewsList
+                        findRecent={true}
+                        linkToRecipe={true}
+                        limit={1}
+                    />
                   </div>
                 </div>
+                </div>
+
                   <div className="col-12">
                     <div className="card">
                       <h5 className="card-header">Unsure what to bring to your

@@ -26,8 +26,8 @@ export const findAllReviewsByUserId = (userId) =>
 
 
 // READ (first 10 entries)
-export const findAllReviews = () =>
-    fetch(`${API_URL}/api/reviews`, {
+export const findAllReviews = (limit) =>
+    fetch(`${API_URL}/api/reviews/limit/${limit}`, {
       method: 'GET'
     }).then(response => response.json());
 

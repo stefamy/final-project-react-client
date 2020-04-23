@@ -19,10 +19,10 @@ function reviewIconClass(rating) {
 }
 
 
-const Review = ({ linkToRecipe, review, hideForm, updateReview, deleteReview }) => {
+const Review = ({ alignHorizontal, linkToRecipe, review, hideForm, updateReview, deleteReview }) => {
 
   return (
-      <li className="list-group-item mt-2">
+      <li className={alignHorizontal ? "border-0 list-group-item mb-2 col-lg-4 col " : "list-group-item mt-2"}>
         {!hideForm && <span className="float-right btn" onClick={deleteReview}><i className="fa fa-close text-danger"></i></span>}
         {linkToRecipe &&
         <h5 className="card-title"><Link className="text-info" to={`/recipe/${review.recipeId}`}>{review.recipeName}</Link></h5> }
