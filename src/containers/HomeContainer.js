@@ -27,8 +27,7 @@ class HomeContainer extends React.Component {
       if (this.props.events.length) {
         this.setState({nextEvent: this.getNextUpcomingEvent()})
       }
-    }
-    if (prevProps.invites !== this.props.invites) {
+    } else if (prevProps.invites !== this.props.invites) {
       if (this.props.invites.length) {
         this.setState({nextInvite: this.getNextUpcomingEventInvite()})
       }
