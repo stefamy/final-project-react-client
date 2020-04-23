@@ -2,6 +2,7 @@ import React from "react";
 import userService from "../services/UserService";
 import userActions from "../actions/UserActions";
 import {connect} from "react-redux";
+import {BrowserRouter as Router} from "react-router-dom";
 
 /**
  */
@@ -13,6 +14,11 @@ class HeaderContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
   }
+
+ handleLogout() {
+     this.props.logout();
+     this.props.history.push('/');
+ }
 
   render() {
     return (
@@ -28,7 +34,7 @@ class HeaderContainer extends React.Component {
                       <li><a href="/assignments" className={`nav-link btn`}>Assignments</a></li>
                       <li><a href="/invites" className={`nav-link btn`}>Invites</a></li>
                       <li><a href="/profile" className={`nav-link btn`}>Profile</a></li>
-                      <li>< a href="logout">Logout</a></li>
+                      <li><button onClick={() => this.handleLogout()} className={`navlink btn`}>Logout</button></li>
                     </ul>
                 }
                 {!this.props.user.username &&

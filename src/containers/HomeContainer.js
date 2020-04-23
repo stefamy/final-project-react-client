@@ -23,11 +23,15 @@ class HomeContainer extends React.Component {
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.events.length !== this.props.events.length) {
-      this.setState({nextEvent: this.getNextUpcomingEvent()})
+    if (prevProps.events !== this.props.events) {
+      if (prevProps.events.length !== this.props.events.length) {
+        this.setState({nextEvent: this.getNextUpcomingEvent()})
+      }
     }
-    if (prevProps.invites.length !== this.props.invites.length) {
-      this.setState({nextInvite: this.getNextUpcomingEventInvite()})
+    if (prevProps.invites !== this.props.invites) {
+      if (prevProps.invites.length !== this.props.invites.length) {
+        this.setState({nextInvite: this.getNextUpcomingEventInvite()})
+      }
     }
   }
 
@@ -118,8 +122,7 @@ class HomeContainer extends React.Component {
 
                       />
                     </> }
-                    {((!this.state) || (!this.state.nextEvent)
-                        || (!this.state.nextInvite)) &&
+                    {(!this.state || (!this.state.nextEvent && !this.state.nextInvite)) &&
                     <div className="card">
                       <h5 className="card-header">No upcoming events.</h5>
                       <div className="card-body">

@@ -17,6 +17,8 @@ import Register from "./components/users/Register";
 import Profile from "./components/users/Profile";
 import User from "./components/users/User";
 import Login from "./components/users/Login";
+import PrivacyPolicyComponent from "./components/PrivacyPolicyComponent";
+import FooterComponent from "./components/FooterComponent";
 import AssignmentList from "./components/assignments/AssignmentList";
 import InviteList from "./components/invites/InviteList";
 import EventList from "./components/events/EventList";
@@ -43,9 +45,17 @@ class App extends React.Component {
     return (
         <Provider store={this.store}>
           <div className="container-all bg-pattern">
-            <HeaderContainer />
-              <div className="container-content container pt-5 pb-5">
-              <Router>
+            <Router>
+              <Route
+                  path=""
+                  render={props => (
+                      <HeaderContainer
+                          {...props}
+                          history={props.history}
+                      />
+                  )}
+              />
+              <div className="container mt-5 pb-5">
                 <Route
                     path="/"
                     exact={true}
@@ -177,8 +187,25 @@ class App extends React.Component {
                       />
                   )}
               />
-            </Router>
+                <Route
+                    path="/privacy"
+                    exact={true}
+                    render={props => (
+                        <PrivacyPolicyComponent
+                            {...props}
+                        />
+                    )}
+                />
               </div>
+              <Route
+                  path=""
+                  render={props => (
+                      <FooterComponent
+                          {...props}
+                      />
+                  )}
+              />
+             </Router>
           </div>
         </Provider>
     )
