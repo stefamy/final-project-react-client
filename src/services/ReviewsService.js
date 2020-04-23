@@ -45,7 +45,7 @@ export const updateReview = (reviewId, review) =>
 
 // DELETE
 export const deleteReview = (reviewId) =>
-    fetch(`http://localhost:8080/api/reviews/${reviewId}`, {
+    fetch(`${API_URL}/api/reviews/${reviewId}`, {
       method: 'DELETE'
     }).then(response => response.json());
 
