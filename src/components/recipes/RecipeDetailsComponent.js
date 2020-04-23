@@ -9,7 +9,7 @@ import Assignment from "../assignments/Assignment";
 import SearchBarComponent from "../../search/SearchBarComponent";
 import {Link} from "react-router-dom";
 import {retrieveRecipe} from "../../services/RecipeService";
-
+import RecipeReviewsList from "./RecipeReviewsList";
 
 class RecipeDetailsComponent extends React.Component {
 
@@ -74,6 +74,13 @@ class RecipeDetailsComponent extends React.Component {
               </div>
 
               <div className="col-md-5 col-12">
+                  <RecipeReviewsList
+                      recipeId={recipe.id}
+                      recipeName={recipe.title}
+                      wrapClass=" bg-white border rounded p-3 mb-3"
+                      showCreateReview={true}
+                      history={this.props.history} />
+
                 <div className=" bg-white border rounded p-3 mb-3">
                 <h5>Search again</h5>
                 <SearchBarComponent

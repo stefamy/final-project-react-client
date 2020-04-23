@@ -13,11 +13,14 @@ const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case CREATE_REVIEW:
-      allReviews = [...state.allReviews];
-      foodReviews = [...state.foodReviews];
-
-      allReviews.push(action.review);
-      foodReviews.push(action.review);
+      if (state.allReviews) {
+        allReviews = [...state.allReviews];
+        allReviews.push(action.review);
+      }
+      if (state.foodReviews) {
+        foodReviews = [...state.foodReviews];
+        foodReviews.push(action.review);
+      }
 
       return {
         allReviews: allReviews,
@@ -43,14 +46,18 @@ const reviewsReducer = (state = initialState, action) => {
       }
 
     case DELETE_REVIEW:
-      allReviews = [...state.allReviews];
-      userReviews = [...state.userReviews];
-      foodReviews = [...state.foodReviews];
-
-      _.remove(allReviews, {id: action.reviewId})
-      _.remove(userReviews, {id: action.reviewId})
-      _.remove(foodReviews, {id: action.reviewId})
-
+      if (state.allReviews) {
+        allReviews = [...state.allReviews];
+        _.remove(allReviews, {id: action.reviewId})
+      }
+      if (state.userReviews) {
+        userReviews = [...state.userReviews];
+        _.remove(userReviews, {id: action.reviewId})
+      }
+      if (state.foodReviews) {
+        foodReviews = [...state.foodReviews];
+        _.remove(foodReviews, {id: action.reviewId})
+      }
 
       return {
         allReviews: allReviews,

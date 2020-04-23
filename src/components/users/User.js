@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import eventsService from "../../services/EventsService";
 import AssignmentList from "../assignments/AssignmentList";
 import {Link} from "react-router-dom";
+import RecipeReviewsList from "../recipes/RecipeReviewsList";
 
 class User extends React.Component {
 
@@ -47,7 +48,7 @@ class User extends React.Component {
             this.setState({
               viewingOwnProfile: true,
               viewingGuestMutualEvent: true,
-              userViewingEvents: [...this.state.userEvents]
+              userViewingEvents: this.state.userEvents
             })
           } else {
             eventsService.findGuestEventsForUser(this.state.userViewing.id)
@@ -169,28 +170,38 @@ class User extends React.Component {
             {!this.state.userViewing &&
             <p>No profile found for that username.</p>
             }
+            {this.state.userViewing &&
             <div className="col-lg-5 col-12">
-                {(this.state.viewingGuestMutualEvent || this.state.viewingOwnProfile) && this.state.userViewingEvents && <>
-                  <h4 className="pt-2 pb-2">Upcoming Events</h4>
-                  {this.state.userViewingEvents.map((event, index) => (
-                  <EventPreview
-                      key={index}
-                      event={event}
-                      history={this.props.history}
-                      userId={this.props.user.id}
-                  />
-                  ))}
-                </>}
-                {(this.state.viewingGuestMutualEvent || this.state.viewingOwnProfile) && <>
-                  <h4 className="pt-2 pb-2">Assignments</h4>
-                      <AssignmentList
-                          history={this.props.history}
-                          userId={this.props.user.id}
-                          hideForm={true}
-                      />
-                </>}
-              </div>
-
+              {(this.state.viewingGuestMutualEvent
+                  || this.state.viewingOwnProfile)
+              && this.state.userViewingEvents && <>
+                <h4 className="pt-2 pb-2">Upcoming Events</h4>
+                {this.state.userViewingEvents.map((event, index) => (
+                    <EventPreview
+                        key={index}
+                        event={event}
+                        history={this.props.history}
+                        userId={this.props.user.id}
+                    />
+                ))}
+              </>}
+              {(this.state.viewingGuestMutualEvent
+                  || this.state.viewingOwnProfile) && <>
+                <h4 className="pt-2 pb-2">Assignments</h4>
+                <AssignmentList
+                    history={this.props.history}
+                    userId={this.props.user.id}
+                    hideForm={true}
+                />
+              </>}
+              <h4 className="pt-2 pb-2">Recipe Reviews</h4>
+              <RecipeReviewsList
+                  userId={this.props.user.id}
+                  linkToRecipe={true}
+                  wrapClass="border rounded p-2 mb-3"
+              />
+            </div>
+            }
             </div>
         </div>)
   }
