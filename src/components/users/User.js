@@ -189,6 +189,7 @@ class User extends React.Component {
                         event={event}
                         history={this.props.history}
                         userId={this.props.user.id}
+                        outerWrapClass={"mb-2"}
                     />
                 ))}
                 {!this.state.userViewingEvents.length &&
