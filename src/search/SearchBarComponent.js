@@ -17,7 +17,7 @@ export default class SearchBarComponent extends React.Component {
 
   submitQuery(e) {
     e.preventDefault();
-    this.props.history.push(`results/${this.state.queryText}`);
+    this.props.history.push(`/results/${this.state.queryText}`);
   }
 
 

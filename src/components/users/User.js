@@ -193,14 +193,14 @@ class User extends React.Component {
                 <h4 className="pt-2 pb-2">Assignments</h4>
                 <AssignmentList
                     history={this.props.history}
-                    userId={this.userViewing.userViewing.id}
+                    userId={this.state.userViewing.id}
                     hideForm={true}
                 />
               </>}
               {this.props.user.id && <>
                 <h4 className="pt-2 pb-2">Recipe Reviews</h4>
                 <RecipeReviewsList
-                    userId={this.userViewing.userViewing.id}
+                    userId={this.state.userViewing.id}
                     linkToRecipe={true}
                     wrapClass="border rounded p-2 mb-3"
                 />
