@@ -38,7 +38,7 @@ class AssignmentList extends Component {
                         key={index}
                         assignment={assignment}
                         history={this.props.history}
-                        userId={this.props.user.id}
+                        userId={this.props.userId}
                         event={this.props.event}
                         hideForm={this.props.hideForm}
                         updateAssignment={this.props.updateAssignment}
