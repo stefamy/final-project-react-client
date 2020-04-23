@@ -5,7 +5,6 @@ import userActions from "../../actions/UserActions";
 import assignmentsService from "../../services/AssignmentsService";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import {connect} from "react-redux";
-import Assignment from "../assignments/Assignment";
 import SearchBarComponent from "../../search/SearchBarComponent";
 import {Link} from "react-router-dom";
 import {retrieveRecipe} from "../../services/RecipeService";

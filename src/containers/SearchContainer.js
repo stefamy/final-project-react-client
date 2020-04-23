@@ -28,6 +28,7 @@ export default class SearchContainer extends React.Component {
     return (
           <div className="bg-white border rounded p-3 col-auto">
               <h3>Recipe Finder Tool</h3>
+            <p>Search for a recipe to bring to your next party!</p>
               <SearchBarComponent
                   history={this.props.history}
               />

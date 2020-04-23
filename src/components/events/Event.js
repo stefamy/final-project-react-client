@@ -115,6 +115,7 @@ class Event extends React.Component {
 
                 {((this.state.event.hostId === this.props.user.id) || this.state.userInvite) &&
                 <>
+                  <h5>Hosted by: <Link to={`/profile/${this.state.event.hostUsername}`}>{this.state.event.hostFirstName} {this.state.event.hostLastName}</Link></h5>
                   <p>
                     {this.state.event.locationName &&
                     <span>{this.state.event.locationName}<br/></span>}

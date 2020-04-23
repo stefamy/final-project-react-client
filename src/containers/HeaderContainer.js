@@ -2,12 +2,6 @@ import React from "react";
 import userService from "../services/UserService";
 import userActions from "../actions/UserActions";
 import {connect} from "react-redux";
-import eventsService from "../services/EventsService";
-import eventsActions from "../actions/EventsActions";
-import invitesService from "../services/InvitesService";
-import invitesActions from "../actions/InvitesActions";
-import assignmentsService from "../services/AssignmentsService";
-import assignmentsActions from "../actions/AssignmentsActions";
 
 /**
  */
@@ -23,18 +17,23 @@ class HeaderContainer extends React.Component {
   render() {
     return (
         <header className="bg-white  border-bottom">
-              <nav className="container navbar navbar-expand-lg navbar-default justify-content-between">
+
+              <nav className="container navbar navbar-expand navbar-default justify-content-between">
                     <div className="navbar-header">
                       <a className="navbar-brand-info text-info" href="/">Potluck Party Planner</a>
                     </div>
                 {this.props.user.username &&
-                    <ul className="nav navbar-nav">
-                      <li><a href="/profile" className={`nav-link btn`}>Your Profile</a></li>
+                    <ul className="nav navbar-nav d-flex align-items-center justify-content-between">
+                      <li><a href="/events" className={`nav-link btn`}>Events You're Hosting</a></li>
+                      <li><a href="/assignments" className={`nav-link btn`}>Assignments</a></li>
+                      <li><a href="/invites" className={`nav-link btn`}>Invites</a></li>
+                      <li><a href="/profile" className={`nav-link btn`}>Profile</a></li>
                       <li><button onClick={this.props.logout} className="nav-link btn">Logout</button></li>
                     </ul>
                 }
                 {!this.props.user.username &&
-                  <ul className="nav navbar-nav flex-row col align-items-center justify-content-end">
+                  <ul className="nav navbar-nav d-flex align-items-center justify-content-between">
+                    <li><a href="/search" className="nav-link btn">Recipe Finder</a></li>
                     <li><a href="/login" className="nav-link btn">Log in</a></li>
                     <li className="ml-2"><a href="/register" className="nav-link btn" >Register</a></li>
                   </ul>
@@ -48,10 +47,7 @@ class HeaderContainer extends React.Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user,
-    events: state.events.events,
-    invites: state.invites.invites,
-    assignments: state.assignments.assignments
+    user: state.user.user
   };
 };
 
@@ -60,19 +56,6 @@ const dispatchToPropertyMapper = dispatch => {
     findUser: () => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
-    },
-    findAllUserData: () => {
-      userService.findUser().then(user => {
-        if (user && user.id) {
-          dispatch(userActions.findUser(user));
-          eventsService.findEventsForUser(user.id)
-          .then(events => dispatch(eventsActions.findAllEvents(events)));
-          invitesService.findInvitesByGuestId(user.id)
-          .then(invites => dispatch(invitesActions.findAllInvites(invites)));
-          assignmentsService.findAssignmentByAssigneeUserId(user.id)
-          .then(assignments => dispatch(assignmentsActions.findAllAssignments(assignments)));
-        }
-      });
     },
     logout: () => {
       userService.logout()

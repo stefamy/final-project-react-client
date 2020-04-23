@@ -10,7 +10,6 @@ export default class SearchResultsComponent extends React.Component {
   };
 
   sendQuery() {
-    const query = this.props.queryText;
     findRecipesByQueryTerm(this.props.queryText).then(data => {
       if (data) {
         this.setState({

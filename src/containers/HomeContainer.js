@@ -73,17 +73,19 @@ class HomeContainer extends React.Component {
                   </div>
                 </div>
               </div>
-            <div className="col-12 p-0 bg-white border rounded mb-3">
-              <h5 className="card-header">Recent Recipe Reviews</h5>
-              <div className="card-body">
-              <RecipeReviewsList
-                    findRecent={true}
-                    linkToRecipe={true}
-                    limit={4}
-                    alignHorizontal={true}
-                    wrapClass="text-center"
-                    hideForm={true}
-                />
+              <div className="col-12 mb-3">
+                <div className="card">
+                <h5 className="card-header">Recent Recipe Reviews</h5>
+                <div className="card-body">
+                <RecipeReviewsList
+                      findRecent={true}
+                      linkToRecipe={true}
+                      limit={4}
+                      alignHorizontal={true}
+                      wrapClass="text-center"
+                      hideForm={true}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -127,6 +129,7 @@ class HomeContainer extends React.Component {
                             limit={1}
                             linkToRecipe={true}
                             wrapClass=""
+                            hideForm={true}
                         />
                       </div>
                   </div>
