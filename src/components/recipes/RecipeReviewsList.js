@@ -28,7 +28,6 @@ class RecipeReviewsList extends Component {
     if (prevProps.recipeId !== this.props.recipeId) {
       this.props.findAllReviewsForFoodId(this.props.recipeId);
     }
-    console.log('this.props', this.props);
   }
 
   render() {
@@ -42,7 +41,7 @@ class RecipeReviewsList extends Component {
                       key={index}
                       review={review}
                       history={this.props.history}
-                      hideForm={this.props.user.id !== review.userId}
+                      hideForm={this.props.hideForm || this.props.user.id !== review.userId}
                       deleteReview={() => this.props.deleteReview(review.id)}
                   />
               ))
@@ -68,7 +67,7 @@ class RecipeReviewsList extends Component {
                     key={index}
                     review={review}
                     history={this.props.history}
-                    hideForm={this.props.user.id !== review.userId}
+                    hideForm={this.props.hideForm || this.props.user.id !== review.userId}
                     updateReview={() => this.props.updateReview()}
                     linkToRecipe={this.props.linkToRecipe}
                 />
@@ -85,7 +84,7 @@ class RecipeReviewsList extends Component {
                     key={index}
                     review={review}
                     history={this.props.history}
-                    hideForm={this.props.user.id !== review.userId}
+                    hideForm={this.props.hideForm || this.props.user.id !== review.userId}
                     linkToRecipe={this.props.linkToRecipe}
                     alignHorizontal={this.props.alignHorizontal}
                 />

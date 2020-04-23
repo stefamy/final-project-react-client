@@ -86,20 +86,7 @@ class RecipeDetailsComponent extends React.Component {
                 <SearchBarComponent
                   history={this.props.history}/>
                 </div>
-              {!this.state.guestUser && this.props.assignments &&
-              <div className=" bg-white border rounded p-3 mb-3">
-                <h5>Your Upcoming Assignments</h5>
-                {this.props.assignments.map((assignment, index) => (
-                    <Assignment
-                        key={index}
-                        assignment={assignment}
-                        history={this.props.history}
-                        userId={this.props.user.id}
-                        hideForm={true}
-                    />
-                ))}
-              </div>
-              }
+
                 {this.state.guestUser  &&
                 <div className=" bg-white border rounded p-3 mb-3">
                   <h5 className="card-title">Plan or RSVP to an Event!</h5>

@@ -201,6 +201,7 @@ class Event extends React.Component {
                         createInvite={this.props.createInvite}
                         user={this.props.user}
                         eventId={this.state.event.id}
+                        eventDate={this.state.event.date}
                     /> }
                 </div>
                 }

@@ -32,9 +32,13 @@ class User extends React.Component {
     } else {
       userService.findPublicProfile(this.props.username)
       .then(profile => {
-        this.setState({userViewing: profile});
-        if (this.props.user && this.props.user.id) {
-          this.checkUserRelationship();
+        if (!profile) {
+          this.setState({userViewing: ''});
+        } else {
+          this.setState({userViewing: profile});
+          if (this.props.user && this.props.user.id) {
+            this.checkUserRelationship();
+          }
         }
       });
     }
@@ -195,6 +199,7 @@ class User extends React.Component {
                     history={this.props.history}
                     userId={this.state.userViewing.id}
                     hideForm={true}
+                    viewingProfile={true}
                 />
               </>}
               {this.props.user.id && <>

@@ -10,6 +10,7 @@ export default class CreateInvite extends Component {
       response: 'Pending',
       firstName: '',
       lastName: '',
+      eventDate: this.props.eventDate,
       email: ''
     }
   }

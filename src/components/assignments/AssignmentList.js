@@ -11,10 +11,13 @@ class AssignmentList extends Component {
   state = {}
 
   componentDidMount() {
-    if (this.props.user.id) {
-        this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+    if (this.props.viewingProfile && this.props.userId) {
+        this.props.findAssignmentByAssigneeUserId(this.props.userId);
+    }
+    else if (this.props.user.id) {
+      this.props.findAssignmentByAssigneeUserId(this.props.user.id);
     } else {
-        this.setState({guestUser: true})
+      this.setState({guestUser: true})
     }
 
   }
