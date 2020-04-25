@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const FooterComponent = ({ props }) => {
+const FooterContainer = ({ props }) => {
 
   return (
       <div className="container-fluid bg-white border pt-2 pb-3">
@@ -16,4 +16,4 @@ const FooterComponent = ({ props }) => {
 
 }
 
-export default FooterComponent;
+export default FooterContainer;

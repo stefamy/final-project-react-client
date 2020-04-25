@@ -5,7 +5,7 @@ import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
 import User from "./User";
 
-class Profile extends React.Component {
+class EditUser extends React.Component {
 
     state = {
         profile: this.props.user,
@@ -289,4 +289,4 @@ const dispatchToPropertyMapper = dispatch => {
 export default connect(
     stateToPropertyMapper,
     dispatchToPropertyMapper
-)(Profile);
+)(EditUser);

@@ -12,13 +12,13 @@ import reviewsReducer from "./reducers/ReviewsReducer";
 import HeaderContainer from "./containers/HeaderContainer";
 import SearchContainer from "./containers/SearchContainer";
 import SearchResultsComponent from "./search/SearchResultsComponent";
-import RecipeDetailsComponent from "./components/recipes/RecipeDetailsComponent";
+import RecipeDetailsComponent from "./components/recipes/RecipeDetails";
 import Register from "./components/users/Register";
-import Profile from "./components/users/Profile";
+import Profile from "./components/users/EditUser";
 import User from "./components/users/User";
 import Login from "./components/users/Login";
-import PrivacyPolicyComponent from "./components/PrivacyPolicyComponent";
-import FooterComponent from "./components/FooterComponent";
+import PrivacyPolicyContainer from "./containers/PrivacyPolicyContainer";
+import FooterContainer from "./containers/FooterContainer";
 import AssignmentList from "./components/assignments/AssignmentList";
 import InviteList from "./components/invites/InviteList";
 import EventList from "./components/events/EventList";
@@ -191,7 +191,7 @@ class App extends React.Component {
                     path="/privacy"
                     exact={true}
                     render={props => (
-                        <PrivacyPolicyComponent
+                        <PrivacyPolicyContainer
                             {...props}
                         />
                     )}
@@ -200,7 +200,7 @@ class App extends React.Component {
               <Route
                   path=""
                   render={props => (
-                      <FooterComponent
+                      <FooterContainer
                           {...props}
                       />
                   )}

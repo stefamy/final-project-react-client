@@ -8,9 +8,9 @@ import {connect} from "react-redux";
 import SearchBarComponent from "../../search/SearchBarComponent";
 import {Link} from "react-router-dom";
 import {retrieveRecipe} from "../../services/RecipeService";
-import RecipeReviewsList from "./RecipeReviewsList";
+import RecipeReviewsList from "../reviews/RecipeReviewsList";
 
-class RecipeDetailsComponent extends React.Component {
+class RecipeDetails extends React.Component {
 
   state = {
     recipeData: ''
@@ -135,4 +135,4 @@ const dispatchToPropertyMapper = dispatch => {
 export default connect(
     stateToPropertyMapper,
     dispatchToPropertyMapper
-)(RecipeDetailsComponent);
+)(RecipeDetails);

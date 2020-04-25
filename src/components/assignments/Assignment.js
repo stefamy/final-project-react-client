@@ -73,7 +73,7 @@ class Assignment extends React.Component {
                 <h5 className="card-header">Event: {this.state.event.name} <Link to={`/events/${this.state.event.id}`}><i className="ml-2 fa fa-link"></i></Link></h5>
                 <div className="card-body">
                   <div className="card-text">
-                  {this.props.assignment.type}: {this.props.assignment.title}<br/>
+                  {this.props.assignment.type || 'Task'}: {this.props.assignment.title}<br/>
                   {this.props.assignment.description}</div>
                 </div>
                 {!this.props.hideForm &&

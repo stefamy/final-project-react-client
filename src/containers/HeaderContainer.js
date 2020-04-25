@@ -2,17 +2,11 @@ import React from "react";
 import userService from "../services/UserService";
 import userActions from "../actions/UserActions";
 import {connect} from "react-redux";
-import {BrowserRouter as Router} from "react-router-dom";
 
-/**
- */
 class HeaderContainer extends React.Component {
 
   componentDidMount() {
      this.props.findUser();
-   }
-
-  componentDidUpdate(prevProps) {
   }
 
  handleLogout() {

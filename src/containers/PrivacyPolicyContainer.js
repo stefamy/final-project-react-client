@@ -1,6 +1,6 @@
 import React from "react";
 
-const PrivacyPolicyComponent = ({ props }) => {
+const PrivacyPolicyContainer = ({ props }) => {
 
   return (
       <div className="row align-items-center justify-content-center">
@@ -16,9 +16,9 @@ const PrivacyPolicyComponent = ({ props }) => {
             <p>Information regarding the address, event location and times, and other details are collected only for the purpose of event planning. Limited amounts of this information is available to other users (for example, they can see your city and state but not your street address). If you have a invite to your event, that user will be able to use the location of the event.</p>
             <p>Thank you for visiting the Potluck Party Planner App.</p>
         </div>
-        </div>
+      </div>
   );
 
 }
 
-export default PrivacyPolicyComponent;
+export default PrivacyPolicyContainer;

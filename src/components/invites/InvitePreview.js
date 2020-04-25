@@ -16,7 +16,7 @@ function badgeClass(response) {
   }
 }
 
-const InviteResponse = ({ invite, deleteInvite }) => {
+const InvitePreview = ({ invite, deleteInvite }) => {
 
   return (
         <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -38,4 +38,4 @@ const InviteResponse = ({ invite, deleteInvite }) => {
 
 }
 
-export default InviteResponse;
+export default InvitePreview;

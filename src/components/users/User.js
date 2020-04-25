@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import eventsService from "../../services/EventsService";
 import AssignmentList from "../assignments/AssignmentList";
 import {Link} from "react-router-dom";
-import RecipeReviewsList from "../recipes/RecipeReviewsList";
+import RecipeReviewsList from "../reviews/RecipeReviewsList";
 
 class User extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import InviteResponse from "../invites/InviteResponse";
+import InvitePreview from "../invites/InvitePreview";
 import AssignmentResponse from "../assignments/AssignmentResponse";
 import CreateInvite from "../invites/CreateInvite";
 import invitesActions from "../../actions/InvitesActions";
@@ -181,7 +181,7 @@ class Event extends React.Component {
                     {this.props.eventInvites && <>
                     <ul className="list-group mb-3">
                       {this.props.eventInvites.map((invite, index) => (
-                          <InviteResponse
+                          <InvitePreview
                               key={index}
                               invite={invite}
                               event={this.state.event}

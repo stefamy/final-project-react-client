@@ -11,7 +11,7 @@ import assignmentsService from "../services/AssignmentsService";
 import assignmentsActions from "../actions/AssignmentsActions";
 import EventPreview from "../components/events/EventPreview";
 import SearchBarComponent from "../search/SearchBarComponent";
-import RecipeReviewsList from "../components/recipes/RecipeReviewsList";
+import RecipeReviewsList from "../components/reviews/RecipeReviewsList";
 import Invite from "../components/invites/Invite";
 
 
@@ -20,7 +20,6 @@ class HomeContainer extends React.Component {
   componentDidMount() {
      this.props.findAllUserData();
   }
-
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.events !== this.props.events) {
@@ -33,7 +32,6 @@ class HomeContainer extends React.Component {
       }
     }
   }
-
 
   getNextUpcomingEventInvite() {
     return this.props.invites.find(invite => new Date(invite.eventDate) >= new Date());
