@@ -5,7 +5,7 @@ import userActions from "../../actions/UserActions";
 import assignmentsService from "../../services/AssignmentsService";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import {connect} from "react-redux";
-import SearchBarComponent from "../../search/SearchBarComponent";
+import SearchBar from "../../search/SearchBar";
 import {Link} from "react-router-dom";
 import {retrieveRecipe} from "../../services/RecipeService";
 import RecipeReviewsList from "../reviews/RecipeReviewsList";
@@ -82,7 +82,7 @@ class RecipeDetails extends React.Component {
 
                 <div className=" bg-white border rounded p-3 mb-3">
                 <h5>Search again</h5>
-                <SearchBarComponent
+                <SearchBar
                   history={this.props.history}/>
                 </div>
 

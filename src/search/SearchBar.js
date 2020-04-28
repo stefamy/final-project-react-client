@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export default class SearchBarComponent extends React.Component {
+export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

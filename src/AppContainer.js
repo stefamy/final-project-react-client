@@ -5,7 +5,7 @@ import userService from "./services/UserService";
 import userActions from "./actions/UserActions";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import HomeContainer from "./containers/HomeContainer";
+import HomeContainer from "./components/home/Home";
 import Register from "./components/users/Register";
 import EventList from "./components/events/EventList";
 import Event from "./components/events/Event";
@@ -15,20 +15,29 @@ import Profile from "./components/users/EditUser";
 import User from "./components/users/User";
 import Login from "./components/users/Login";
 import SearchContainer from "./containers/SearchContainer";
-import SearchResultsComponent from "./search/SearchResultsComponent";
+import SearchResults from "./search/SearchResults";
 import RecipeDetailsComponent from "./components/recipes/RecipeDetails";
 
 
 class AppContainer extends React.Component {
 
-  componentDidMount() {
-    this.props.findAllUserData();
+  state = {
+    isLoading: true
   }
+
+  doneLoading() {
+    this.setState({isLoading: false})
+  }
+  componentDidMount() {
+    this.props.findAllUserData(() => this.doneLoading());
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) { }
 
   render() {
     return (
         <Router>
-          <div className="container-all bg-pattern">
+          <div className={`container-all bg-pattern ${this.state.isLoading ? 'loading' : 'loaded'}`}>
             <Route
                 path=""
                 render={props => (
@@ -46,6 +55,7 @@ class AppContainer extends React.Component {
                       <HomeContainer
                           {...props}
                           history={props.history}
+                          isLoading={this.isLoading}
                       />
                   )}
               />
@@ -155,7 +165,7 @@ class AppContainer extends React.Component {
                   path="/results/:queryText"
                   exact={true}
                   render={props => (
-                      <SearchResultsComponent
+                      <SearchResults
                           {...props}
                           queryText={props.match.params.queryText}
                       />
@@ -198,11 +208,12 @@ const stateToPropertyMapper = state => {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findAllUserData: () => {
+    findAllUserData: (doneLoading) => {
       userService.findCurrentUserData().then(user => {
         if (user) {
           dispatch(userActions.findCurrentUserData(user));
         }
+        doneLoading();
       });
     },
   };

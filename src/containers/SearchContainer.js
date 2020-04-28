@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchBarComponent from "../search/SearchBarComponent";
+import SearchBar from "../search/SearchBar";
 
 
 
@@ -29,7 +29,7 @@ export default class SearchContainer extends React.Component {
           <div className="bg-white border rounded p-3 col-auto">
               <h3>Recipe Finder Tool</h3>
             <p>Search for a recipe to bring to your next party!</p>
-              <SearchBarComponent
+              <SearchBar
                   history={this.props.history}
               />
           </div>

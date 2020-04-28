@@ -2,7 +2,7 @@ import React from "react";
 import RecipePreview from "../components/recipes/RecipePreview";
 import {findRecipesByQueryTerm} from "../services/RecipeService";
 
-export default class SearchResultsComponent extends React.Component {
+export default class SearchResults extends React.Component {
 
   state = {
     results: '',

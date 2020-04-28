@@ -37,17 +37,19 @@ const Header = (props) =>
       </nav>
     </header>;
 
-const stateToPropertyMapper = state => {
-  return {
-    user: state.user.user
-  };
-};
+export default Header;
 
-const dispatchToPropertyMapper = dispatch => {
-  return {};
-};
-
-export default connect(
-    stateToPropertyMapper,
-    dispatchToPropertyMapper
-)(Header);
+// const stateToPropertyMapper = state => {
+//   return {
+//     user: state.user.user
+//   };
+// };
+//
+// const dispatchToPropertyMapper = dispatch => {
+//   return {};
+// };
+//
+// export default connect(
+//     stateToPropertyMapper,
+//     dispatchToPropertyMapper
+// )(Header);

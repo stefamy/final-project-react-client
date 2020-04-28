@@ -27,9 +27,9 @@ const userReducer = (state = initialState, action) => {
     case FIND_CURRENT_USER_DATA:
       user = {};
       user.profile = _.cloneDeep(action.user.profile);
+      user.hostedEvents = _.cloneDeep(action.user.events);
+      user.rsvps = _.cloneDeep(action.user.rsvps);
       user.assignments = _.cloneDeep(action.user.assignments);
-      user.events = _.cloneDeep(action.user.events);
-      user.invites = _.cloneDeep(action.user.invites);
       user.reviews = _.cloneDeep(action.user.reviews);
 
       return {

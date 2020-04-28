@@ -14,7 +14,7 @@ import {Link} from "react-router-dom";
      if (this.props.event) {
        this.setState({event: this.props.event});
      } else {
-       eventsService.findEventById(this.props.invite.eventId)
+       eventsService.findEventByEventId(this.props.invite.eventId)
        .then((event) => this.setState({event: event}));
      }
    }
@@ -162,10 +162,27 @@ import {Link} from "react-router-dom";
                </h5>
                <div className="pb-2">Your Response: {this.props.invite.response}
                </div>
-               <Link to={`events/${this.state.event.id}`} className="btn btn-info">Visit the Event Page</Link>
+               <Link to={`events/${this.state.event.id}`}
+                     className="btn btn-info">Visit the Event Page</Link>
              </div>
-           </div>
 
+             {/*<li className="list-group-item d-flex justify-content-between align-items-center">*/}
+             {/*  <div>*/}
+             {/*    {invite.guest.accountClaimed === 1 &&*/}
+             {/*    <Link className="text-info" to={`/profile/` + invite.guest.username}>{invite.guest.firstName} {invite.guest.lastName}</Link>*/}
+             {/*    }*/}
+             {/*    {invite.guest.accountClaimed !== 1 && <>*/}
+             {/*      {invite.firstName} {invite.lastName}*/}
+             {/*    </>}*/}
+             {/*    <span className={`ml-3 badge badge-pill ` + badgeClass(invite.response)}>{invite.response}</span>*/}
+             {/*  </div>*/}
+             {/*  <div>*/}
+             {/*    <a href={`mailto:` + invite.email} className="btn text-info"><i className="fa fa-envelope text-info"></i></a>*/}
+             {/*    <button className="btn" type="submit" onClick={() => deleteInvite(invite.id)}><i className="text-danger fa fa-close"></i></button>*/}
+             {/*  </div>*/}
+             {/*</li>*/}
+
+           </div>
            }
          </>
      );
