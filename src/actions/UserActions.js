@@ -1,4 +1,11 @@
-import { REGISTER, FIND_USER, LOGOUT_USER, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import {
+  REGISTER,
+  FIND_USER,
+  LOGOUT_USER,
+  DELETE_USER,
+  UPDATE_USER,
+  FIND_CURRENT_USER_DATA
+} from "../common/UserConstants";
 
 
 // CREATE
@@ -8,13 +15,20 @@ export const register = (newUser) => ({
 })
 
 // READ
-export const findUser = (user) => ({
+export const findCurrentUser = (user) => ({
   type: FIND_USER,
   user: user
 })
 
+// READ
+export const findCurrentUserData = (user) => ({
+  type: FIND_CURRENT_USER_DATA,
+  user: user
+})
+
+
 // DELETE
-export const deleteUser = () => ({
+export const deleteCurrentUser = () => ({
   type: DELETE_USER
 })
 
@@ -23,15 +37,16 @@ export const logout = () => ({
 })
 
 // UPDATE
-export const updateUser = (user) => ({
+export const updateCurrentUser = (user) => ({
   type: UPDATE_USER,
   newUser: user
 })
 
 export default {
   register,
-  findUser,
   logout,
-  deleteUser,
-  updateUser
+  findCurrentUser,
+  findCurrentUserData,
+  deleteCurrentUser,
+  updateCurrentUser
 }

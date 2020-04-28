@@ -27,7 +27,7 @@ export const findAllInvitesForEvent = (eventId) =>
 
 // READ
 export const findInvitesByGuestId = (userId) =>
-    fetch(`${API_URL}/api/user/${userId}/invites`, {
+    fetch(`${API_URL}/api/users/${userId}/invites`, {
       method: 'GET'
     }).then(response => response.json());
 

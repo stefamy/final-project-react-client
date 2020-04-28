@@ -1,6 +1,6 @@
 import {API_URL} from '../common/ApiConstants';
 
-// CREATE
+// CREATE - With username, email, and password
 export const register = (user) =>
     fetch(`${API_URL}/register`, {
       method: 'POST',
@@ -11,7 +11,8 @@ export const register = (user) =>
       credentials: "include"
     }).then(response => response.json())
 
-// READ
+
+// READ - Check username and email available
 export const areEmailAndUsernameAvailable = (user) =>
     fetch(`${API_URL}/register/validate`, {
       method: 'POST',
@@ -22,55 +23,7 @@ export const areEmailAndUsernameAvailable = (user) =>
     }).then(response => response.json());
 
 
-// READ
-export const findUser = () =>
-    fetch(`${API_URL}/profile`, {
-      method: 'POST',
-      credentials: "include"
-    })
-    .then( response => response.json())
-    .catch(res => '');
-
-// READ
-export const findPublicProfile = (username) =>
-    fetch(`${API_URL}/api/user/${username}`, {
-      method: 'GET'
-    })
-    .then( response => response.json())
-    .catch(res => '');
-
-
-// DELETE
-export const deleteUser = () =>
-    fetch(`${API_URL}/profile`, {
-      method: 'DELETE',
-      credentials: "include"
-    }).then(response => response.json())
-    .catch(res => '');
-
-
-// UPDATE
-export const updateUser = (user) =>
-    fetch(`${API_URL}/profile`, {
-      method: 'PUT',
-      body: JSON.stringify(user),
-      headers: {
-        'content-type': 'application/json'
-      },
-      credentials: "include"
-    }).then(response => response.json())
-      .catch(res => '');
-
-
-// LOGOUT
-export const logout = () =>
-    fetch(`${API_URL}/logout`, {
-      method: 'POST',
-      credentials: "include"
-    }).then(response => response.json())
-    .catch(() => '');
-
-// LOGIN
+// LOGIN - With username and password
 export const login = (user) =>
     fetch(`${API_URL}/login`, {
       method: 'POST',
@@ -83,13 +36,71 @@ export const login = (user) =>
     .catch(res => null);
 
 
+// LOGOUT - From current user HTTP credentials
+export const logout = () =>
+    fetch(`${API_URL}/logout`, {
+      method: 'POST',
+      credentials: "include"
+    }).then(response => response.json())
+    .catch(() => '');
+
+// READ - From HTTP credentials
+export const findCurrentUser = () =>
+    fetch(`${API_URL}/user`, {
+      method: 'POST',
+      credentials: "include"
+    })
+    .then( response => response.json())
+    .catch(res => '');
+
+// READ - Upcoming event data from HTTP credentials
+export const findCurrentUserData = () =>
+    fetch(`${API_URL}/user/upcoming`, {
+      method: 'POST',
+      credentials: "include"
+    })
+    .then( response => response.json())
+    .catch(res => '');
+
+
+// UPDATE - User account
+export const updateCurrentUser = (user) =>
+    fetch(`${API_URL}/user`, {
+      method: 'PUT',
+      body: JSON.stringify(user),
+      headers: {
+        'content-type': 'application/json'
+      },
+      credentials: "include"
+    }).then(response => response.json())
+    .catch(res => '');
+
+
+// DELETE - User account
+export const deleteCurrentUser = () =>
+    fetch(`${API_URL}/user`, {
+      method: 'DELETE',
+      credentials: "include"
+    }).then(response => response.json())
+    .catch(res => '');
+
+
+// READ - From username
+export const findPublicProfile = (username) =>
+    fetch(`${API_URL}/api/user/${username}`, {
+      method: 'GET'
+    })
+    .then( response => response.json())
+    .catch(res => '');
+
 
 export default {
   register,
-  findUser,
-  findPublicProfile,
-  deleteUser,
-  updateUser,
+  login,
   logout,
-  login
+  findCurrentUser,
+  findCurrentUserData,
+  updateCurrentUser,
+  deleteCurrentUser,
+  findPublicProfile
 }

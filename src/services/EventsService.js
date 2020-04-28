@@ -11,7 +11,7 @@ export const createEvent = (userId, event) =>
     }).then(response => response.json())
 
 // READ
-export const findEventById = (eventId) =>
+export const findEventByEventId = (eventId) =>
     fetch(`${API_URL}/api/events/${eventId}`, {
       method: 'GET',
     })
@@ -20,16 +20,16 @@ export const findEventById = (eventId) =>
 
 
 // READ
-export const findHostEventsForUser = (userId) =>
-    fetch(`${API_URL}/api/events/host/${userId}`, {
+export const findEventsByHostId = (hostId) =>
+    fetch(`${API_URL}/api/events/host/${hostId}`, {
       method: 'GET',
     })
     .then( response => response.json());
 
 
 // READ
-export const findGuestEventsForUser = (userId) =>
-    fetch(`${API_URL}/api/events/guest/${userId}`, {
+export const findEventsByGuestId = (guestId) =>
+    fetch(`${API_URL}/api/events/guest/${guestId}`, {
       method: 'GET',
     })
     .then( response => response.json());
@@ -57,9 +57,9 @@ export const updateEvent = (eventId, event) =>
 
 export default {
   createEvent,
-  findEventById,
-  findHostEventsForUser,
-  findGuestEventsForUser,
+  findEventByEventId,
+  findEventsByHostId,
+  findEventsByGuestId,
   deleteEvent,
   updateEvent
 

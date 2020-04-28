@@ -277,9 +277,9 @@ const dispatchToPropertyMapper = dispatch => {
       .then(() => dispatch(userActions.logout()));
     },
     updateUser: (user, reSetState) => {
-      userService.updateUser(user)
+      userService.updateCurrentUser(user)
       .then(newUser => {
-        dispatch(userActions.updateUser(newUser));
+        dispatch(userActions.updateCurrentUser(newUser));
         reSetState();
       });
     },

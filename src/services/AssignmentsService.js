@@ -20,7 +20,7 @@ export const findAssignmentById = (assignmentId) =>
 
 // READ
 export const findAssignmentByAssigneeUserId = (userId) =>
-    fetch(`${API_URL}/api/user/${userId}/assignments`, {
+    fetch(`${API_URL}/api/users/${userId}/assignments`, {
       method: 'GET'
     }).then(response => response.json());
 

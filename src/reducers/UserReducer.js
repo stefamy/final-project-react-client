@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { REGISTER, FIND_USER, LOGOUT_USER, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import { REGISTER, FIND_USER, FIND_CURRENT_USER_DATA, LOGOUT_USER, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
 
 const initialState = {
   user: {}
@@ -10,13 +10,27 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case REGISTER:
-      user = _.cloneDeep(action.newUser)
+      user = {};
+      user.profile = _.cloneDeep(action.newUser)
       return {
         user: user
       }
 
     case FIND_USER:
-      user = _.cloneDeep(action.user)
+      user = {};
+      user.profile = _.cloneDeep(action.user)
+
+      return {
+        user: user
+      }
+
+    case FIND_CURRENT_USER_DATA:
+      user = {};
+      user.profile = _.cloneDeep(action.user.profile);
+      user.assignments = _.cloneDeep(action.user.assignments);
+      user.events = _.cloneDeep(action.user.events);
+      user.invites = _.cloneDeep(action.user.invites);
+      user.reviews = _.cloneDeep(action.user.reviews);
 
       return {
         user: user
@@ -33,7 +47,8 @@ const userReducer = (state = initialState, action) => {
       }
 
     case UPDATE_USER:
-      user = _.cloneDeep(action.newUser)
+      user = {};
+      user.profile = _.cloneDeep(action.newUser)
 
       return {
         user: user

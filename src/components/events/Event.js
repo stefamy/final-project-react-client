@@ -8,7 +8,7 @@ import invitesService from "../../services/InvitesService";
 import CreateAssignment from "../assignments/CreateAssignment";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import assignmentsService from "../../services/AssignmentsService";
-import eventsService from "../../services/EventsService";
+import eventsService, {findEventByEventId} from "../../services/EventsService";
 import Invite from "../invites/Invite";
 import {Link} from "react-router-dom";
 
@@ -19,15 +19,17 @@ class Event extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.event) {
-      eventsService.findEventById(this.props.eventId).then((event) => {
+    // if (this.props.event) {
+    //   this.setState({event: this.props.event});
+    //   this.props.loadAllEventData(this.props.eventId);
+    // } else {
+      eventsService.findEventByEventId(this.props.eventId).then((event) => {
         this.setState({event: event});
         this.props.loadAllEventData(this.props.eventId);
       });
-    } else {
-      this.setState({event: this.props.event});
-      this.props.loadAllEventData(this.props.eventId);
-    }
+    // }
+    console.log('EVENT mounted component PROPS:', this.props);
+    console.log('EVENT mounted component STATE:', this.state);
   }
 
   handleResponseChange(attribute, newContent) {
@@ -42,19 +44,21 @@ class Event extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.user && (prevProps.eventInvites !== this.props.eventInvites)) {
-      const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
-      this.setState({
-        userInvite: invite,
-        guestUser: !(invite && invite.id)
-      });
-    }
-    if (prevProps.eventAssignments && (this.props.eventAssignments.length !== prevProps.eventAssignments.length)) {
-      this.stopShowCreateAssignment();
-    }
-    if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
-      this.stopShowCreateInvite();
-    }
+    // if (this.props.user && (prevProps.eventInvites !== this.props.eventInvites)) {
+    //   const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
+    //   this.setState({
+    //     userInvite: invite,
+    //     guestUser: !(invite && invite.id)
+    //   });
+    // }
+    // if (prevProps.eventAssignments && (this.props.eventAssignments.length !== prevProps.eventAssignments.length)) {
+    //   this.stopShowCreateAssignment();
+    // }
+    // if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
+    //   this.stopShowCreateInvite();
+    // }
+    console.log('EVENT updated this state', this.state);
+    console.log('EVENT updated this props', this.props);
   }
 
   showUpdateSuccess() {

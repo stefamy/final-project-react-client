@@ -1,14 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
-import eventsService from "../services/EventsService";
-import eventsActions from "../actions/EventsActions";
 import userService from "../services/UserService";
 import userActions from "../actions/UserActions";
-import invitesService from "../services/InvitesService";
-import invitesActions from "../actions/InvitesActions";
-import assignmentsService from "../services/AssignmentsService";
-import assignmentsActions from "../actions/AssignmentsActions";
 import EventPreview from "../components/events/EventPreview";
 import SearchBarComponent from "../search/SearchBarComponent";
 import RecipeReviewsList from "../components/reviews/RecipeReviewsList";
@@ -18,33 +12,39 @@ import Invite from "../components/invites/Invite";
 class HomeContainer extends React.Component {
 
   componentDidMount() {
-     this.props.findAllUserData();
+    console.log('HOME mounted component PROPS:', this.props);
+    console.log('HOME mounted component STATE:', this.state);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.events !== this.props.events) {
-      if (this.props.events.length) {
+    if (prevProps.user.events !== this.props.user.events) {
+      if (this.props.user.events.length) {
         this.setState({nextEvent: this.getNextUpcomingEvent()})
       }
-    } else if (prevProps.invites !== this.props.invites) {
-      if (this.props.invites.length) {
+    } else if (prevProps.user.invites !== this.props.user.invites) {
+      if (this.props.user.invites.length) {
         this.setState({nextInvite: this.getNextUpcomingEventInvite()})
       }
     }
+    console.log('HOME updated component PROPS:', this.props);
+    console.log('HOME updated component STATE:', this.state);
+
   }
 
   getNextUpcomingEventInvite() {
-    return this.props.invites.find(invite => new Date(invite.eventDate) >= new Date());
+    return this.props.user.invites.find(invite => new Date(invite.eventDate) >= new Date());
   }
 
   getNextUpcomingEvent() {
-    return this.props.events.find(event => new Date(event.date) >= new Date());
+    return this.props.user.events.find(event => new Date(event.date) >= new Date());
   }
 
   render() {
+    const profile = this.props.user ? this.props.user.profile : null;
+
     return (
         <>
-          {!this.props.user.id &&
+          {!profile &&
           <div>
             <div className="mb-5 p-5 bg-white hero-unit rounded border">
               <h1>Welcome to the Potluck Party Planner! <span aria-label="jsx-a11y/accessible-emoji" role="img">🥳</span></h1>
@@ -92,7 +92,7 @@ class HomeContainer extends React.Component {
           </div>
           </div>
           }
-            {this.props.user.id &&
+            {profile &&
             <div>
               <div className="mb-5 p-5 bg-white hero-unit rounded border">
                 <h1>Welcome to the Party Planner App <span aria-label="jsx-a11y/accessible-emoji" role="img">🥳</span></h1>
@@ -106,7 +106,7 @@ class HomeContainer extends React.Component {
                           headerText="Next Upcoming Event: "
                           event={this.state.nextEvent}
                           history={this.props.history}
-                          userId={this.props.user.id}
+                          userId={profile.id}
                       />
                     </>}
                     {this.state && !this.state.nextEvent
@@ -115,7 +115,7 @@ class HomeContainer extends React.Component {
                           preview={true}
                           invite={this.state.nextInvite}
                           history={this.props.history}
-                          userId={this.props.user.id}
+                          userId={profile.id}
 
                       />
                     </> }
@@ -180,31 +180,12 @@ class HomeContainer extends React.Component {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findHostEventsForUser: userId => {
-      eventsService.findHostEventsForUser(userId).then(events => {
-        dispatch(eventsActions.findAllEvents(events));
-      });
-    },
-    findGuestEventsForUser: userId => {
-      eventsService.findGuestEventsForUser(userId).then(events => {
-        dispatch(eventsActions.findAllEvents(events));
-      });
-    },
     findAllUserData: () => {
-      userService.findUser().then(user => {
-        if (user && user.id) {
-          dispatch(userActions.findUser(user));
-          eventsService.findHostEventsForUser(user.id)
-          .then(events =>
-            dispatch(eventsActions.findAllEvents(events))
-          );
-          invitesService.findInvitesByGuestId(user.id)
-          .then(invites => dispatch(invitesActions.findAllInvites(invites)));
-          assignmentsService.findAssignmentByAssigneeUserId(user.id)
-          .then(assignments => dispatch(
-              assignmentsActions.findAllAssignments(assignments)));
+      userService.findCurrentUserData().then(user => {
+        if (user) {
+          dispatch(userActions.findCurrentUserData(user));
         }
-      });
+       });
     },
   };
 };
