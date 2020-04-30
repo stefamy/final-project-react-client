@@ -4,7 +4,7 @@ import userService from "../../services/UserService";
 import EventPreview from "../events/EventPreview";
 import { connect } from "react-redux";
 import eventsService from "../../services/EventsService";
-import AssignmentList from "../assignments/AssignmentList";
+import AssignmentList from "../assignments/UserAssignmentList";
 import {Link} from "react-router-dom";
 import RecipeReviewsList from "../reviews/RecipeReviewsList";
 

@@ -1,35 +1,47 @@
 import React from "react";
 import { connect } from "react-redux";
-import InvitePreview from "../invites/InvitePreview";
-import AssignmentResponse from "../assignments/AssignmentResponse";
-import CreateInvite from "../invites/CreateInvite";
+import {Link} from "react-router-dom";
+import Address from "../structural/Address";
+import {longDate} from "../../util/calendar";
+import eventsService from "../../services/EventsService";
+import InviteList from "../invites/InviteList";
+import InviteRsvp from "../invites/InviteRsvp";
 import invitesActions from "../../actions/InvitesActions";
 import invitesService from "../../services/InvitesService";
-import CreateAssignment from "../assignments/CreateAssignment";
+import EventAssignmentList from "../assignments/AssignmentList";
 import assignmentsActions from "../../actions/AssignmentsActions";
 import assignmentsService from "../../services/AssignmentsService";
-import eventsService, {findEventByEventId} from "../../services/EventsService";
-import Invite from "../invites/Invite";
-import {Link} from "react-router-dom";
 
 class Event extends React.Component {
 
   state = {
-    guestUser: true
+    event: {},
+    isEventHost: false,
+    isEventGuest: false
   }
 
   componentDidMount() {
-    // if (this.props.event) {
-    //   this.setState({event: this.props.event});
-    //   this.props.loadAllEventData(this.props.eventId);
-    // } else {
-      eventsService.findEventByEventId(this.props.eventId).then((event) => {
-        this.setState({event: event});
-        this.props.loadAllEventData(this.props.eventId);
+    eventsService.findEventByEventId(this.props.match.params.eventId).then((event) => {
+      this.setState({event: event})
+      this.props.loadAllEventData(event.id);
+    });
+    if (this.props.user.profile.id && this.state.event) {
+      this.setUserStatus();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.user.profile.id !== prevProps.user.profile.id
+        || this.state.event.id !== prevState.event.id) {
+      this.setUserStatus();
+    }
+  }
+
+  setUserStatus() {
+      this.setState({
+        isEventHost: this.state.event.hostId === this.props.user.profile.id,
+        isEventGuest: this.props.user.rsvps && (this.props.user.rsvps.some(rsvp => rsvp.event.id === this.state.event.id))
       });
-    // }
-    console.log('EVENT mounted component PROPS:', this.props);
-    console.log('EVENT mounted component STATE:', this.state);
   }
 
   handleResponseChange(attribute, newContent) {
@@ -43,7 +55,9 @@ class Event extends React.Component {
     this.props.createAssignment(eventId, assignment);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log('2 this props', this.props);
+
     // if (this.props.user && (prevProps.eventInvites !== this.props.eventInvites)) {
     //   const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
     //   this.setState({
@@ -57,9 +71,8 @@ class Event extends React.Component {
     // if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
     //   this.stopShowCreateInvite();
     // }
-    console.log('EVENT updated this state', this.state);
-    console.log('EVENT updated this props', this.props);
-  }
+
+  // }
 
   showUpdateSuccess() {
     this.setState({
@@ -90,18 +103,6 @@ class Event extends React.Component {
     })
   }
 
-  doShowCreateInvite() {
-    this.setState({
-      showCreateInvite: true
-    })
-  }
-
-  stopShowCreateInvite() {
-    this.setState({
-      showCreateInvite: false
-    })
-  }
-
   getUserInvite(userId) {
     return this.props.eventInvites.find(invite => invite.guestId === userId);
   }
@@ -109,124 +110,62 @@ class Event extends React.Component {
 
   render() {
     return (
-        <div className="bg-white border p-lg-5 p-3">
-          <div className="row">
-            {this.state.event && <>
-              <div className="col-12 p-3">
-                <h3>Event: {this.state.event.name} </h3>
-                <h4>{this.state.event.description} </h4>
-                <p>{this.state.event.date} </p>
+        <div className="bg-white border">
 
-                {((this.state.event.hostId === this.props.user.id) || this.state.userInvite) &&
-                <>
-                  <h5>Hosted by: <Link to={`/profile/${this.state.event.hostUsername}`}>{this.state.event.hostFirstName} {this.state.event.hostLastName}</Link></h5>
-                  <p>
-                    {this.state.event.locationName &&
-                    <span>{this.state.event.locationName}<br/></span>}
-                    {this.state.event.locationStreet1 &&
-                    <span>{this.state.event.locationStreet1}<br/></span>}
-                    {this.state.event.locationStreet2 &&
-                    <span>{this.state.event.locationStreet2}<br/></span>}
-                    {this.state.event.locationCity && !this.state.event.locationState
-                    && <span>{this.state.event.locationCity}</span>}
-                    {this.state.event.locationCity && this.state.event.locationState
-                    &&
-                    <span>{this.state.event.locationCity}, {this.state.event.locationState} </span>}
-                    {this.state.event.locationZip &&
-                    <span>{this.state.event.locationZip} <br/></span>}
-                    {this.state.event.locationNotes &&
-                    <span>{this.state.event.locationNotes} <br/></span>}
-                  </p>
-                </>
-                }
+            {this.state.event && <>
+            <div className="bg-light p-3 border-bottom text-center">
+              <h3 className="display-4 pt-2">{this.state.event.name} </h3>
+              <p className="lead">{this.state.event.description} </p>
+              <p>{longDate(this.state.event.date)} {this.state.event.startTime && <span> • {this.state.event.startTime}</span>} </p>
+
+              <Address
+                  name={this.state.event.locationName}
+                  street1={this.state.event.locationStreet1}
+                  street2={this.state.event.locationStreet2}
+                  city={this.state.event.locationCity}
+                  state={this.state.event.locationState}
+                  zip={this.state.event.locationZip}
+                  notes={this.state.event.locationNotes} />
+
+              <p>Hosted by: <Link to={`/profile/${this.state.event.hostUsername}`}>{this.state.event.hostFirstName} {this.state.event.hostLastName}</Link></p>
             </div>
 
-              <div className="col-12 bg-white p-3">
-                {((this.state.event.hostId === this.props.user.id) || !this.state.guestUser) && this.props.eventAssignments && <>
-                  <h3>Assignments</h3>
-                      <div className="mb-3">
-                      {this.props.eventAssignments.map((assignment, index) => (
-                          <AssignmentResponse
-                              key={index}
-                              assignment={assignment}
-                              isHost={this.state.event.hostId === this.props.user.id}
-                              user={this.props.user}
-                              updateAssignment={this.props.updateAssignment}
-                              deleteAssignment={this.props.deleteAssignment}
-                          />
-                      ))}
-                      </div>
-                     </> }
-                    {this.state.event.hostId === this.props.user.id && <>
-                      {!this.state.showCreateAssignment &&
-                        <button
-                          onClick={() => this.doShowCreateAssignment()}
-                          className="btn btn-outline-info">
-                          Add New Assignment
-                          </button>
-                      }
-                      {this.state.showCreateAssignment &&
-                          <CreateAssignment
-                              createAssignment={this.props.createAssignment}
-                              user={this.props.user}
-                              eventId={this.state.event.id}
-                          />
-                      }
-                      </>}
-                  {this.state.guestUser && (!this.state.event.hostId === this.props.user.id) &&
-                  <p>For privacy reasons, only event guests can see the invite list. <br/>
-                    If you are on the invite list, please sign in to view the full event details.</p>}
-                </div>
+            {this.state.isEventHost &&
+            <div className="col-12 bg-white p-3">
+              <InviteList event={this.state.event} />
+            </div> }
 
-              <hr/>
-              {this.state.event.hostId === this.props.user.id &&
+            <div className="col-12 bg-white p-3">
+            <EventAssignmentList event={this.state.event} />
+            </div>
+
+            {this.state.isEventGuest &&
               <div className="col-12 bg-white p-3">
-                <h3>Invites</h3>
-                    {this.props.eventInvites && <>
-                    <ul className="list-group mb-3">
-                      {this.props.eventInvites.map((invite, index) => (
-                          <InvitePreview
-                              key={index}
-                              invite={invite}
-                              event={this.state.event}
-                              deleteInvite={this.props.deleteInvite}
-                          />
-                      ))}
-                    </ul>
-                    </>}
-                    {!this.state.showCreateInvite &&
-                      <button
-                          onClick={() => this.doShowCreateInvite()}
-                          className="btn btn-outline-info">
-                        Add New Invitation
-                      </button>
-                    }
-                    {this.state.showCreateInvite &&
-                    <CreateInvite
-                        createInvite={this.props.createInvite}
-                        user={this.props.user}
-                        eventId={this.state.event.id}
-                        eventDate={this.state.event.date}
-                    /> }
-                </div>
-                }
-                {this.state.userInvite &&
-                  <div className="col-12 bg-white p-3">
-                  <h3>Your RSVP</h3>
-                      <Invite
-                         invite={this.state.userInvite}
-                         event={this.state.event}
-                         userId={this.props.user.id}
-                         hideEventDetails={true}
-                         isHost={this.state.event.hostId === this.props.user.id}
-                         updateInvite={this.props.updateInvite}
-                     />
-                  </div>
-                  }
-                </>}
+                <h3>Your RSVP</h3>
+                <InviteRsvp
+                    event={this.state.event}
+                    rsvp={this.props.user.rsvps.find(rsvp => rsvp.invite.eventId === this.state.event.id)}
+                    hideEventDetails={true}
+
+                />
+              </div>
+            }
+
+            </>
+            }
+
+              {/*    /!*{this.state.guestUser && (!this.state.event.hostId === this.props.user.id) &&*!/*/}
+              {/*    /!*<p>For privacy reasons, only event guests can see the invite list. <br/>*!/*/}
+              {/*    /!*  If you are on the invite list, please sign in to view the full event details.</p>}*!/*/}
+
+
+              {/*<hr/>*/}
+
+
           </div>
-        </div>
-      );
+
+    );
+
 
     }
 
@@ -249,36 +188,6 @@ const dispatchToPropertyMapper = dispatch => {
       });
       assignmentsService.findAllAssignmentsForEvent(eventId).then(assignments => {
         dispatch(assignmentsActions.findAllAssignmentsForEvent(assignments));
-      });
-    },
-    createInvite: (eventId, invite) => {
-      invitesService.createInvite(eventId, invite).then(invite => {
-        dispatch(invitesActions.createInvite(invite));
-      });
-    },
-    deleteInvite: (inviteId) => {
-      invitesService.deleteInvite(inviteId).then(response => {
-        dispatch(invitesActions.deleteInviteForEvent(inviteId));
-      });
-    },
-    createAssignment: (eventId, assignment) => {
-      assignmentsService.createAssignment(eventId, assignment).then(assignment => {
-        dispatch(assignmentsActions.createAssignment(assignment));
-      });
-    },
-    deleteAssignment: (assignmentId) => {
-      assignmentsService.deleteAssignment(assignmentId).then(response => {
-        dispatch(assignmentsActions.deleteAssignmentForEvent(assignmentId));
-      });
-    },
-    updateInvite: (inviteId, invite) => {
-      invitesService.updateInvite(inviteId, invite).then(response => {
-        dispatch(invitesActions.updateInviteForEvent(invite));
-      });
-    },
-    updateAssignment: (assignmentId, assignment) => {
-      assignmentsService.updateAssignment(assignmentId, assignment).then(response => {
-        dispatch(assignmentsActions.updateAssignmentForEvent(assignment));
       });
     },
   };

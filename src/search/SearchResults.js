@@ -10,7 +10,7 @@ export default class SearchResults extends React.Component {
   };
 
   sendQuery() {
-    findRecipesByQueryTerm(this.props.queryText).then(data => {
+    findRecipesByQueryTerm(this.props.queryTerm).then(data => {
       if (data) {
         this.setState({
           results: data.results,
@@ -31,7 +31,7 @@ export default class SearchResults extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-      if (prevProps.queryText !== this.props.queryText) {
+      if (prevProps.queryTerm !== this.props.queryTerm) {
         this.sendQuery();
       }
     }
@@ -41,13 +41,8 @@ export default class SearchResults extends React.Component {
           <>
           <div className="pt-3 pb-3 mb-4 bg-white border rounded d-flex align-items-center justify-content-between">
             <div className="col">
-              <h4>Search term: {this.props.queryText}</h4>
+              <h4>Search term: {this.props.queryTerm}</h4>
               {this.state.results && <p className="mb-0">Viewing {this.state.count} results.</p>}
-            </div>
-            <div className="col-auto">
-              <button type="button" className="float-right btn btn-info"
-                      onClick={this.props.history.goBack}>Back
-              </button>
             </div>
           </div>
             <div className="row">

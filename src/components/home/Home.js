@@ -9,18 +9,13 @@ import AssignmentPreview from "../assignments/AssignmentPreview";
 import SearchBar from "../../search/SearchBar";
 import RecipeReviewsList from "../reviews/RecipeReviewsList";
 import Hero from "./Hero";
+import Card from "../structural/Card";
 
 class Home extends React.Component {
 
-  componentDidMount() {
-    console.log('1 this state', this.state);
-    console.log('1 this props', this.props);
-  }
+  componentDidMount() { }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('2 this state', this.state);
-    console.log('2 this props', this.props);
-  }
+  componentDidUpdate(prevProps, prevState, snapshot) { }
 
   getNextHostedEvent() {
     return this.props.user.hostedEvents.find(event => new Date(event.date) >= new Date());
@@ -36,108 +31,130 @@ class Home extends React.Component {
   }
 
   render() {
-    const profile = this.props.user ? this.props.user.profile : null;
 
     return (
         <>
           <Hero />
-          {profile && <div className="row">
 
-                  <div className="col-lg-6 col-12 pb-5">
-                    {this.props.user.hostedEvents && <>
-                      <EventPreview
-                          headerText="You're Hosting!"
-                          event={this.getNextHostedEvent()}
-                          history={this.props.history}
-                          userId={profile.id}
-                      />
-                    </>}
-                    {!this.props.user.hostedEvents && this.props.user.rsvps && <>
-                      <RsvpPreview
-                          headerText="You're Invited!"
-                          rsvp={this.getNextRsvp()}
-                          history={this.props.history}
-                          userId={profile.id}
+          {this.props.user.profile && <div className="row">
 
-                      />
-                    </>}
-                    {!this.props.user.hostedEvents && !this.props.user.rsvps && <>
-                      <div className="card">
-                        <h5 className="card-header">No upcoming events.</h5>
-                        <div className="card-body">
-                          <h5 className="card-title">Want to create one?</h5>
-                          <p className="card-text">Plan your next event or party and get organized!</p>
-                          <Link to="/events" className="btn btn-outline-info">Go to
-                            events</Link>
-                        </div>
-                      </div>
-                    </>}
-                  </div>
-                  <div className="col-lg-6 col-12 pb-5">
-                    <AssignmentPreview
-                        headerText="Upcoming Assignment"
-                        assignment={this.getUpcomingAssignment()}
+            <div className="col-lg-6 col-12 pb-5">
+
+              {this.props.user.hostedEvents &&
+                    <EventPreview
+                        headerText="You're Hosting!"
+                        event={this.getNextHostedEvent()}
                         history={this.props.history}
-                        userId={profile.id}
+                        userId={this.props.user.profile.id}
+                    />}
+              {!this.props.user.hostedEvents && this.props.user.rsvps &&
+                    <RsvpPreview
+                        headerText="You're Invited!"
+                        rsvp={this.getNextRsvp()}
+                        history={this.props.history}
+                        userId={this.props.user.profile.id}
+                    />}
+              {!this.props.user.hostedEvents && !this.props.user.rsvps &&
+                  <Card
+                      header="No upcoming events."
+                      title="Want to create one?"
+                      text="Plan your next event or party and get organized!"
+                      linkUrl="/events"
+                      linkText="Go to events"
                     />
+                 }
+
+            </div> {/* End widget 1 */}
+
+            <div className="col-lg-6 col-12 pb-5">
+
+              {this.props.user.assignments &&
+                  <AssignmentPreview
+                      headerText="Upcoming Assignment"
+                      assignment={this.getUpcomingAssignment()}
+                      history={this.props.history}
+                      userId={this.props.user.profile.id}
+                  />}
+              {!this.props.user.assignments &&
+                <Card
+                    header="Upcoming assignments"
+                    title="No upcoming assignments"
+                    text="Sign up to bring a dish or help out at your next party."
+                    linkUrl="/invites"
+                    linkText="Go to invites"
+                />}
+
+            </div> {/* End widget 2 */}
+
+            <div className="col-lg-6 col-12 pb-5">
+              <Card
+                  header="Find your next recipe!"
+                  title="Unsure what to bring to your next event?"
+                  text="Search our catalog of recipes and read reviews from other users."
+                  cta={<div className="col-md-8 col pl-0 pr-0"><SearchBar /></div>}
+              />
+            </div>  {/* End widget 3 */}
+
+            <div className="col-lg-6 col-12 pb-5">
+              <Card
+                  header="Recently Reviewed"
+                  cta={<RecipeReviewsList
+                      findRecent={true}
+                      linkToRecipe={true}
+                      limit={1}
+                      wrapClass=" "
+                      hideForm={true}
+                  /> /* TODO Just one widget preview */ }
+              />
+
+            </div> {/* End widget 3 */}
+
+          </div>}  {/* End logged in user */}
+
+          {!this.props.user.profile &&  <div className="row">
+            <div className="col-lg-6 col-12 pb-5">
+              <div className="card">
+                <h5 className="card-header">It's party time!</h5>
+                <div className="card-body">
+                  <h5 className="card-title">Plan your next event or RSVP to an invite.</h5>
+                  <p className="card-text">Log in to an existing account or register to get started.</p>
+                  <Link to="/login" className="btn btn-outline-info mr-3">Login</Link>
+                  <Link to="/register" className="btn btn-outline-info">Register</Link>
+                </div>
+              </div>
+            </div>   {/* End widget 1 */}
+
+            <div className="col-lg-6 col-12 pb-5">
+              <div className="card">
+                <h5 className="card-header">Find your next recipe!</h5>
+                <div className="card-body">
+                  <h5 className="card-title">Unsure what to bring to your next event?</h5>
+                  <p className="card-text">Search our catalog of recipes and read reviews from other users.</p>
+                  <div className="col-md-8 col pl-0 pr-0">
+                    <SearchBar />
                   </div>
-                    {/*<div className="card">*/}
-                    {/*  <h5 className="card-header">Upcoming assignments</h5>*/}
-                    {/*  <div className="card-body">*/}
-                    {/*    <h5 className="card-title">asdfsdf</h5>*/}
-                    {/*    <p className="card-text">asdfsdaf</p>*/}
-                    {/*    <Link to="/events" className="btn btn-outline-info">Go to*/}
-                    {/*      assignments</Link>*/}
-                    {/*  </div>*/}
-                    {/*</div>*/}
+                </div>
+              </div>
+            </div>  {/* End widget 2 */}
 
-             {/*<div className="col-12">*/}
-             {/*      <div className="card">*/}
-             {/*        <h5 className="card-header">Unsure what to bring to your*/}
-             {/*          next party?</h5>*/}
-             {/*        <div className="card-body">*/}
-             {/*          <h5 className="card-titlcol-md-6e">Search through our*/}
-             {/*            database of 1000s of recipes.</h5>*/}
-             {/*          <SearchBar*/}
-             {/*              history={this.props.history}/>*/}
-             {/*        </div>*/}
-             {/*      </div>*/}
-             {/*    </div>*/}
+            <div className="col-12 mb-3">
+              <div className="card">
+                <h5 className="card-header">Recent Recipe Reviews</h5>
+                <div className="card-body">
+                  <RecipeReviewsList
+                      findRecent={true}
+                      linkToRecipe={true}
+                      limit={3}
+                      alignHorizontal={true}
+                      wrapClass="text-center"
+                      hideForm={true}
+                  />
+                </div>
+              </div>
+            </div> {/* End widget 3 */}
 
-            </div>
-          }
+          </div> } {/* End guest user */}
 
-          {/*{profile && <div className="row">*/}
-
-          {/*  <div className="col-lg-6 col-12 pb-5">*/}
-          {/*    <div className="card">*/}
-          {/*      <div className="card-body">*/}
-          {/*        <h5 className="card-title">Unsure what to bring to your*/}
-          {/*          next party?</h5>*/}
-          {/*        <p className="card-titlcol-md-6e">Search through our*/}
-          {/*          database of 1000s of recipes.</p>*/}
-          {/*        <SearchBar*/}
-          {/*            history={this.props.history}/>*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-12 mb-3">*/}
-          {/*    <div className="card">*/}
-          {/*      <h5 className="card-header">Recent Recipe Reviews</h5>*/}
-          {/*      <div className="card-body">*/}
-          {/*        <RecipeReviewsList*/}
-          {/*            findRecent={true}*/}
-          {/*            linkToRecipe={true}*/}
-          {/*            limit={3}*/}
-          {/*            alignHorizontal={true}*/}
-          {/*            wrapClass="text-center"*/}
-          {/*            hideForm={true}*/}
-          {/*        />*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-
-          {/*</div> }*/}
         </>
     );
   }
@@ -155,13 +172,13 @@ const stateToPropertyMapper = state => {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findAllUserData: () => {
-      userService.findCurrentUserData().then(user => {
-        if (user) {
-          dispatch(userActions.findCurrentUserData(user));
-        }
-       });
-    },
+    // findAllUserData: () => {
+    //   userService.findCurrentUserData().then(user => {
+    //     if (user) {
+    //       dispatch(userActions.findCurrentUserData(user));
+    //     }
+    //    });
+    // },
   };
 };
 

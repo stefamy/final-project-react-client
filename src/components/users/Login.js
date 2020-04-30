@@ -1,7 +1,10 @@
 import React from "react";
-import {login} from "../../services/UserService";
+import userService from "../../services/UserService";
+import userActions from "../../actions/UserActions";
+import {push} from "connected-react-router";
+import {connect} from "react-redux";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   state = {
     username: '',
     password: '',
@@ -10,15 +13,11 @@ export default class Login extends React.Component {
 
   handleLogin(event, user) {
     event.preventDefault();
-    login(user).then(currentUser => {
-      if (currentUser) {
-        this.props.history.push('/');
-      } else {
-        this.setState({
-          userPasswordNotFound: true,
-        });
-      }
-    })
+    this.props.login(user, () => this.setPasswordNotFound());
+  }
+
+  setPasswordNotFound() {
+    this.setState({userPasswordNotFound: true});
   }
 
   render() {
@@ -73,3 +72,31 @@ export default class Login extends React.Component {
     )
   }
 }
+
+const stateToPropertyMapper = state => {
+  return {
+    user: state.user.user
+  };
+};
+
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    login: (user, notFound) => {
+      userService.login(user).then(user => {
+        if (user) {
+          userService.findCurrentUserData().then((user) => {
+            dispatch(userActions.findCurrentUserData(user));
+            dispatch(push('/'));
+          });
+        } else {
+          notFound();
+        }
+      });
+    }
+  }
+};
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(Login);

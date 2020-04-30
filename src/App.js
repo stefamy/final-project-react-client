@@ -1,36 +1,57 @@
 import React from "react";
-import {Provider} from "react-redux";
-import './App.css';
-import AppContainer from "./AppContainer";
-import {combineReducers, createStore} from "redux";
-import userReducer from "./reducers/UserReducer";
-import eventsReducer from "./reducers/EventsReducer";
-import assignmentsReducer from "./reducers/AssignmentsReducer";
-import invitesReducer from "./reducers/InvitesReducer";
-import reviewsReducer from "./reducers/ReviewsReducer";
+import {connect} from "react-redux";
+import userService from "./services/UserService";
+import userActions from "./actions/UserActions";
+import routes from './routes'
 
 class App extends React.Component {
 
-  state = {};
+  state = {
+    isLoading: true
+  }
 
-  rootReducer = combineReducers({
-    user: userReducer,
-    events: eventsReducer,
-    assignments: assignmentsReducer,
-    invites: invitesReducer,
-    reviews: reviewsReducer
-  });
+  doneLoading() {
+    this.setState({isLoading: false})
+  }
+  componentDidMount() {
+    this.props.findAllUserData(() => this.doneLoading());
+  }
 
-  store = createStore(this.rootReducer);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
+  }
 
   render() {
     return (
-        <Provider store={this.store}>
-          <AppContainer />
-        </Provider>
+          <div className={`container-all bg-pattern ${this.state.isLoading ? 'loading' : 'loaded'}`}>
+            { routes }
+          </div>
     )
   }
-
 }
 
-export default App;
+
+const stateToPropertyMapper = state => {
+  return {
+    user: state.user.user
+  };
+};
+
+
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    findAllUserData: (doneLoading) => {
+      userService.findCurrentUserData().then(user => {
+        if (user) {
+          dispatch(userActions.findCurrentUserData(user));
+        }
+        doneLoading();
+      });
+    },
+  };
+};
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(App);

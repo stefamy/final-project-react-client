@@ -19,19 +19,11 @@ export default class CreateInvite extends Component {
     let newState = Object.assign({}, this.state);
     newState.newInvite[attribute] = newContent;
     this.setState(newState);
-
   }
 
   handleCreateInvite(e) {
     e.preventDefault();
     this.props.createInvite(this.state.newInvite.eventId, this.state.newInvite);
-    this.setState({
-      newInvite: {
-        firstName: '',
-        lastName: '',
-        email: ''
-      }
-    })
   }
 
   showSaveSuccess() {
@@ -47,44 +39,55 @@ export default class CreateInvite extends Component {
 
   render() {
     return (
-        <div className="new-invite-form mt-5 mb-5">
-          <h3>Create New Invite</h3>
-          <form onSubmit={(e) => this.handleCreateInvite(e)}>
-            <div className="form-group">
-              <label htmlFor="inviteFirstNameInput">First Name</label>
-              <input
-                  id="inviteFirstNameInput"
-                  onChange={(e) => this.handleNewInviteInput('firstName', e.target.value)}
-                  className="form-control"
-                  placeholder="First name of the invitee"
-                  required/>
+        <div className="new-invite-form p-4 bg-light  rounded border">
+          <div className="row align-items-between justify-content-between mb-2">
+            <div className="col-auto">
+              <h5>Create New Invite</h5>
             </div>
-            <div className="form-group">
-              <label htmlFor="inviteLastNameInput">Last Name</label>
-              <input
-                  id="inviteLastNameInput"
-                  onChange={(e) => this.handleNewInviteInput('lastName', e.target.value)}
-                  className="form-control"
-                  placeholder="Last name of the invitee"
-                  required
-              />
+            <div className="col-auto">
+                <button
+                onClick={this.props.cancelCreateInvite}
+                className="btn btn-sm btn-danger">
+                Cancel
+              </button>
             </div>
-            <div className="form-group">
-              <label htmlFor="inviteEmailInput">Email Address</label>
-              <input
-                  id="inviteEmailInput"
-                  onChange={(e) => this.handleNewInviteInput('email', e.target.value)}
-                  className="form-control"
-                  placeholder="Email address of the invitee"
-                  required
-              />
-            </div>
-            <div className="form-group mt-3">
-              {!this.state.isSaving && <button type="submit" className="btn btn-info">Add Invite</button> }
-              {this.state.showSuccess && <span className="text-success success-saved"> Added!</span> }
-              {this.state.isSaving && <button type="submit" disabled className="btn btn-info">Update Response</button> }
-            </div>
-          </form>
+          </div>
+            <form onSubmit={(e) => this.handleCreateInvite(e)}>
+              <div className="form-group">
+                <label htmlFor="inviteFirstNameInput">First Name</label>
+                <input
+                    id="inviteFirstNameInput"
+                    onChange={(e) => this.handleNewInviteInput('firstName', e.target.value)}
+                    className="form-control"
+                    placeholder="First name of the invitee"
+                    required/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="inviteLastNameInput">Last Name</label>
+                <input
+                    id="inviteLastNameInput"
+                    onChange={(e) => this.handleNewInviteInput('lastName', e.target.value)}
+                    className="form-control"
+                    placeholder="Last name of the invitee"
+                    required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="inviteEmailInput">Email Address</label>
+                <input
+                    id="inviteEmailInput"
+                    onChange={(e) => this.handleNewInviteInput('email', e.target.value)}
+                    className="form-control"
+                    placeholder="Email address of the invitee"
+                    required
+                />
+              </div>
+              <div className="form-group mt-3 mb-0">
+                {!this.state.isSaving && <button type="submit" className="btn btn-info">Add Invite</button> }
+                {this.state.showSuccess && <span className="text-success success-saved"> Added!</span> }
+                {this.state.isSaving && <button type="submit" disabled className="btn btn-info">Update Response</button> }
+              </div>
+            </form>
         </div>
     );
   }

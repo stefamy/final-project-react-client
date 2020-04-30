@@ -1,10 +1,11 @@
 import {
   REGISTER,
-  FIND_USER,
-  LOGOUT_USER,
+  FIND_CURRENT_USER,
+  LOGIN,
+  LOGOUT,
   DELETE_USER,
   UPDATE_USER,
-  FIND_CURRENT_USER_DATA
+  FIND_CURRENT_USER_DATA, UPDATE_USER_RSVP
 } from "../common/UserConstants";
 
 
@@ -16,7 +17,7 @@ export const register = (newUser) => ({
 
 // READ
 export const findCurrentUser = (user) => ({
-  type: FIND_USER,
+  type: FIND_CURRENT_USER,
   user: user
 })
 
@@ -26,14 +27,13 @@ export const findCurrentUserData = (user) => ({
   user: user
 })
 
-
-// DELETE
-export const deleteCurrentUser = () => ({
-  type: DELETE_USER
+export const login = (user) => ({
+  type: LOGIN,
+  user: user
 })
 
 export const logout = () => ({
-  type: LOGOUT_USER
+  type: DELETE_USER
 })
 
 // UPDATE
@@ -42,11 +42,28 @@ export const updateCurrentUser = (user) => ({
   newUser: user
 })
 
+
+// UPDATE
+export const updateCurrentUserRsvp = (user, invite, rsvpIndex) => ({
+  type: UPDATE_USER_RSVP,
+  user: user,
+  invite: invite,
+  rsvpIndex: rsvpIndex
+})
+
+
+// DELETE
+export const deleteCurrentUser = () => ({
+  type: DELETE_USER
+})
+
 export default {
   register,
+  login,
   logout,
   findCurrentUser,
   findCurrentUserData,
-  deleteCurrentUser,
-  updateCurrentUser
+  updateCurrentUser,
+  updateCurrentUserRsvp,
+  deleteCurrentUser
 }

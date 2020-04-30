@@ -21,10 +21,6 @@ export default class CreateAssignment extends Component {
     this.handleNewAssignmentInput('type', e.target.value);
   }
 
-  handleNewDishCategory(e) {
-    this.handleNewAssignmentInput('dishCat', e.target.value);
-  }
-
   handleCreateAssignment(e) {
       e.preventDefault();
       this.props.createAssignment(this.state.newAssignment.eventId, this.state.newAssignment);
@@ -40,14 +36,24 @@ export default class CreateAssignment extends Component {
     }, 1000);
   }
 
-
   render() {
     return (
-        <div className="new-assignment-form mt-5 mb-5">
-          <h3>Create New Assignment</h3>
+        <div className="new-assignment-form p-4 bg-light rounded border">
+          <div className="row align-items-between justify-content-between mb-2 pb-2">
+            <div className="col-auto">
+              <h5>Create New Assignment</h5>
+            </div>
+            <div className="col-auto">
+              <button
+                  onClick={this.props.cancelCreateAssignment}
+                  className="btn btn-sm btn-danger">
+                Cancel
+              </button>
+            </div>
+          </div>
           <form onSubmit={(e) => this.handleCreateAssignment(e)}>
               <div className="form-group">
-                <label htmlFor="taskNameInput">Assignment Name</label>
+                <label htmlFor="taskNameInput">Title</label>
                 <input
                     id="taskNameInput"
                     onChange={(e) => this.handleNewAssignmentInput('title', e.target.value)}
@@ -89,7 +95,7 @@ export default class CreateAssignment extends Component {
               </div>
             </>}
 
-            <div className="form-group mt-3">
+            <div className="form-group mt-3 mb-0">
               {!this.state.isSaving && <button type="submit" className="btn btn-info">Add Assignment</button> }
               {this.state.showSuccess && <span className="text-success success-saved"> Updated!</span> }
               {this.state.isSaving && <button type="submit" disabled className="btn btn-info">Update Response</button> }

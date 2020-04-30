@@ -1,37 +1,50 @@
 import React from 'react'
+import {push} from "connected-react-router";
+import {connect} from "react-redux";
 
 
-export default class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      queryText: ''
-    };
+class SearchBar extends React.Component {
+
+  state = {
+    query: ''
   }
 
-  handleChange = (e) => {
-    this.setState({
-      queryText: e.target.value
-    })
-  }
-
-  submitQuery(e) {
+  handleSubmitQuery(e) {
     e.preventDefault();
-    this.props.history.push(`/results/${this.state.queryText}`);
+    this.props.submitQuery(this.state.query);
   }
 
-
+  handleChange(e) {
+    this.setState({
+      query: e.target.value
+    });
+  }
 
   render() {
     return (
-          <form className="search-form" onSubmit={(e) => this.submitQuery(e)}>
-            <input className="form-control" type="text" value={this.state.queryText} placeholder="Search for recipes..."
-                   onChange={e => this.handleChange(e)}/>
-            <button type="button" className="btn btn-info" onClick={(e) => this.submitQuery(e)}>Search</button>
-          </form>
-    );
+        <form className="search-form"
+              onSubmit={(e) => this.handleSubmitQuery(e)}>
+          <input className="form-control" type="text" value={this.state.query} placeholder="Search for recipes..."
+                 onChange={e => this.handleChange(e)}/>
+          <button type="button" className="btn btn-info">Search</button>
+        </form>
+    )
   }
-
 }
 
+const stateToPropertyMapper = state => {
+  return { };
+};
 
+const dispatchToPropertyMapper = dispatch => {
+  return {
+    submitQuery: (query) => {
+      dispatch(push('/search?' + query));
+    }
+  }
+};
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(SearchBar);

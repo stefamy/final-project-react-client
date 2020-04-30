@@ -1,8 +1,10 @@
 import _ from 'lodash';
-import { REGISTER, FIND_USER, FIND_CURRENT_USER_DATA, LOGOUT_USER, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA, UPDATE_USER_RSVP, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
 
 const initialState = {
-  user: {}
+  user: {
+    profile: {}
+  }
 }
 
 const userReducer = (state = initialState, action) => {
@@ -16,9 +18,28 @@ const userReducer = (state = initialState, action) => {
         user: user
       }
 
-    case FIND_USER:
+    case LOGIN:
       user = {};
       user.profile = _.cloneDeep(action.user)
+
+      return {
+        user: user
+      }
+
+    case FIND_CURRENT_USER:
+      user = {};
+      user.profile = _.cloneDeep(action.user);
+
+      return {
+        user: user
+      }
+
+    case UPDATE_USER_RSVP:
+      user = _.cloneDeep(action.user);
+      const newRsvps = _.cloneDeep(action.user.rsvps);
+      newRsvps[action.rsvpIndex].invite = _.cloneDeep(action.invite);
+
+      user.rsvps = newRsvps;
 
       return {
         user: user
@@ -38,26 +59,15 @@ const userReducer = (state = initialState, action) => {
 
     case DELETE_USER:
       return {
-        user: {}
-      }
-
-    case LOGOUT_USER:
-      return {
-        user: {}
-      }
-
-    case UPDATE_USER:
-      user = {};
-      user.profile = _.cloneDeep(action.newUser)
-
-      return {
-        user: user
+        user: {
+          profile: {}
+        }
       }
 
     default:
       return state
+
   }
 }
 
-export default userReducer;
-
+  export default userReducer;

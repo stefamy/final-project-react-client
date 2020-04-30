@@ -12,15 +12,15 @@ class EventList extends Component {
   }
 
   componentDidMount() {
-    if (this.props.user.id) {
-      this.props.findHostEventsForUser(this.props.user.id);
-    }
+    // if (this.props.user.profile) {
+    //   this.props.findHostEventsForUser(this.props.user.profile.id);
+    // }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user.id !== this.props.user.id) {
-        this.props.findHostEventsForUser(this.props.user.id);
-    }
+    // if (prevProps.user.profile !== this.props.user.profile) {
+    //     this.props.findHostEventsForUser(this.props.user.profile.id);
+    // }
   }
 
   doShowCreateEvent() {
@@ -36,16 +36,18 @@ class EventList extends Component {
   }
 
   render() {
+    const user = this.props.user || null;
+
     return (
          <div className="bg-white border p-5">
-          {!this.props.user.id &&
+          {!user.profile &&
               <>
                <h1 className="pb-2">Events You're Hosting</h1>
                <p> Please log in to view or create your events.</p>
              </>
           }
 
-          {this.props.user.id &&
+          {user.profile &&
           <>
             <div className="row justify-content-between align-items-start pb-3">
               <h1 className="col">Events You're Hosting</h1>
@@ -71,13 +73,12 @@ class EventList extends Component {
               />
               }
             <div className="row">
-              {this.props.events &&
-              this.props.events.map((event, index) => (
+              {user.hostedEvents &&
+              user.hostedEvents.map((event, index) => (
                   <EventPreview
                       key={index}
                       event={event}
                       history={this.props.history}
-                      userId={this.props.user.id}
                       canDelete={true}
                       handleDeleteEvent={() => this.props.deleteEvent(event.id)}
                       outerWrapClass="col-lg-4 col-md-6 col-12 pb-3"
@@ -101,11 +102,11 @@ const stateToPropertyMapper = state => {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findHostEventsForUser: userId => {
-      eventsService.findHostEventsForUser(userId).then(events => {
-        dispatch(eventsActions.findAllEvents(events));
-      });
-    },
+    // findHostEventsForUser: userId => {
+    //   eventsService.findHostEventsForUser(userId).then(events => {
+    //     dispatch(eventsActions.findAllEvents(events));
+    //   });
+    // },
     createEvent: (userId, event) => {
       eventsService.createEvent(userId, event).then(event => {
         dispatch(eventsActions.createEvent(event));

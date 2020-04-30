@@ -1,88 +1,114 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import React from "react";
+import Invite from "./Invite";
+import CreateInvite from "./CreateInvite";
 import invitesService from "../../services/InvitesService";
 import invitesActions from "../../actions/InvitesActions";
-import userService from "../../services/UserService";
-import userActions from "../../actions/UserActions";
-import Invite from "./Invite";
+import {connect} from "react-redux";
+import eventsService from "../../services/EventsService";
 
-class InviteList extends Component {
+class InviteList extends React.Component {
 
-  state = {}
+  state = {
+    showCreateInvite: false
+  }
 
   componentDidMount() {
-    if (this.props.user.id) {
-      this.props.findInvitesByGuestId(this.props.user.id);
-    } else {
-      this.setState({guestUser: true})
+    if (this.props.event && this.props.event.id) {
+      this.props.findAllInvitesForEvent(this.props.event.id);
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
-      this.props.findInvitesByGuestId(this.props.user.id);
-      this.setState({guestUser: false})
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.event && prevProps.event.id !== this.props.event.id) {
+      this.props.findAllInvitesForEvent(this.props.event.id);
     }
-    console.log('this state', this.state);
-    console.log('this props', this.props);
+    if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
+      this.stopShowCreateInvite();
+    }
+  }
+
+  doShowCreateInvite() {
+    this.setState({
+      showCreateInvite: true
+     });
+  }
+
+  stopShowCreateInvite() {
+    this.setState({
+      showCreateInvite: false
+    });
   }
 
   render() {
     return (
         <>
-          {!this.state.guestUser && this.props.invites &&
-              <div>
-                {this.props.invites.map((invite, index) => (
+          <h3>Invites</h3>
+          {this.props.eventInvites &&
+          <div className="list-group list-group-flush mt-3 mb-4 border-top">
+            {this.props.eventInvites.map((invite, index) => (
                 <Invite
                     key={index}
                     invite={invite}
-                    history={this.props.history}
-                    userId={this.props.user.id}
+                    event={this.props.event}
+                    updateInvite={this.props.updateInvite}
+                    deleteInvite={this.props.deleteInvite}
                 />
-                ))}
-              </div>
+            ))}
+          </div>}
+
+          {!this.state.showCreateInvite &&
+          <button
+              onClick={() => this.doShowCreateInvite()}
+              className="btn btn-outline-info">
+            Add New Invite
+          </button>
           }
-
-          {this.state.guestUser && <>
-          <h2 className="pb-2">Your Invites</h2>
-          <p>Please log in to view your invites.</p>
-          </> }
-
-          {(!this.props.invites || !this.props.invites.length) &&  <>
-          <div className="bg-white p-3 border">
-            <h2 className="pb-2">Your Invites</h2>
-            No invites yet...
-          </div>
-         </> }
+          {this.state.showCreateInvite &&
+          <CreateInvite
+              createInvite={this.props.createInvite}
+              cancelCreateInvite={() => this.stopShowCreateInvite()}
+              eventId={this.props.event.id}
+              eventDate={this.props.event.date}
+          /> }
 
         </>
     );
   }
 }
 
-
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    invites: state.invites.invites
+    eventInvites: state.invites.eventInvites
   };
 };
 
+
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findUser: () => {
-      userService.findUser()
-      .then(user => dispatch(userActions.findUser(user)));
-    },
-    findInvitesByGuestId: userId => {
-      invitesService.findInvitesByGuestId(userId).then(invites => {
-        dispatch(invitesActions.findAllInvites(invites));
+    findAllInvitesForEvent: (eventId) => {
+      invitesService.findAllInvitesForEvent(eventId).then(invites => {
+        dispatch(invitesActions.findAllInvitesForEvent(invites));
       });
-    }
-
+    },
+    createInvite: (eventId, invite) => {
+      invitesService.createInvite(eventId, invite).then(newInvite => {
+        dispatch(invitesActions.createInvite(newInvite));
+      });
+    },
+    updateInvite: (inviteId, invite) => {
+      invitesService.updateInvite(inviteId, invite).then(response => {
+        dispatch(invitesActions.updateInviteForEvent(invite));
+      });
+    },
+    deleteInvite: (inviteId) => {
+      invitesService.deleteInvite(inviteId).then(response => {
+        dispatch(invitesActions.deleteInviteForEvent(inviteId));
+      });
+    },
   }
-
-};
+}
 
 export default connect(
     stateToPropertyMapper,

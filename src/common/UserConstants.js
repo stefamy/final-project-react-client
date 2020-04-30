@@ -1,7 +1,9 @@
 export const REGISTER = "REGISTER"
-export const FIND_USER = "FIND_USER"
-export const LOGOUT_USER = "LOGOUT_USER"
+export const LOGOUT = "LOGOUT"
+export const LOGIN = "LOGIN"
 export const DELETE_USER = "DELETE_USER"
 export const UPDATE_USER = "UPDATE_USER"
+export const UPDATE_USER_RSVP = "UPDATE_USER_RSVP"
+export const FIND_CURRENT_USER = "FIND_CURRENT_USER"
 export const FIND_CURRENT_USER_DATA = "FIND_CURRENT_USER_DATA"
 
