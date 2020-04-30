@@ -49,6 +49,12 @@ body {
   background-size: auto;
 }
 
+.edit-btn-absolute {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+
 code {
 
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

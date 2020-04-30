@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 import Address from "../structural/Address";
 import {longDate} from "../../util/calendar";
+import EditEvent from "./EditEvent";
+import eventsActions from "../../actions/EventsActions";
 import eventsService from "../../services/EventsService";
 import InviteList from "../invites/InviteList";
 import InviteRsvp from "../invites/InviteRsvp";
@@ -31,10 +33,11 @@ class Event extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.user.profile.id !== prevProps.user.profile.id
-        || this.state.event.id !== prevState.event.id) {
-      this.setUserStatus();
-    }
+      if (this.props.user.profile.id !== prevProps.user.profile.id
+      || this.state.event.id !== prevState.event.id) {
+        this.setUserStatus();
+      }
+
   }
 
   setUserStatus() {
@@ -55,25 +58,6 @@ class Event extends React.Component {
     this.props.createAssignment(eventId, assignment);
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   console.log('2 this props', this.props);
-
-    // if (this.props.user && (prevProps.eventInvites !== this.props.eventInvites)) {
-    //   const invite = this.props.eventInvites.find(invite => invite.guestId === this.props.user.id);
-    //   this.setState({
-    //     userInvite: invite,
-    //     guestUser: !(invite && invite.id)
-    //   });
-    // }
-    // if (prevProps.eventAssignments && (this.props.eventAssignments.length !== prevProps.eventAssignments.length)) {
-    //   this.stopShowCreateAssignment();
-    // }
-    // if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
-    //   this.stopShowCreateInvite();
-    // }
-
-  // }
-
   showUpdateSuccess() {
     this.setState({
       isUpdating: false,
@@ -82,13 +66,6 @@ class Event extends React.Component {
     return setTimeout(() => {
       this.setState({showSuccess: false})
     }, 1000);
-  }
-
-  handleUpdateEvent(e) {
-    e.preventDefault();
-    this.setState({ isUpdating: true});
-    eventsService.updateEvent(this.state.event.id, this.state.event)
-    .then(success => this.showUpdateSuccess());
   }
 
   doShowCreateAssignment() {
@@ -103,17 +80,51 @@ class Event extends React.Component {
     })
   }
 
-  getUserInvite(userId) {
-    return this.props.eventInvites.find(invite => invite.guestId === userId);
+  doShowEditEvent() {
+      this.setState({
+        isEditing: true
+      })
   }
 
+
+  stopShowEditEvent() {
+    this.setState({
+      isEditing: false
+    })
+  }
+
+  editEvent() {
+    // TODO auto update event.
+    eventsService.findEventByEventId(this.props.match.params.eventId).then((event) => {
+      this.setState({
+        event: event,
+        isEditing: false
+      })
+      this.props.loadAllEventData(event.id);
+    });
+  }
 
   render() {
     return (
         <div className="bg-white border">
 
             {this.state.event && <>
-            <div className="bg-light p-3 border-bottom text-center">
+            <div className="bg-light p-3 border-bottom text-center position-relative">
+              {this.state.isEventHost &&
+                <div className="edit-btn-absolute">
+                  {!this.state.isEditing &&
+                  <button className="mr-2 btn" type="submit"
+                          onClick={() => this.doShowEditEvent()}>
+                    <i className="fa fa-pencil text-warning"></i></button>
+                  }
+                  {this.state.isEditing &&
+                  <button className="mr-2 btn border-warning"
+                          type="submit"
+                          onClick={() => this.stopShowEditEvent()}>
+                    <i className="text-warning fa fa-pencil"></i></button>
+                  }
+                </div>
+                }
               <h3 className="display-4 pt-2">{this.state.event.name} </h3>
               <p className="lead">{this.state.event.description} </p>
               <p>{longDate(this.state.event.date)} {this.state.event.startTime && <span> • {this.state.event.startTime}</span>} </p>
@@ -128,7 +139,14 @@ class Event extends React.Component {
                   notes={this.state.event.locationNotes} />
 
               <p>Hosted by: <Link to={`/profile/${this.state.event.hostUsername}`}>{this.state.event.hostFirstName} {this.state.event.hostLastName}</Link></p>
+
             </div>
+            {this.state.isEventHost && this.state.isEditing &&
+            <EditEvent
+                event={this.state.event}
+                editEvent={() => this.editEvent()}
+                cancelEditEvent={() => this.stopShowEditEvent()}
+            /> }
 
             {this.state.isEventHost &&
             <div className="col-12 bg-white p-3">
