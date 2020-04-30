@@ -1,26 +1,26 @@
 import React from "react";
 import eventsService from "../../services/EventsService";
 import {Link} from "react-router-dom";
-import assignmentsService from "../../services/AssignmentsService";
+import tasksService from "../../services/TasksService";
 
-class Assignment extends React.Component {
+class Task extends React.Component {
 
   state = {
-    assignment: {...this.props.assignment}
+    task: {...this.props.task}
   }
 
   componentDidMount() {
     if (this.props.event) {
       this.setState({event: this.props.event});
     } else {
-      eventsService.findEventById(this.props.assignment.eventId)
+      eventsService.findEventById(this.props.task.eventId)
       .then((event) => this.setState({event: event}));
     }
   }
 
   handleResponseChange(attribute, newContent) {
     let newState = Object.assign({}, this.state);
-    newState.assignment[attribute] = newContent;
+    newState.task[attribute] = newContent;
     this.setState(newState);
   }
 
@@ -31,13 +31,13 @@ class Assignment extends React.Component {
   updateResponseChoice(value) {
     let newState = Object.assign({}, this.state);
     if (value === "Unassigned") {
-        newState.assignment.status = "Unassigned";
-        newState.assignment.assigneeUserId = "";
-        newState.assignment.assigneeFirstName = "";
-        newState.assignment.assigneeLastName = "";
-        newState.assignment.assigneeEmail = "";
-        newState.assignment.dateOfResponse = "";
-        newState.assignment.assigneeComments = "";
+        newState.task.status = "Unassigned";
+        newState.task.assigneeUserId = "";
+        newState.task.assigneeFirstName = "";
+        newState.task.assigneeLastName = "";
+        newState.task.assigneeEmail = "";
+        newState.task.dateOfResponse = "";
+        newState.task.assigneeComments = "";
     }
     this.setState(newState);
   }
@@ -52,16 +52,16 @@ class Assignment extends React.Component {
     }, 1000);
   }
 
-  handleUpdateAssignment(e) {
+  handleUpdateTask(e) {
     e.preventDefault();
     this.setState({isUpdating: true});
-    if (this.props.updateAssignment) {
-      this.props.updateAssignment(this.state.assignment.id,
-          this.state.assignment);
+    if (this.props.updateTask) {
+      this.props.updateTask(this.state.task.id,
+          this.state.task);
       this.showUpdateSuccess();
       } else {
-        assignmentsService.updateAssignment(this.state.assignment.id,
-            this.state.assignment).then(response => this.showUpdateSuccess());
+        tasksService.updateTask(this.state.task.id,
+            this.state.task).then(response => this.showUpdateSuccess());
       }
     }
 
@@ -73,23 +73,23 @@ class Assignment extends React.Component {
                 <h5 className="card-header">Event: {this.state.event.name} <Link to={`/events/${this.state.event.id}`}><i className="ml-2 fa fa-link"></i></Link></h5>
                 <div className="card-body">
                   <div className="card-text">
-                  {this.props.assignment.type || 'Task'}: {this.props.assignment.title}<br/>
-                  {this.props.assignment.description}</div>
+                  {this.props.task.type || 'Task'}: {this.props.task.title}<br/>
+                  {this.props.task.description}</div>
                 </div>
                 {!this.props.hideForm &&
                 <form className="d-flex">
-                  <div className=" col-auto pl-0 pr-0 input-group-addon bg-light assignment-checkbox-wrap border-right border-top">
+                  <div className=" col-auto pl-0 pr-0 input-group-addon bg-light task-checkbox-wrap border-right border-top">
                     <label className="special-checkbox pl-3 pr-3 pt-2 pb-2">
                       <input
                           onChange={(e) => this.updateResponseChoice(e.target.checked ? "Assigned" : "Unassigned")}
-                          id={`assignmentCheckboxInput` + this.props.assignment.id}
+                          id={`taskCheckboxInput` + this.props.task.id}
                           type="checkbox"
-                          checked={this.state.assignment.status === "Assigned" ? 1 : 0}
-                          name="assignmentCheckbox"/>
+                          checked={this.state.task.status === "Assigned" ? 1 : 0}
+                          name="taskCheckbox"/>
                     </label>
                   </div>
                     <div className="col pl-0 pr-0 input-group border-top">
-                      <input id={`assigneeCommentsInput` + this.props.assignment.id}
+                      <input id={`assigneeCommentsInput` + this.props.task.id}
                              name="assigneeComments"
                              type="text"
                              className="form-control border-0"
@@ -97,7 +97,7 @@ class Assignment extends React.Component {
                              onChange={(e) => this.handleResponseChange('assigneeComments', e.target.value)}
                       />
                       <div className="input-group-addon border-left bg-light">
-                        {!this.state.isUpdating && !this.state.showSuccess && <button type="submit" onClick={(e) => this.handleUpdateAssignment(e)} className="btn btn-primary special-border-radius">Save</button>}
+                        {!this.state.isUpdating && !this.state.showSuccess && <button type="submit" onClick={(e) => this.handleUpdateTask(e)} className="btn btn-primary special-border-radius">Save</button>}
                         {this.state.showSuccess && !this.state.isUpdating && <button type="submit" className="btn btn-success success-saved special-border-radius"> Updated!</button>}
                         {this.state.isUpdating && !this.state.showSuccess && <button type="submit" disabled className="btn btn-primary special-border-radius">Saving</button>}
                       </div>
@@ -114,4 +114,4 @@ class Assignment extends React.Component {
 
 }
 
-export default Assignment;
+export default Task;

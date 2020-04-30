@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
 import {connect} from "react-redux";
-import assignmentsService from "../../services/AssignmentsService";
-import assignmentsActions from "../../actions/AssignmentsActions";
-import Assignment from "./Assignment";
+import tasksService from "../../services/TasksService";
+import tasksActions from "../../actions/TasksActions";
+import Task from "./Task";
 
-class UserAssignmentList extends Component {
+class UserTaskList extends Component {
 
   state = {}
 
   componentDidMount() {
     if (this.props.viewingProfile && this.props.userId) {
-        this.props.findAssignmentByAssigneeUserId(this.props.userId);
+        this.props.findTaskByAssigneeUserId(this.props.userId);
     }
     else if (this.props.user.id) {
-      this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+      this.props.findTaskByAssigneeUserId(this.props.user.id);
     } else {
       this.setState({guestUser: true})
     }
@@ -24,7 +24,7 @@ class UserAssignmentList extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.findByUser && (prevProps.user !== this.props.user)) {
-      this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+      this.props.findTaskByAssigneeUserId(this.props.user.id);
       this.setState({guestUser: false})
     }
 
@@ -33,31 +33,31 @@ class UserAssignmentList extends Component {
   render() {
     return (
         <>
-          {!this.props.hideForm  && <h2 className="pb-2">Your Assignments</h2> }
-            {!this.state.guestUser && this.props.assignments &&
+          {!this.props.hideForm  && <h2 className="pb-2">Your Tasks</h2> }
+            {!this.state.guestUser && this.props.tasks &&
               <div>
-                {this.props.assignments.map((assignment, index) => (
-                    <Assignment
+                {this.props.tasks.map((task, index) => (
+                    <Task
                         key={index}
-                        assignment={assignment}
+                        task={task}
                         history={this.props.history}
                         userId={this.props.userId}
                         event={this.props.event}
                         hideForm={this.props.hideForm}
-                        updateAssignment={this.props.updateAssignment}
+                        updateTask={this.props.updateTask}
                     />
                 ))}
               </div>
               }
               {this.state.guestUser &&
               <div className="bg-white p-3 border">
-                <h2 className="pb-2">Your Assignments</h2>
-                Please log in to view your assignments.
+                <h2 className="pb-2">Your Tasks</h2>
+                Please log in to view your tasks.
               </div>
               }
-              {(!this.props.assignments || !this.props.assignments.length) &&
+              {(!this.props.tasks || !this.props.tasks.length) &&
               <div className="bg-white p-3 border">
-                No assignments found.<br/>
+                No tasks found.<br/>
               </div>
               }
             </>
@@ -69,7 +69,7 @@ class UserAssignmentList extends Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    assignments: state.assignments.assignments
+    tasks: state.tasks.tasks
   };
 };
 
@@ -79,14 +79,14 @@ const dispatchToPropertyMapper = dispatch => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
     },
-    updateAssignment: (assignmentId, assignment) => {
-      assignmentsService.updateAssignment(assignmentId, assignment).then(assignment => {
-        dispatch(assignmentsActions.updateAssignment(assignment));
+    updateTask: (taskId, task) => {
+      tasksService.updateTask(taskId, task).then(task => {
+        dispatch(tasksActions.updateTask(task));
       });
     },
-    findAssignmentByAssigneeUserId: userId => {
-      assignmentsService.findAssignmentByAssigneeUserId(userId).then(assignments => {
-        dispatch(assignmentsActions.findAllAssignments(assignments));
+    findTaskByAssigneeUserId: userId => {
+      tasksService.findTaskByAssigneeUserId(userId).then(tasks => {
+        dispatch(tasksActions.findAllTasks(tasks));
       });
     }
   };
@@ -96,4 +96,4 @@ const dispatchToPropertyMapper = dispatch => {
   export default connect(
       stateToPropertyMapper,
       dispatchToPropertyMapper
-  )(UserAssignmentList);
+  )(UserTaskList);

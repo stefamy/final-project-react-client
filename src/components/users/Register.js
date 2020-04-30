@@ -46,7 +46,7 @@ class Register extends React.Component {
               <h3>You're already logged in.</h3>
               <ul>
                 <li><a href="/profile">Visit your profile</a></li>
-                <li><a href="/assignments">View your assignments</a></li>
+                <li><a href="/tasks">View your tasks</a></li>
                 <li><a href="/events">View your upcoming events</a></li>
                 <li><a href="/invites">View your event invites</a></li>
               </ul>

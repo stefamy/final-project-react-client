@@ -10,9 +10,9 @@ import InviteList from "../invites/InviteList";
 import InviteRsvp from "../invites/InviteRsvp";
 import invitesActions from "../../actions/InvitesActions";
 import invitesService from "../../services/InvitesService";
-import EventAssignmentList from "../assignments/AssignmentList";
-import assignmentsActions from "../../actions/AssignmentsActions";
-import assignmentsService from "../../services/AssignmentsService";
+import EventTaskList from "../tasks/TaskList";
+import tasksActions from "../../actions/TasksActions";
+import tasksService from "../../services/TasksService";
 
 class Event extends React.Component {
 
@@ -53,9 +53,9 @@ class Event extends React.Component {
     this.setState(newState);
   }
 
-  handleCreateAssignment(eventId, assignment) {
-    this.stopShowCreateAssignment();
-    this.props.createAssignment(eventId, assignment);
+  handleCreateTask(eventId, task) {
+    this.stopShowCreateTask();
+    this.props.createTask(eventId, task);
   }
 
   showUpdateSuccess() {
@@ -68,15 +68,15 @@ class Event extends React.Component {
     }, 1000);
   }
 
-  doShowCreateAssignment() {
+  doShowCreateTask() {
     this.setState({
-      showCreateAssignment: true
+      showCreateTask: true
     })
   }
 
-  stopShowCreateAssignment() {
+  stopShowCreateTask() {
     this.setState({
-      showCreateAssignment: false
+      showCreateTask: false
     })
   }
 
@@ -154,7 +154,7 @@ class Event extends React.Component {
             </div> }
 
             <div className="col-12 bg-white p-3">
-            <EventAssignmentList event={this.state.event} />
+            <EventTaskList event={this.state.event} />
             </div>
 
             {this.state.isEventGuest &&
@@ -192,7 +192,7 @@ class Event extends React.Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    eventAssignments: state.assignments.eventAssignments,
+    eventTasks: state.tasks.eventTasks,
     eventInvites: state.invites.eventInvites
   };
 };
@@ -204,8 +204,8 @@ const dispatchToPropertyMapper = dispatch => {
       invitesService.findAllInvitesForEvent(eventId).then(invites => {
         dispatch(invitesActions.findAllInvitesForEvent(invites));
       });
-      assignmentsService.findAllAssignmentsForEvent(eventId).then(assignments => {
-        dispatch(assignmentsActions.findAllAssignmentsForEvent(assignments));
+      tasksService.findAllTasksForEvent(eventId).then(tasks => {
+        dispatch(tasksActions.findAllTasksForEvent(tasks));
       });
     },
   };

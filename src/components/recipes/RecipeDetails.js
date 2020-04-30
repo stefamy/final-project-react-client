@@ -2,8 +2,8 @@ import React from "react";
 import RecipeCard from './RecipeCard';
 import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
-import assignmentsService from "../../services/AssignmentsService";
-import assignmentsActions from "../../actions/AssignmentsActions";
+import tasksService from "../../services/TasksService";
+import tasksActions from "../../actions/TasksActions";
 import {connect} from "react-redux";
 import SearchBar from "../../search/SearchBar";
 import {Link} from "react-router-dom";
@@ -19,7 +19,7 @@ class RecipeDetails extends React.Component {
   componentDidMount() {
     this.handleRetrieveRecipe();
     if (this.props.user.id) {
-      this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+      this.props.findTaskByAssigneeUserId(this.props.user.id);
     } else {
       this.props.findUser();
         this.setState({guestUser: true})
@@ -43,7 +43,7 @@ class RecipeDetails extends React.Component {
       this.handleRetrieveRecipe();
     }
     if (prevProps.user && (this.props.user.id !== prevProps.user.id)) {
-      this.props.findAssignmentByAssigneeUserId(this.props.user.id);
+      this.props.findTaskByAssigneeUserId(this.props.user.id);
       this.setState({guestUser: false});
     }
   }
@@ -107,7 +107,7 @@ class RecipeDetails extends React.Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    assignments: state.assignments.assignments
+    tasks: state.tasks.tasks
   };
 };
 
@@ -118,14 +118,14 @@ const dispatchToPropertyMapper = dispatch => {
       userService.findUser()
       .then(user => dispatch(userActions.findUser(user)));
     },
-    updateAssignment: (assignmentId, assignment) => {
-      assignmentsService.updateAssignment(assignmentId, assignment).then(assignment => {
-        dispatch(assignmentsActions.updateAssignment(assignment));
+    updateTask: (taskId, task) => {
+      tasksService.updateTask(taskId, task).then(task => {
+        dispatch(tasksActions.updateTask(task));
       });
     },
-    findAssignmentByAssigneeUserId: userId => {
-      assignmentsService.findAssignmentByAssigneeUserId(userId).then(assignments => {
-        dispatch(assignmentsActions.findAllAssignments(assignments));
+    findTaskByAssigneeUserId: userId => {
+      tasksService.findTaskByAssigneeUserId(userId).then(tasks => {
+        dispatch(tasksActions.findAllTasks(tasks));
       });
     }
   };

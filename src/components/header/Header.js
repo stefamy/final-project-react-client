@@ -15,7 +15,7 @@ const Header = ({logout, user}) =>
         <ul className="nav navbar-nav d-flex align-items-center justify-content-between">
           <li><a href="/events" className="nav-link btn">Events You're
             Hosting</a></li>
-          <li><a href="/assignments" className="nav-link btn">Assignments</a>
+          <li><a href="/tasks" className="nav-link btn">Tasks</a>
           </li>
           <li><a href="/invites" className="nav-link btn">Invites</a></li>
           <li><a href="/profile" className="`nav-link btn">Profile</a></li>

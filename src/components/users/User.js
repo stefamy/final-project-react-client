@@ -4,7 +4,7 @@ import userService from "../../services/UserService";
 import EventPreview from "../events/EventPreview";
 import { connect } from "react-redux";
 import eventsService from "../../services/EventsService";
-import AssignmentList from "../assignments/UserAssignmentList";
+import TaskList from "../tasks/UserTaskList";
 import {Link} from "react-router-dom";
 import RecipeReviewsList from "../reviews/RecipeReviewsList";
 
@@ -198,8 +198,8 @@ class User extends React.Component {
               </>}
               {(this.state.viewingGuestMutualEvent
                   || this.state.viewingOwnProfile) && <>
-                <h4 className="pt-2 pb-2">Assignments</h4>
-                <AssignmentList
+                <h4 className="pt-2 pb-2">Tasks</h4>
+                <TaskList
                     history={this.props.history}
                     userId={this.state.userViewing.id}
                     hideForm={true}

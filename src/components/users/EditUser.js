@@ -261,7 +261,7 @@ const stateToPropertyMapper = state => {
   return {
       user: state.user.user,
       events: state.events.events,
-      assignments: state.assignments.assignments,
+      tasks: state.tasks.tasks,
       invites: state.invites.invites
     };
 };

@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import invitesService from "../../services/InvitesService";
 import invitesActions from "../../actions/InvitesActions";
-import assignmentsService from "../../services/AssignmentsService";
-import assignmentsActions from "../../actions/AssignmentsActions";
+import tasksService from "../../services/TasksService";
+import tasksActions from "../../actions/TasksActions";
 import eventsService from "../../services/EventsService";
 import eventsActions from "../../actions/EventsActions";
 import {connect} from "react-redux";

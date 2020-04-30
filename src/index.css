@@ -109,11 +109,11 @@ h1.site-title {
   padding: 0;
 }
 
-.assignment-edit-bar {
+.task-edit-bar {
   border-radius: 3px;
   position: relative;
 }
-.assignment-edit-bar .assignment-checkbox-wrap {
+.task-edit-bar .task-checkbox-wrap {
   border-radius: 0 0 0 3px;
 }
 

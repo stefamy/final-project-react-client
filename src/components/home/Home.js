@@ -5,7 +5,7 @@ import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
 import RsvpPreview from "../rsvps/RsvpPreview";
 import EventPreview from "../events/EventPreview";
-import AssignmentPreview from "../assignments/AssignmentPreview";
+import TaskPreview from "../tasks/TaskPreview";
 import SearchBar from "../../search/SearchBar";
 import RecipeReviewsList from "../reviews/RecipeReviewsList";
 import Hero from "./Hero";
@@ -21,8 +21,8 @@ class Home extends React.Component {
     return this.props.user.hostedEvents.find(event => new Date(event.date) >= new Date());
   }
 
-  getUpcomingAssignment() {
-    return this.props.user.assignments.find(assignment => assignment.id > 0);
+  getUpcomingTask() {
+    return this.props.user.tasks.find(task => task.id > 0);
   }
 
   getNextRsvp() {
@@ -68,17 +68,17 @@ class Home extends React.Component {
 
             <div className="col-lg-6 col-12 pb-5">
 
-              {this.props.user.assignments &&
-                  <AssignmentPreview
-                      headerText="Upcoming Assignment"
-                      assignment={this.getUpcomingAssignment()}
+              {this.props.user.tasks &&
+                  <TaskPreview
+                      headerText="Upcoming Task"
+                      task={this.getUpcomingTask()}
                       history={this.props.history}
                       userId={this.props.user.profile.id}
                   />}
-              {!this.props.user.assignments &&
+              {!this.props.user.tasks &&
                 <Card
-                    header="Upcoming assignments"
-                    title="No upcoming assignments"
+                    header="Upcoming tasks"
+                    title="No upcoming tasks"
                     text="Sign up to bring a dish or help out at your next party."
                     linkUrl="/invites"
                     linkText="Go to invites"
@@ -164,7 +164,7 @@ const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
     events: state.events.events,
-    assignments: state.assignments.assignments,
+    tasks: state.tasks.tasks,
     invites: state.invites.invites
   };
 };

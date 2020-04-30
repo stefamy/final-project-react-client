@@ -3,7 +3,10 @@ import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA, UPDATE_USER
 
 const initialState = {
   user: {
-    profile: {}
+    id: '',
+    profile: {},
+    invites: [],
+    tasks: [],
   }
 }
 
@@ -50,7 +53,7 @@ const userReducer = (state = initialState, action) => {
       user.profile = _.cloneDeep(action.user.profile);
       user.hostedEvents = _.cloneDeep(action.user.events);
       user.rsvps = _.cloneDeep(action.user.rsvps);
-      user.assignments = _.cloneDeep(action.user.assignments);
+      user.tasks = _.cloneDeep(action.user.tasks);
       user.reviews = _.cloneDeep(action.user.reviews);
 
       return {

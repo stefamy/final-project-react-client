@@ -16,7 +16,7 @@ import {Link} from "react-router-dom";
 //   }
 // }
 
-const AssignmentPreview = ({ outerWrapClass, headerText, assignment }) => {
+const TaskPreview = ({ outerWrapClass, headerText, task }) => {
 
   return (
       <div className={outerWrapClass}>
@@ -24,9 +24,9 @@ const AssignmentPreview = ({ outerWrapClass, headerText, assignment }) => {
           <h5 className="card-header">{headerText}</h5>
           <div className="card-body">
             <h5 className="card-title">
-              {assignment.type || 'Task'}: {assignment.title}</h5>
-            <div className="pb-2">{assignment.description}</div>
-            <Link to={`assignments`} className="btn btn-outline-info">Go to assignments</Link>
+              {task.type || 'Task'}: {task.title}</h5>
+            <div className="pb-2">{task.description}</div>
+            <Link to={`tasks`} className="btn btn-outline-info">Go to tasks</Link>
           </div>
           </div>
       </div>
@@ -34,4 +34,4 @@ const AssignmentPreview = ({ outerWrapClass, headerText, assignment }) => {
 
 }
 
-export default AssignmentPreview;
+export default TaskPreview;

@@ -1,29 +1,29 @@
 import React, {Component} from "react";
 
 
-export default class CreateAssignment extends Component {
+export default class CreateTask extends Component {
 
 
   state = {
-    newAssignment: {
+    newTask: {
       eventId: this.props.eventId,
       status: "Unassigned"
     }
   }
 
-  handleNewAssignmentInput(attribute, newContent) {
+  handleNewTaskInput(attribute, newContent) {
     let newState = Object.assign({}, this.state);
-    newState.newAssignment[attribute] = newContent;
+    newState.newTask[attribute] = newContent;
     this.setState(newState);
   }
 
   handleNewTaskType(e) {
-    this.handleNewAssignmentInput('type', e.target.value);
+    this.handleNewTaskInput('type', e.target.value);
   }
 
-  handleCreateAssignment(e) {
+  handleCreateTask(e) {
       e.preventDefault();
-      this.props.createAssignment(this.state.newAssignment.eventId, this.state.newAssignment);
+      this.props.createTask(this.state.newTask.eventId, this.state.newTask);
   }
 
   showSaveSuccess() {
@@ -38,25 +38,25 @@ export default class CreateAssignment extends Component {
 
   render() {
     return (
-        <div className="new-assignment-form p-4 bg-light rounded border">
+        <div className="new-task-form p-4 bg-light rounded border">
           <div className="row align-items-between justify-content-between mb-2 pb-2">
             <div className="col-auto">
-              <h5>Create New Assignment</h5>
+              <h5>Create New Task</h5>
             </div>
             <div className="col-auto">
               <button
-                  onClick={this.props.cancelCreateAssignment}
+                  onClick={this.props.cancelCreateTask}
                   className="btn btn-sm btn-danger">
                 Cancel
               </button>
             </div>
           </div>
-          <form onSubmit={(e) => this.handleCreateAssignment(e)}>
+          <form onSubmit={(e) => this.handleCreateTask(e)}>
               <div className="form-group">
                 <label htmlFor="taskNameInput">Title</label>
                 <input
                     id="taskNameInput"
-                    onChange={(e) => this.handleNewAssignmentInput('title', e.target.value)}
+                    onChange={(e) => this.handleNewTaskInput('title', e.target.value)}
                     className={`form-control`}
                     placeholder='Example: "Cold Appetizer Item"'
                     required/>
@@ -65,15 +65,15 @@ export default class CreateAssignment extends Component {
               <label htmlFor="taskDescriptionInput">Description</label>
                 <input
                     id="taskDescriptionInput"
-                    onChange={(e) => this.handleNewAssignmentInput('description', e.target.value)}
+                    onChange={(e) => this.handleNewTaskInput('description', e.target.value)}
                     className='form-control'
                     placeholder='Example: "Something easy to eat standing up, preferably!"'
                     />
             </div>
             <div className="form-group">
-              <label htmlFor="taskTypeInput">Type Of Assignment</label>
+              <label htmlFor="taskTypeInput">Type Of Task</label>
                 <select id="taskTypeInput" defaultValue="" className="form-control" value={this.state.value} onChange={this.handleNewTaskType.bind(this)}>
-                  <option value="" disabled>Type of Assignment</option>
+                  <option value="" disabled>Type of Task</option>
                   <option value="Food/Drink">Food/Drink</option>
                   <option value="Event Prep">Event Prep</option>
                   <option value="Set up (Day of)">Set up (Day of)</option>
@@ -81,22 +81,22 @@ export default class CreateAssignment extends Component {
                   <option value="Other">Other</option>
                 </select>
             </div>
-            {this.state.newAssignment.type === "Event Prep" && <>
+            {this.state.newTask.type === "Event Prep" && <>
             <div className="form-input">
-              <label htmlFor="assignmentDateInput">Date Needed By</label>
+              <label htmlFor="taskDateInput">Date Needed By</label>
               <input
-                  id="assignmentDateInput"
+                  id="taskDateInput"
                   type="date"
                   min="2020-01-01"
                   max="2040-01-01"
-                  onChange={(e) => this.handleNewAssignmentInput('dueDate', e.target.value)}
+                  onChange={(e) => this.handleNewTaskInput('dueDate', e.target.value)}
                   className="form-control"
                   />
               </div>
             </>}
 
             <div className="form-group mt-3 mb-0">
-              {!this.state.isSaving && <button type="submit" className="btn btn-info">Add Assignment</button> }
+              {!this.state.isSaving && <button type="submit" className="btn btn-info">Add Task</button> }
               {this.state.showSuccess && <span className="text-success success-saved"> Updated!</span> }
               {this.state.isSaving && <button type="submit" disabled className="btn btn-info">Update Response</button> }
             </div>

@@ -3,14 +3,14 @@ import { connectRouter } from 'connected-react-router'
 
 import userReducer from "./UserReducer";
 import eventsReducer from "./EventsReducer";
-import assignmentsReducer from "./AssignmentsReducer";
+import tasksReducer from "./TasksReducer";
 import invitesReducer from "./InvitesReducer";
 import reviewsReducer from "./ReviewsReducer";
 
 const rootReducer = (history) => combineReducers({
     user: userReducer,
     events: eventsReducer,
-    assignments: assignmentsReducer,
+    tasks: tasksReducer,
     invites: invitesReducer,
     reviews: reviewsReducer,
     router: connectRouter(history)

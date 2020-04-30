@@ -11,7 +11,7 @@ import Search from '../search/Search'
 import EventList from '../components/events/EventList'
 import Event from '../components/events/Event'
 import InviteList from '../components/rsvps/RsvpList'
-import AssignmentList from '../components/assignments/UserAssignmentList'
+import TaskList from '../components/tasks/UserTaskList'
 import RecipeDetails from "../components/recipes/RecipeDetails";
 
 const routes = (
@@ -26,7 +26,7 @@ const routes = (
           <Route exact path="/events" component={EventList}/>
           <Route exact path="/event/:eventId" component={Event}/>
           <Route exact path="/invites" component={InviteList}/>
-          <Route exact path="/assignments" component={AssignmentList}/>
+          <Route exact path="/tasks" component={TaskList}/>
           <Route exact path="/search" component={Search}/>
           <Route exact path="/recipe" component={RecipeDetails}/>
           <Route component={NotFound}/>

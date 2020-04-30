@@ -103,7 +103,7 @@ class RecipeReviewsList extends Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    assignments: state.assignments.assignments,
+    tasks: state.tasks.tasks,
     foodReviews: state.reviews.foodReviews,
     userReviews: state.reviews.userReviews,
     allReviews: state.reviews.allReviews

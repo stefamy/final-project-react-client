@@ -21,7 +21,7 @@ export default class CreateRecipeReview extends Component {
     this.setState(newState);
   }
 
-  handleNewStarAssignment(e) {
+  handleNewStarTask(e) {
     this.handleNewReviewInput('rating', e.target.value);
   }
 
@@ -62,7 +62,7 @@ export default class CreateRecipeReview extends Component {
                 <label htmlFor="recipeRatingInput">Recipe Star Rating (out of 5)</label>
                 <select defaultValue="" className="form-control"
                         id="recipeRatingInput"
-                        onChange={this.handleNewStarAssignment.bind(this)}>
+                        onChange={this.handleNewStarTask.bind(this)}>
                   <option value="" disabled>Number of stars</option>
                   <option value="5">5 Stars</option>
                   <option value="4">4 Stars</option>
