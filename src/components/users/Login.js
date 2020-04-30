@@ -84,8 +84,8 @@ const dispatchToPropertyMapper = dispatch => {
     login: (user, notFound) => {
       userService.login(user).then(user => {
         if (user) {
-          userService.findCurrentUserData().then((user) => {
-            dispatch(userActions.findCurrentUserData(user));
+          userService.findCurrentUserDataStore().then((user) => {
+            dispatch(userActions.findCurrentUserDataStore(user));
             dispatch(push('/'));
           });
         } else {

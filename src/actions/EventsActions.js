@@ -1,4 +1,4 @@
-import { CREATE_EVENT, UPDATE_EVENT, FIND_ALL_EVENTS, DELETE_EVENT } from "../common/EventsConstants";
+import { CREATE_EVENT, UPDATE_EVENT, FIND_EVENT, FIND_ALL_EVENTS, DELETE_EVENT } from "../common/EventsConstants";
 
 
 // CREATE
@@ -12,6 +12,13 @@ export const updateEvent = (eventId, event) => ({
   type: UPDATE_EVENT,
   eventId: eventId,
   event: event,
+})
+
+
+// READ
+export const findEvent = (event) => ({
+  type: FIND_EVENT,
+  event: event
 })
 
 
@@ -32,6 +39,7 @@ export const deleteEvent = (eventId) => ({
 export default {
   createEvent,
   updateEvent,
+  findEvent,
   findAllEvents,
   deleteEvent
 }

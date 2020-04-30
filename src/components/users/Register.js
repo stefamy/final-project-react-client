@@ -32,7 +32,7 @@ class Register extends React.Component {
   }
 
   componentDidMount() {
-    this.props.findUser();
+    this.props.findCurrentUser();
   }
 
 
@@ -174,9 +174,9 @@ const stateToPropertyMapper = state => {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findUser: () => {
-      userService.findUser()
-      .then(user => dispatch(userActions.findUser(user)));
+    findCurrentUser: () => {
+      userService.findCurrentUser()
+      .then(user => dispatch(userActions.findCurrentUser(user)));
     },
   };
 };

@@ -54,8 +54,8 @@ export const findCurrentUser = () =>
     .catch(res => '');
 
 // READ - Upcoming event data from HTTP credentials
-export const findCurrentUserData = () =>
-    fetch(`${API_URL}/user/upcoming`, {
+export const findCurrentUserDataStore = () =>
+    fetch(`${API_URL}/user/data`, {
       method: 'POST',
       credentials: "include"
     })
@@ -99,7 +99,7 @@ export default {
   login,
   logout,
   findCurrentUser,
-  findCurrentUserData,
+  findCurrentUserDataStore,
   updateCurrentUser,
   deleteCurrentUser,
   findPublicProfile

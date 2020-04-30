@@ -4,23 +4,25 @@ import {connect} from "react-redux";
 import invitesActions from "../../actions/InvitesActions";
 import userActions from "../../actions/UserActions";
 import _ from 'lodash';
+import Invite from "./Invite";
 
  class InviteRsvp extends React.Component {
 
    state = {
-    invite: {...this.props.rsvp.invite}
-   }
+     updatedInvite: {}
+     }
 
-   componentDidMount() {
-     this.setState({
-       rsvpIndex: _.findIndex(this.props.user.rsvps, {invite: this.state.invite})
-   });
-   }
 
+   componentDidUpdate(prevProps, prevState, snapshot) {
+     if (prevProps.invite !== this.props.invite) {
+       this.setState({updatedInvite: {...this.props.invite}
+       });
+     }
+   }
 
    handleResponseChange(attribute, newContent) {
      let newState = Object.assign({}, this.state);
-     newState.invite[attribute] = newContent;
+     newState.updatedInvite[attribute] = newContent;
      this.setState(newState);
    }
 
@@ -40,52 +42,49 @@ import _ from 'lodash';
 
    handleUpdateInvite(e) {
      e.preventDefault();
-     this.setState({isUpdating: true})
-     this.props.updateInviteRsvp(this.state.invite, this.props.user, this.state.rsvpIndex);
-     this.showUpdateSuccess();
+     this.props.updateInvite(this.state.updatedInvite.id, this.state.updatedInvite);
    }
 
    render() {
-     const invite = this.props.rsvp ? this.props.rsvp.invite : null;
-   
+
      return (
            <div className="invite-rsvp mb-3">
-             {this.props.event &&
+             {this.props.invite &&
                <div className="invite-response-form mt-3 mb-3">
                    <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>
                      <div className="form-check form-check-inline pr-3">
                        <label className="form-check-label"
-                              htmlFor={`response1 + ${invite.id}`}>
+                              htmlFor={`response1 + ${this.props.invite.id}`}>
                          <input className="form-check-input"
-                                id={`response1 + ${invite.id}`}
+                                id={`response1 + ${this.props.invite.id}`}
                                 type="radio"
-                                name={`response + ${invite.id}`}
+                                name={`response + ${this.props.invite.id}`}
                                 value="Yes"
-                                defaultChecked={invite.response
+                                defaultChecked={this.props.invite.response
                                 === "Yes"}
                          />I'll be there!</label>
                      </div>
                      <div className="form-check form-check-inline pr-3">
                        <label className="form-check-label"
-                              htmlFor={`response2 + ${invite.id}`}>
+                              htmlFor={`response2 + ${this.props.invite.id}`}>
                          <input className="form-check-input"
-                                id={`response2 + ${invite.id}`}
+                                id={`response2 + ${this.props.invite.id}`}
                                 type="radio"
-                                name={`response + ${invite.id}`}
+                                name={`response + ${this.props.invite.id}`}
                                 value="No"
-                                defaultChecked={invite.response
+                                defaultChecked={this.props.invite.response
                                 === "No"}
                          />Can't make it</label>
                      </div>
                      <div className="form-check form-check-inline">
                        <label className="form-check-label"
-                              htmlFor={`response3 + ${invite.id}`}>
+                              htmlFor={`response3 + ${this.props.invite.id}`}>
                          <input className="form-check-input"
-                                id={`response3 + ${invite.id}`}
+                                id={`response3 + ${this.props.invite.id}`}
                                 type="radio"
-                                name={`response + ${invite.id}`}
+                                name={`response + ${this.props.invite.id}`}
                                 value="Pending"
-                                defaultChecked={invite.response
+                                defaultChecked={this.props.invite.response
                                 === "Pending"}
                          />No response yet</label>
                      </div>
@@ -95,13 +94,13 @@ import _ from 'lodash';
                  <input type="text"
                         className="form-control"
                         placeholder="Comments for host"
-                        defaultValue={invite.comments || ''}
+                        defaultValue={this.props.invite.comments || ''}
                         onChange={(e) => this.handleResponseChange('comments', e.target.value)}
                  />
 
                  <div className="mt-3">
-                   {(this.state.invite.response !== this.props.rsvp.invite.response
-                   || this.state.invite.comments !== this.props.rsvp.invite.comments) &&
+                   {(this.state.updatedInvite.response !== this.props.invite.response ||
+                       this.state.updatedInvite.comments !== this.props.invite.comments) &&
                       <button
                           type="submit"
                           onClick={(e) => this.handleUpdateInvite(e)}
@@ -127,26 +126,5 @@ import _ from 'lodash';
 
 }
 
-const stateToPropertyMapper = state => {
-  return {
-    user: state.user.user,
-    eventInvites: state.invites.eventInvites
-  };
-};
 
-
-const dispatchToPropertyMapper = dispatch => {
-  return {
-    updateInviteRsvp: (invite, user, rsvpIndex) => {
-      invitesService.updateInvite(invite.id, invite).then(response => {
-        dispatch(invitesActions.updateInviteForEvent(invite));
-        dispatch(userActions.updateCurrentUserRsvp(user, invite, rsvpIndex));
-      });
-    },
-  }
-}
-
-export default connect(
-    stateToPropertyMapper,
-    dispatchToPropertyMapper
-)(InviteRsvp);
+export default InviteRsvp;

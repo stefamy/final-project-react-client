@@ -45,9 +45,9 @@ class TaskList extends React.Component {
     return (
         <>
           <h3>Tasks</h3>
-          {this.props.eventTasks &&
+          {this.props.tasks &&
           <div className="mt-3 mb-3">
-            {this.props.eventTasks.map((task, index) => (
+            {this.props.tasks.map((task, index) => (
                 <TaskResponse
                     key={index}
                     task={task}
@@ -83,7 +83,7 @@ class TaskList extends React.Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    eventTasks: state.tasks.eventTasks,
+    tasks: state.tasks.tasks,
   };
 };
 

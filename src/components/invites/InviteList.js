@@ -6,6 +6,7 @@ import invitesService from "../../services/InvitesService";
 import invitesActions from "../../actions/InvitesActions";
 import {connect} from "react-redux";
 import eventsService from "../../services/EventsService";
+import InviteRsvp from "./InviteRsvp";
 
 class InviteList extends React.Component {
 
@@ -23,7 +24,7 @@ class InviteList extends React.Component {
     if (prevProps.event && prevProps.event.id !== this.props.event.id) {
       this.props.findAllInvitesForEvent(this.props.event.id);
     }
-    if (prevProps.eventInvites && (this.props.eventInvites.length !== prevProps.eventInvites.length)) {
+    if (prevProps.invites && (this.props.invites.length !== prevProps.invites.length)) {
       this.stopShowCreateInvite();
     }
   }
@@ -44,9 +45,9 @@ class InviteList extends React.Component {
     return (
         <>
           <h3>Invites</h3>
-          {this.props.eventInvites &&
+          {this.props.invites &&
           <div className="list-group list-group-flush mt-3 mb-4 border-top">
-            {this.props.eventInvites.map((invite, index) => (
+            {this.props.invites.map((invite, index) => (
                 <Invite
                     key={index}
                     invite={invite}
@@ -57,20 +58,36 @@ class InviteList extends React.Component {
             ))}
           </div>}
 
-          {!this.state.showCreateInvite &&
-          <button
-              onClick={() => this.doShowCreateInvite()}
-              className="btn btn-outline-info">
-            Add New Invite
-          </button>
+          {this.props.isEventHost &&
+            (!this.state.showCreateInvite &&
+                <button
+                    onClick={() => this.doShowCreateInvite()}
+                    className="btn btn-outline-info">
+                  Add New Invite
+                </button>
+            ) ||
+            (this.state.showCreateInvite &&
+                <CreateInvite
+                    createInvite={this.props.createInvite}
+                    cancelCreateInvite={() => this.stopShowCreateInvite()}
+                    eventId={this.props.event.id}
+                    eventDate={this.props.event.date}
+                />)
           }
-          {this.state.showCreateInvite &&
-          <CreateInvite
-              createInvite={this.props.createInvite}
-              cancelCreateInvite={() => this.stopShowCreateInvite()}
-              eventId={this.props.event.id}
-              eventDate={this.props.event.date}
-          /> }
+
+          {!this.props.isEventHost &&
+            <div className="mt-5">
+              <h3>Your RSVP</h3>
+              <InviteRsvp
+                  event={this.props.event}
+                  updateInvite={this.props.updateInvite}
+                  invite={this.props.invites.find(
+                      invite => invite.guestId === this.props.user.id)}
+                  hideEventDetails={true}
+              />
+            </div>
+          }
+
 
         </>
     );
@@ -80,7 +97,7 @@ class InviteList extends React.Component {
 const stateToPropertyMapper = state => {
   return {
     user: state.user.user,
-    eventInvites: state.invites.eventInvites
+    invites: state.invites.invites
   };
 };
 

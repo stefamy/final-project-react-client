@@ -40,21 +40,21 @@ class Home extends React.Component {
 
             <div className="col-lg-6 col-12 pb-5">
 
-              {this.props.user.hostedEvents &&
+              {this.props.user.hostedEvents.length &&
                     <EventPreview
                         headerText="You're Hosting!"
                         event={this.getNextHostedEvent()}
                         history={this.props.history}
                         userId={this.props.user.profile.id}
                     />}
-              {!this.props.user.hostedEvents && this.props.user.rsvps &&
+              {!this.props.user.hostedEvents.length && this.props.user.rsvps.length &&
                     <RsvpPreview
                         headerText="You're Invited!"
                         rsvp={this.getNextRsvp()}
                         history={this.props.history}
                         userId={this.props.user.profile.id}
                     />}
-              {!this.props.user.hostedEvents && !this.props.user.rsvps &&
+              {!this.props.user.hostedEvents.length && !this.props.user.rsvps.length &&
                   <Card
                       header="No upcoming events."
                       title="Want to create one?"
@@ -68,14 +68,14 @@ class Home extends React.Component {
 
             <div className="col-lg-6 col-12 pb-5">
 
-              {this.props.user.tasks &&
+              {this.props.user.tasks.length &&
                   <TaskPreview
                       headerText="Upcoming Task"
                       task={this.getUpcomingTask()}
                       history={this.props.history}
                       userId={this.props.user.profile.id}
                   />}
-              {!this.props.user.tasks &&
+              {!this.props.user.tasks.length &&
                 <Card
                     header="Upcoming tasks"
                     title="No upcoming tasks"

@@ -23,8 +23,12 @@ class EditEvent extends Component {
 
   handleUpdateEvent(e) {
     e.preventDefault();
-    this.props.updateEvent(this.props.event.id, this.state.updatedEvent);
-    this.props.editEvent(this.state.updatedEvent);
+
+    this.props.updateEvent(this.state.updatedEvent.id, this.state.updatedEvent);
+    this.props.cancelEditEvent();
+
+    // this.props.updateEvent(this.props.event.id, this.state.updatedEvent);
+    // this.props.editEvent(this.state.updatedEvent);
   }
 
   render() {

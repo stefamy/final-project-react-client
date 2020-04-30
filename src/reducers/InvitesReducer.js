@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 
 const initialState = {
-  eventInvites: []
+  invites: []
 }
 
 const invitesReducer = (state = initialState, action) => {
@@ -17,13 +17,13 @@ const invitesReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case CREATE_INVITE:
-      eventInvites = [...state.eventInvites];
+      invites = [...state.invites];
       const invite = _.cloneDeep(action.invite);
       invite["guest"] = _.cloneDeep(action.guest)
-      eventInvites.push(invite);
+      invites.push(invite);
 
       return {
-        eventInvites: eventInvites
+        invites: invites
       }
 
     case FIND_ALL_INVITES:
@@ -34,35 +34,35 @@ const invitesReducer = (state = initialState, action) => {
 
     case FIND_ALL_INVITES_FOR_EVENT:
       guests = _.sortBy(action.guests, 'firstName');
-      eventInvites = _.sortBy(action.invites, 'firstName');
-      eventInvites.forEach(invite => {
+      invites = _.sortBy(action.invites, 'firstName');
+      invites.forEach(invite => {
         const guestIndex = _.findIndex(guests, {id: invite.guestId});
         invite.guest = _.cloneDeep(guests[guestIndex]);
       });
 
       return {
-        eventInvites: eventInvites
+        invites: invites
       }
 
     case UPDATE_INVITE_FOR_EVENT:
-      eventInvites = [...state.eventInvites];
-      const indexInEventList = _.findIndex(eventInvites, {id: action.invite.id});
-      const originalInvite = eventInvites[indexInEventList];
+      invites = [...state.invites];
+      const indexInEventList = _.findIndex(invites, {id: action.invite.id});
+      const originalInvite = invites[indexInEventList];
 
-      eventInvites.splice(indexInEventList, 1, action.invite);
-      eventInvites[indexInEventList].guest = _.cloneDeep(originalInvite.guest);
+      invites.splice(indexInEventList, 1, action.invite);
+      invites[indexInEventList].guest = _.cloneDeep(originalInvite.guest);
 
       return {
-        eventInvites: _.cloneDeep(eventInvites)
+        invites: _.cloneDeep(invites)
       }
 
 
     case DELETE_INVITE_FOR_EVENT:
-      eventInvites = [...state.eventInvites];
-      _.remove(eventInvites, {id: action.inviteId})
+      invites = [...state.invites];
+      _.remove(invites, {id: action.inviteId})
 
       return {
-        eventInvites: eventInvites
+        invites: invites
       }
 
 

@@ -5,7 +5,8 @@ import {
   LOGOUT,
   DELETE_USER,
   UPDATE_USER,
-  FIND_CURRENT_USER_DATA, UPDATE_USER_RSVP
+  FIND_CURRENT_USER_DATA_STORE,
+  UPDATE_USER_RSVP
 } from "../common/UserConstants";
 
 
@@ -22,9 +23,9 @@ export const findCurrentUser = (user) => ({
 })
 
 // READ
-export const findCurrentUserData = (user) => ({
-  type: FIND_CURRENT_USER_DATA,
-  user: user
+export const findCurrentUserDataStore = (userData) => ({
+  type: FIND_CURRENT_USER_DATA_STORE,
+  userData: userData
 })
 
 export const login = (user) => ({
@@ -62,7 +63,7 @@ export default {
   login,
   logout,
   findCurrentUser,
-  findCurrentUserData,
+  findCurrentUserDataStore,
   updateCurrentUser,
   updateCurrentUserRsvp,
   deleteCurrentUser

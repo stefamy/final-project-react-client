@@ -1,12 +1,13 @@
-import { CREATE_EVENT, UPDATE_EVENT, FIND_ALL_EVENTS, DELETE_EVENT } from "../common/EventsConstants";
+import { CREATE_EVENT, UPDATE_EVENT, FIND_EVENT, FIND_ALL_EVENTS, DELETE_EVENT } from "../common/EventsConstants";
 import _ from 'lodash';
 
 const initialState = {
-  events: []
+  events: [],
+  event: {}
 }
 
 const eventsReducer = (state = initialState, action) => {
-  let events;
+  let events, event;
   switch (action.type) {
 
     case CREATE_EVENT:
@@ -17,6 +18,14 @@ const eventsReducer = (state = initialState, action) => {
         events: events
       }
 
+
+    case FIND_EVENT:
+      event = _.cloneDeep(action.event)
+
+      return {
+        event: event
+      }
+
     case FIND_ALL_EVENTS:
         events = _.sortBy(action.events, 'date')
         return {
@@ -24,12 +33,10 @@ const eventsReducer = (state = initialState, action) => {
     }
 
     case UPDATE_EVENT:
-      events = [...state.events];
-      const indexToUpdate = _.findIndex(events, {id: action.eventId});
-      events.splice(indexToUpdate, 1, action.event);
+      event =  _.cloneDeep(action.event)
 
       return {
-        events: events
+        event: event
     }
 
     case DELETE_EVENT:

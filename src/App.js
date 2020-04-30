@@ -14,7 +14,7 @@ class App extends React.Component {
     this.setState({isLoading: false})
   }
   componentDidMount() {
-    this.props.findAllUserData(() => this.doneLoading());
+    this.props.findCurrentUserDataStore(() => this.doneLoading());
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -40,10 +40,10 @@ const stateToPropertyMapper = state => {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findAllUserData: (doneLoading) => {
-      userService.findCurrentUserData().then(user => {
-        if (user) {
-          dispatch(userActions.findCurrentUserData(user));
+    findCurrentUserDataStore: (doneLoading) => {
+      userService.findCurrentUserDataStore().then(userData => {
+        if (userData) {
+          dispatch(userActions.findCurrentUserDataStore(userData));
         }
         doneLoading();
       });

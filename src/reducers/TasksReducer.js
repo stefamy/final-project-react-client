@@ -9,20 +9,19 @@ import {
 import _ from 'lodash';
 
 const initialState = {
-  tasks: [],
-  eventTasks: []
+  tasks: []
 }
 
 const tasksReducer = (state = initialState, action) => {
-  let tasks, eventTasks;
+  let tasks;
   switch (action.type) {
 
     case CREATE_TASK:
-      eventTasks = [...state.eventTasks];
-      eventTasks.push(action.task);
+      tasks = [...state.tasks];
+      tasks.push(action.task);
 
       return {
-        eventTasks: eventTasks
+        tasks: tasks
       }
 
     case FIND_ALL_TASKS:
@@ -32,9 +31,9 @@ const tasksReducer = (state = initialState, action) => {
       }
 
     case FIND_ALL_TASKS_FOR_EVENT:
-      eventTasks = _.sortBy(action.tasks, 'type')
+      tasks = _.sortBy(action.tasks, 'type')
       return {
-        eventTasks: eventTasks
+        tasks: tasks
       }
 
     case UPDATE_TASK:
@@ -47,20 +46,20 @@ const tasksReducer = (state = initialState, action) => {
       }
 
     case UPDATE_TASK_FOR_EVENT:
-      eventTasks = [...state.eventTasks];
-      const indexInEventList = _.findIndex(eventTasks, {id: action.task.id});
-      eventTasks.splice(indexInEventList, 1, action.task);
+      tasks = [...state.tasks];
+      const indexInEventList = _.findIndex(tasks, {id: action.task.id});
+      tasks.splice(indexInEventList, 1, action.task);
 
       return {
-        eventTasks: _.cloneDeep(eventTasks)
+        tasks: _.cloneDeep(tasks)
       }
 
     case DELETE_TASK_FOR_EVENT:
-      eventTasks = [...state.eventTasks];
-      _.remove(eventTasks, {id: action.taskId})
+      tasks = [...state.tasks];
+      _.remove(tasks, {id: action.taskId})
 
       return {
-        eventTasks: eventTasks
+        tasks: tasks
       }
 
     default:

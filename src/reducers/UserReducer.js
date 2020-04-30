@@ -1,12 +1,14 @@
 import _ from 'lodash';
-import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA, UPDATE_USER_RSVP, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_RSVP, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
 
 const initialState = {
   user: {
     id: '',
     profile: {},
-    invites: [],
     tasks: [],
+    rsvps: [],
+    hostedEvents: [],
+    reviews: []
   }
 }
 
@@ -16,13 +18,16 @@ const userReducer = (state = initialState, action) => {
 
     case REGISTER:
       user = {};
+      user.id = action.newUser.id;
       user.profile = _.cloneDeep(action.newUser)
+
       return {
         user: user
       }
 
     case LOGIN:
       user = {};
+      user.id = action.user.id;
       user.profile = _.cloneDeep(action.user)
 
       return {
@@ -31,6 +36,7 @@ const userReducer = (state = initialState, action) => {
 
     case FIND_CURRENT_USER:
       user = {};
+      user.id = action.user.id;
       user.profile = _.cloneDeep(action.user);
 
       return {
@@ -48,13 +54,14 @@ const userReducer = (state = initialState, action) => {
         user: user
       }
 
-    case FIND_CURRENT_USER_DATA:
+    case FIND_CURRENT_USER_DATA_STORE:
       user = {};
-      user.profile = _.cloneDeep(action.user.profile);
-      user.hostedEvents = _.cloneDeep(action.user.events);
-      user.rsvps = _.cloneDeep(action.user.rsvps);
-      user.tasks = _.cloneDeep(action.user.tasks);
-      user.reviews = _.cloneDeep(action.user.reviews);
+      user.id = action.userData.id;
+      user.profile = _.cloneDeep(action.userData.profile);
+      user.hostedEvents = _.cloneDeep(action.userData.hostedEvents);
+      user.rsvps = _.cloneDeep(action.userData.rsvps);
+      user.tasks = _.cloneDeep(action.userData.tasks);
+      user.reviews = _.cloneDeep(action.userData.reviews);
 
       return {
         user: user
