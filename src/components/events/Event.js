@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 import Address from "../structural/Address";
 import {longDate} from "../../util/calendar";
+import {time12Hour} from "../../util/clock"
 import EditEvent from "./EditEvent";
 import eventsActions from "../../actions/EventsActions";
 import eventsService from "../../services/EventsService";
@@ -108,7 +109,14 @@ class Event extends React.Component {
                 }
               <h3 className="display-4 pt-2">{this.props.event.name} </h3>
               <p className="lead">{this.props.event.description} </p>
-              <p>{longDate(this.props.event.date)} {this.props.event.startTime && <span> • {this.props.event.startTime}</span>} </p>
+              <p>{longDate(this.props.event.date)}
+                {this.props.event.startTime &&
+                  <span> • {time12Hour(this.props.event.startTime)}
+                    {this.props.event.endTime && <span> - {time12Hour(this.props.event.endTime)}</span>}
+                  </span>
+                }
+
+              </p>
 
               <Address
                   name={this.props.event.locationName}
