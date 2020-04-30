@@ -3,6 +3,7 @@ import EventPreview from "./EventPreview";
 import CreateEvent from "./CreateEvent";
 import eventsService from "../../services/EventsService";
 import eventsActions from "../../actions/EventsActions";
+import userActions from "../../actions/UserActions";
 import { connect } from "react-redux";
 
 class EventList extends Component {
@@ -80,7 +81,7 @@ class EventList extends Component {
                       event={event}
                       history={this.props.history}
                       canDelete={true}
-                      handleDeleteEvent={() => this.props.deleteEvent(event.id)}
+                      deleteEvent={() => this.props.deleteEvent(this.props.user, event.id)}
                       outerWrapClass="col-lg-4 col-md-6 col-12 pb-3"
                   />
               ))}
@@ -95,26 +96,20 @@ class EventList extends Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user,
-    events: state.events.events
+    user: state.user.user
   };
 };
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    // findHostEventsForUser: userId => {
-    //   eventsService.findHostEventsForUser(userId).then(events => {
-    //     dispatch(eventsActions.findAllEvents(events));
-    //   });
-    // },
-    createEvent: (userId, event) => {
-      eventsService.createEvent(userId, event).then(event => {
-        dispatch(eventsActions.createEvent(event));
+    createEvent: (user, event) => {
+      eventsService.createEvent(user.id, event).then(event => {
+        dispatch(userActions.createCurrentUserHostedEvent(user, event));
       });
     },
-    deleteEvent: (eventId) => {
+    deleteEvent: (user, eventId) => {
       eventsService.deleteEvent(eventId).then(res => {
-        dispatch(eventsActions.deleteEvent(eventId));
+        dispatch(userActions.deleteCurrentUserHostedEvent(user, eventId));
       });
     },
   };

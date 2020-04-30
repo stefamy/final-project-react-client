@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_RSVP, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_RSVP, CREATE_USER_HOSTED_EVENT, DELETE_USER_HOSTED_EVENT, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
 
 const initialState = {
   user: {
@@ -15,6 +15,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   let user;
   switch (action.type) {
+
 
     case REGISTER:
       user = {};
@@ -43,6 +44,19 @@ const userReducer = (state = initialState, action) => {
         user: user
       }
 
+    case FIND_CURRENT_USER_DATA_STORE:
+      user = {};
+      user.id = action.userData.id;
+      user.profile = _.cloneDeep(action.userData.profile);
+      user.hostedEvents = _.cloneDeep(action.userData.hostedEvents);
+      user.rsvps = _.cloneDeep(action.userData.rsvps);
+      user.tasks = _.cloneDeep(action.userData.tasks);
+      user.reviews = _.cloneDeep(action.userData.reviews);
+
+      return {
+        user: user
+      }
+
     case UPDATE_USER_RSVP:
       user = _.cloneDeep(action.user);
       const newRsvps = _.cloneDeep(action.user.rsvps);
@@ -54,14 +68,20 @@ const userReducer = (state = initialState, action) => {
         user: user
       }
 
-    case FIND_CURRENT_USER_DATA_STORE:
-      user = {};
-      user.id = action.userData.id;
-      user.profile = _.cloneDeep(action.userData.profile);
-      user.hostedEvents = _.cloneDeep(action.userData.hostedEvents);
-      user.rsvps = _.cloneDeep(action.userData.rsvps);
-      user.tasks = _.cloneDeep(action.userData.tasks);
-      user.reviews = _.cloneDeep(action.userData.reviews);
+    case CREATE_USER_HOSTED_EVENT:
+      user = _.cloneDeep(action.user);
+      user.hostedEvents.push(action.event);
+
+      return {
+        user: user
+      }
+
+    case DELETE_USER_HOSTED_EVENT:
+      user = _.cloneDeep(action.user);
+      const updatedEvents = _.cloneDeep(action.user.hostedEvents);
+      _.remove(updatedEvents, {id: action.eventId})
+
+      user.hostedEvents = updatedEvents;
 
       return {
         user: user

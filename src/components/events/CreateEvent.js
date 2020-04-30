@@ -16,7 +16,7 @@ export default class CreateEvent extends Component {
 
   handleCreateEvent(e) {
     e.preventDefault();
-    this.props.createEvent(this.props.user.id, this.state.newEvent);
+    this.props.createEvent(this.props.user, this.state.newEvent);
   }
 
   render() {

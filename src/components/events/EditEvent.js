@@ -1,12 +1,8 @@
 import React, {Component} from "react";
-import invitesService from "../../services/InvitesService";
-import invitesActions from "../../actions/InvitesActions";
-import tasksService from "../../services/TasksService";
-import tasksActions from "../../actions/TasksActions";
 import eventsService from "../../services/EventsService";
 import eventsActions from "../../actions/EventsActions";
 import {connect} from "react-redux";
-
+import ModalConfirm from "../structural/ModalConfirm"
 
 class EditEvent extends Component {
 
@@ -23,12 +19,17 @@ class EditEvent extends Component {
 
   handleUpdateEvent(e) {
     e.preventDefault();
-
     this.props.updateEvent(this.state.updatedEvent.id, this.state.updatedEvent);
     this.props.cancelEditEvent();
+  }
 
-    // this.props.updateEvent(this.props.event.id, this.state.updatedEvent);
-    // this.props.editEvent(this.state.updatedEvent);
+  confirmDeleteEvent(e) {
+    e.preventDefault();
+    this.setState({showConfirm: true});
+  }
+
+  stopShowConfirm() {
+    this.setState({showConfirm: false});
   }
 
   render() {
@@ -42,12 +43,12 @@ class EditEvent extends Component {
              <div className="col-auto">
                <button
                    onClick={this.props.cancelEditEvent}
-                   className="btn btn-sm btn-danger">
+                   className="btn btn-sm btn-outline-danger">
                  Cancel Editing
                </button>
              </div>
            </div>
-          <form onSubmit={(e) => this.handleUpdateEvent(e)}>
+          <form>
             <h4 className="mt-3">What</h4>
             <div className="form-group">
               <label htmlFor="eventNameInput">Event Name</label>
@@ -193,11 +194,37 @@ class EditEvent extends Component {
                   placeholder='Example: Enter through the gate in the side yard.'
               />
             </div>
-            <div className="form-group mt-3">
-              <button type="submit" className="btn btn-info">Update Event</button>
+            <div className="form-group mt-3 row align-items-between justify-content-between">
+              <div className="col-auto">
+                <button
+                    type="submit"
+                    onClick={(e) => this.handleUpdateEvent(e)}
+                    className="btn btn-info">
+                  Update Event
+                </button>
+              </div>
+              <div className="col-auto">
+                <button
+                    type="submit"
+                    onClick={(e) => this.confirmDeleteEvent(e)}
+                    className="btn btn-danger">
+                  Delete Event
+                </button>
+              </div>
             </div>
           </form>
         </div>
+        <ModalConfirm
+             show={this.state.showConfirm}
+             headerText="Delete this event?"
+             bodyText="Are you sure you want to delete this event and all of its data? This action cannot be undone."
+             yesText="Delete Event"
+             noText="Cancel"
+             yesBtnClass="btn btn-danger"
+             noBtnClass="btn btn-secondary"
+             handleClose={() => this.stopShowConfirm()}
+             yesFunction={() => this.props.deleteEvent()}
+        />
         </div>
     );
   }
@@ -210,7 +237,7 @@ const stateToPropertyMapper = state => {
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    updateEvent: (eventId, event) => { // TODO - Update in rsvp list
+    updateEvent: (eventId, event) => {
       eventsService.updateEvent(eventId, event).then(response => {
         dispatch(eventsActions.updateEvent(eventId, event));
       });

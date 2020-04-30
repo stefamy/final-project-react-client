@@ -24,11 +24,6 @@ const tasksReducer = (state = initialState, action) => {
         tasks: tasks
       }
 
-    case FIND_ALL_TASKS:
-      tasks = _.sortBy(action.tasks, 'type')
-      return {
-        tasks: tasks
-      }
 
     case FIND_ALL_TASKS_FOR_EVENT:
       tasks = _.sortBy(action.tasks, 'type')

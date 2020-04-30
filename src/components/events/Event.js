@@ -7,8 +7,9 @@ import EditEvent from "./EditEvent";
 import eventsActions from "../../actions/EventsActions";
 import eventsService from "../../services/EventsService";
 import InviteList from "../invites/InviteList";
-import InviteRsvp from "../invites/InviteRsvp";
+import userActions from "../../actions/UserActions";
 import TaskList from "../tasks/TaskList";
+import {push} from "connected-react-router";
 
 class Event extends React.Component {
 
@@ -84,17 +85,6 @@ class Event extends React.Component {
     })
   }
 
-  editEvent() {
-    // TODO auto update event.
-    eventsService.findEventByEventId(this.props.match.params.eventId).then((event) => {
-      this.setState({
-        event: event,
-        isEditing: false
-      })
-      this.props.loadAllEventData(event.id);
-    });
-  }
-
   render() {
     return (
         <div className="bg-white border">
@@ -137,6 +127,7 @@ class Event extends React.Component {
                 event={this.props.event}
                 editEvent={() => this.editEvent()}
                 cancelEditEvent={() => this.stopShowEditEvent()}
+                deleteEvent={() => this.props.deleteEvent(this.props.user, this.props.event.id)}
             /> }
 
             {this.state.isEventGuest &&
@@ -188,6 +179,12 @@ const dispatchToPropertyMapper = dispatch => {
         dispatch(eventsActions.findEvent(event));
       })
     },
+    deleteEvent: (user, eventId) => {
+      eventsService.deleteEvent(eventId).then(response => {
+        dispatch(userActions.deleteCurrentUserHostedEvent(user, eventId));
+        dispatch(push('/events'));
+      })
+    }
   };
 };
 
