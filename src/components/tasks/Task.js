@@ -73,13 +73,13 @@ class Task extends React.Component {
                 <h5 className="card-header">Event: {this.state.event.name} <Link to={`/events/${this.state.event.id}`}><i className="ml-2 fa fa-link"></i></Link></h5>
                 <div className="card-body">
                   <div className="card-text">
-                  {this.props.task.type || 'Task'}: {this.props.task.title}<br/>
-                  {this.props.task.description}</div>
-                </div>
+                    {this.props.task.type || 'Task'}: {this.props.task.title}<br/>
+                    {this.props.task.description}</div>
+                  </div>
                 {!this.props.hideForm &&
                 <form className="d-flex">
-                  <div className=" col-auto pl-0 pr-0 input-group-addon bg-light task-checkbox-wrap border-right border-top">
-                    <label className="special-checkbox pl-3 pr-3 pt-2 pb-2">
+                  <div className="col-auto pl-0 pr-0">
+                    <label className="pl-3 pr-3 pt-2 pb-2">
                       <input
                           onChange={(e) => this.updateResponseChoice(e.target.checked ? "Assigned" : "Unassigned")}
                           id={`taskCheckboxInput` + this.props.task.id}

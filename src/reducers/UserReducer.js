@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_RSVP, CREATE_USER_HOSTED_EVENT, DELETE_USER_HOSTED_EVENT, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_PROFILE, UPDATE_USER_RSVP, CREATE_USER_HOSTED_EVENT, DELETE_USER_HOSTED_EVENT, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
 
 const initialState = {
   user: {
@@ -63,6 +63,15 @@ const userReducer = (state = initialState, action) => {
       newRsvps[action.rsvpIndex].invite = _.cloneDeep(action.invite);
 
       user.rsvps = newRsvps;
+
+      return {
+        user: user
+      }
+
+    case UPDATE_USER_PROFILE:
+      user = _.cloneDeep(action.user);
+      const newProfile = _.cloneDeep(action.newProfile);
+      user.profile = newProfile;
 
       return {
         user: user

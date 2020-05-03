@@ -39,7 +39,7 @@ export default class CreateInvite extends Component {
 
   render() {
     return (
-        <div className="new-invite-form p-4 bg-light  rounded border">
+        <div className="new-invite-form p-4 bg-light mt-3 rounded border">
           <div className="row align-items-between justify-content-between mb-2">
             <div className="col-auto">
               <h5>Create New Invite</h5>

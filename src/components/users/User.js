@@ -16,69 +16,57 @@ class User extends React.Component {
     viewingGuestMutualEvent: false
   }
 
+  viewingSelf() {
+    return this.props.user.id === this.state.userViewing.id;
+  }
+
   componentDidMount() {
-    this.props.findUser();
-    if (this.props.profile && this.props.viewingOwnProfile) {
+    // Find profile for user viewing:
+    if (this.props.profile) {
       this.setState({
-        userViewing: this.props.user,
+        userViewing: {...this.props.profile},
         viewingOwnProfile: true,
-        viewingGuestMutualEvent: true
-      });
-      eventsService.findGuestEventsForUser(this.props.user.id)
-      .then(events => {
-        this.setState({userViewingEvents: events});
-        this.setState({viewingGuestMutualEvent: true});
       });
     } else {
-      userService.findPublicProfile(this.props.username)
-      .then(profile => {
-        if (!profile) {
-          this.setState({userViewing: ''});
-        } else {
-          this.setState({userViewing: profile});
-          if (this.props.user && this.props.user.id) {
-            this.checkUserRelationship();
-          }
-        }
-      });
+      userService.findPublicProfile(this.props.match.params.username)
+      .then(profile => this.setState({userViewing: profile}));
+      this.checkUserRelationship();
     }
+  }
+
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.user.id !== this.props.user.id) {
+        this.checkUserRelationship();
+      }
   }
 
   checkUserRelationship() {
-    eventsService.findGuestEventsForUser(this.props.user.id).then(
-        eventsUser => {
-          this.setState({userEvents: eventsUser});
-          if (this.state.userViewing.username === this.props.user.username) {
-            this.setState({
-              viewingOwnProfile: true,
-              viewingGuestMutualEvent: true,
-              userViewingEvents: this.state.userEvents
-            })
-          } else {
-            eventsService.findGuestEventsForUser(this.state.userViewing.id)
-            .then(events => {
-              this.setState({userViewingEvents: events});
-              this.setState({viewingGuestMutualEvent: this.haveMutualEvents()});
-            });
-          }
-        });
+    if (this.viewingSelf()) {
+      this.setState({
+        userViewing: this.props.user.profile,
+        viewingOwnProfile: true,
+        viewingGuestMutualEvent: true
+      });
+    } else {
+      eventsService.findEventsByGuestId(this.state.userViewing.id)
+      .then(events => {
+        this.setState({userViewingEvents: events});
+        this.setState(
+            {viewingGuestMutualEvent: this.haveMutualEvents(events)});
+      });
+    }
   }
 
-  haveMutualEvents()  {
-  if (this.state.userEvents) {
-    for (let i = 0; i < this.state.userEvents.length; i++) {
-      if (this.state.userViewingEvents.find(
-          event => event.id === this.state.userEvents[i].id)) {
+  haveMutualEvents(events)  {
+  for (let i = 0; i < events.length; i++) {
+    if (this.props.user.rsvps.find(rsvp => rsvp.event.id === events[i].id)) {
         return true;
-      }
     }
-    }
-    return false;
+  }
+  return false;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-
-  }
 
   render() {
     return(
@@ -232,12 +220,7 @@ const stateToPropertyMapper = state => {
 };
 
 const dispatchToPropertyMapper = dispatch => {
-  return {
-    findUser: () => {
-      userService.findUser()
-      .then(user => dispatch(userActions.findUser(user)));
-    },
-  };
+  return {}
 };
 
 export default connect(

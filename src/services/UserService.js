@@ -87,7 +87,7 @@ export const deleteCurrentUser = () =>
 
 // READ - From username
 export const findPublicProfile = (username) =>
-    fetch(`${API_URL}/api/user/${username}`, {
+    fetch(`${API_URL}/api/users/${username}`, {
       method: 'GET'
     })
     .then( response => response.json())

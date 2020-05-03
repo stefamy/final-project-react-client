@@ -44,50 +44,51 @@ class InviteList extends React.Component {
   render() {
     return (
         <>
-          <h3>Invites</h3>
-          {this.props.invites &&
-          <div className="list-group list-group-flush mt-3 mb-4 border-top">
-            {this.props.invites.map((invite, index) => (
-                <Invite
-                    key={index}
-                    invite={invite}
-                    event={this.props.event}
-                    updateInvite={this.props.updateInvite}
-                    deleteInvite={this.props.deleteInvite}
-                />
-            ))}
+          {!this.props.isEventHost &&
+          <div className="mb-4">
+            <h3>Your RSVP</h3>
+            <InviteRsvp
+                event={this.props.event}
+                updateInvite={this.props.updateInvite}
+                invite={this.props.invites.find(
+                    invite => invite.guestId === this.props.user.id)}
+                hideEventDetails={true}
+            />
           </div>}
 
-          {this.props.isEventHost &&
-            (!this.state.showCreateInvite &&
-                <button
-                    onClick={() => this.doShowCreateInvite()}
-                    className="btn btn-outline-info">
-                  Add New Invite
-                </button>
-            ) ||
-            (this.state.showCreateInvite &&
-                <CreateInvite
-                    createInvite={this.props.createInvite}
-                    cancelCreateInvite={() => this.stopShowCreateInvite()}
-                    eventId={this.props.event.id}
-                    eventDate={this.props.event.date}
-                />)
-          }
+          <div className="invite-list-wrap mb-5">
+            <h3>Invites</h3>
+            {this.props.invites &&
+            <div className="list-group list-group-flush mt-3 border-top">
+              {this.props.invites.map((invite, index) => (
+                  <Invite
+                      key={index}
+                      invite={invite}
+                      event={this.props.event}
+                      updateInvite={this.props.updateInvite}
+                      deleteInvite={this.props.deleteInvite}
+                      isEventHost={this.props.isEventHost}
+                  />
+              ))}
+            </div>}
 
-          {!this.props.isEventHost &&
-            <div className="mt-5">
-              <h3>Your RSVP</h3>
-              <InviteRsvp
-                  event={this.props.event}
-                  updateInvite={this.props.updateInvite}
-                  invite={this.props.invites.find(
-                      invite => invite.guestId === this.props.user.id)}
-                  hideEventDetails={true}
-              />
-            </div>
-          }
-
+            {this.props.isEventHost &&
+              (!this.state.showCreateInvite &&
+                  <button
+                      onClick={() => this.doShowCreateInvite()}
+                      className="btn btn-outline-info mt-3">
+                    Add New Invite
+                  </button>
+              ) ||
+              (this.state.showCreateInvite &&
+                  <CreateInvite
+                      createInvite={this.props.createInvite}
+                      cancelCreateInvite={() => this.stopShowCreateInvite()}
+                      eventId={this.props.event.id}
+                      eventDate={this.props.event.date}
+                  />)
+            }
+          </div>
 
         </>
     );

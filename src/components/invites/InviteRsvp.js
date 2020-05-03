@@ -1,10 +1,4 @@
 import React from "react";
-import invitesService from "../../services/InvitesService";
-import {connect} from "react-redux";
-import invitesActions from "../../actions/InvitesActions";
-import userActions from "../../actions/UserActions";
-import _ from 'lodash';
-import Invite from "./Invite";
 
  class InviteRsvp extends React.Component {
 
@@ -48,9 +42,9 @@ import Invite from "./Invite";
    render() {
 
      return (
-           <div className="invite-rsvp mb-3">
+           <div className="invite-rsvp">
              {this.props.invite &&
-               <div className="invite-response-form mt-3 mb-3">
+               <div className="invite-response-form mt-3">
                    <div className="form-group" onChange={this.updateResponseChoice.bind(this)}>
                      <div className="form-check form-check-inline pr-3">
                        <label className="form-check-label"
@@ -90,29 +84,27 @@ import Invite from "./Invite";
                      </div>
                    </div>
 
-               <div className="invite-response-body">
-                 <input type="text"
-                        className="form-control"
-                        placeholder="Comments for host"
-                        defaultValue={this.props.invite.comments || ''}
-                        onChange={(e) => this.handleResponseChange('comments', e.target.value)}
-                 />
+                   <div className="invite-response-body">
+                     <input type="text"
+                            className="form-control"
+                            placeholder="RSVP Comments (will display publicly)"
+                            defaultValue={this.props.invite.comments || ''}
+                            onChange={(e) => this.handleResponseChange('comments', e.target.value)}
+                     />
 
-                 <div className="mt-3">
-                   {(this.state.updatedInvite.response !== this.props.invite.response ||
-                       this.state.updatedInvite.comments !== this.props.invite.comments) &&
-                      <button
-                          type="submit"
-                          onClick={(e) => this.handleUpdateInvite(e)}
-                          className="btn btn-info">Update Response
-                      </button>}
-                   {!this.state.showSuccess && this.state.isUpdating && <button
-                       type="submit" disabled
-                       className="btn btn-success">Update Response</button>}
-                   {this.state.showSuccess && <button
-                       type="submit" disabled
-                       className="btn btn-success">Updated!</button>}
-                 </div>
+                     {(this.state.updatedInvite.response !== this.props.invite.response ||
+                         this.state.updatedInvite.comments !== this.props.invite.comments) &&
+                        <button
+                            type="submit"
+                            onClick={(e) => this.handleUpdateInvite(e)}
+                            className="btn btn-info mt-3">Update Response
+                        </button>}
+                     {!this.state.showSuccess && this.state.isUpdating && <button
+                         type="submit" disabled
+                         className="btn btn-success mt-3">Update Response</button>}
+                     {this.state.showSuccess && <button
+                         type="submit" disabled
+                         className="btn btn-success mt-3">Updated!</button>}
 
                </div>
 

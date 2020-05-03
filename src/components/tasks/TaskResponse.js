@@ -1,232 +1,172 @@
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHandPaper, faLink, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
+import {TASK_TYPES} from "../../common/TasksConstants"
+import ModalConfirm from "../structural/ModalConfirm"
+import TaskEditor from "./TaskEditor"
+import TaskResponseEditor from "./TaskResponseEditor"
 
 class TaskResponse extends React.Component {
 
   state = {
-    updatedTask: {...this.props.task}
+    isEditingTask: false,
+    isEditingResponse: false
   }
 
-  handleResponseChange(status) {
-    let newState = Object.assign({}, this.state);
-    if (status === "Assigned") {
-      newState.updatedTask.status = "Assigned";
-      newState.updatedTask.assigneeUserId = this.props.user.id;
-      newState.updatedTask.assigneeFirstName = this.props.user.firstName;
-      newState.updatedTask.assigneeLastName = this.props.user.lastName;
-      newState.updatedTask.assigneeEmail = this.props.user.email;
-      newState.updatedTask.dateOfResponse = new Date();
-      newState.updatedTask.assigneeComments = "";
-    } else {
-      newState.updatedTask.status = "Unassigned";
-      newState.updatedTask.assigneeUserId = "";
-      newState.updatedTask.assigneeFirstName = "";
-      newState.updatedTask.assigneeLastName = "";
-      newState.updatedTask.assigneeEmail = "";
-      newState.updatedTask.dateOfResponse = "";
-      newState.updatedTask.assigneeComments = "";
-      newState.updatedTask.glutenFree = 0;
-      newState.updatedTask.vegan = 0;
-      newState.updatedTask.vegetarian = 0;
-      newState.updatedTask.nutFree = 0;
-      newState.updatedTask.otherDietaryNotes = "";
-      newState.updatedTask.recipeLink = "";
+  toggleSignUpForTask(e) {
+    e.preventDefault();
+    const newStatus = this.props.task.status === "Assigned" ? "Unassigned" : "Assigned";
+    this.updateSignupStatus(newStatus);
+    if (newStatus === "Assigned") {
+      this.setState({isEditingResponse: true})
     }
-    this.setState(newState);
   }
 
-  handleTaskInput(attribute, newContent) {
-    let newState = Object.assign({}, this.state);
-    newState.updatedTask[attribute] = newContent;
-    this.setState(newState);
+  updateSignupStatus(newStatus) {
+    let updatedTask = {...this.props.task};
+    if (newStatus === "Assigned") {
+      updatedTask.status = "Assigned";
+      updatedTask.assigneeUserId = this.props.user.id;
+      updatedTask.assigneeFirstName = this.props.user.profile.firstName;
+      updatedTask.assigneeLastName = this.props.user.profile.lastName;
+      updatedTask.assigneeEmail = this.props.user.profile.email;
+      updatedTask.dateOfResponse = new Date();
+      updatedTask.assigneeComments = "";
+    } else {
+      updatedTask.status = "Unassigned";
+      updatedTask.assigneeUserId = "";
+      updatedTask.assigneeFirstName = "";
+      updatedTask.assigneeLastName = "";
+      updatedTask.assigneeEmail = "";
+      updatedTask.dateOfResponse = "";
+      updatedTask.assigneeComments = "";
+      updatedTask.glutenFree = 0;
+      updatedTask.vegan = 0;
+      updatedTask.vegetarian = 0;
+      updatedTask.nutFree = 0;
+      updatedTask.otherDietaryNotes = "";
+      updatedTask.recipeLink = "";
+    }
+    this.props.updateTask(updatedTask.id, updatedTask);
   }
 
-  handleUpdateTask(e) {
-    e.preventDefault();
-    this.props.updateTask(this.state.updatedTask.id, this.state.updatedTask)
-    this.setState({isEditingTask: false})
-  }
-
-  handleDeleteTask(e) {
-    e.preventDefault();
-    this.props.deleteTask(this.state.updatedTask.id);
-  }
-
-  handleNewDishCategory(e) {
-    this.handleTaskInput('dishCat', e.target.value);
-  }
-
-  editTask(e) {
-    e.preventDefault();
+  toggleState(property) {
     this.setState({
-      isEditingTask: true
+      [property]: !this.state[property]
     })
+  }
+
+  confirmDeleteEvent(e) {
+    e.preventDefault();
+    if (this.props.task.status === 'Assigned') {
+      this.setState({showConfirm: true});
+    } else {
+      this.props.deleteTask(this.props.task.id);
+    }
+  }
+
+  stopShowConfirm() {
+    this.setState({showConfirm: false});
   }
 
   render() {
     const task = this.props.task;
     const user = this.props.user;
 
-
     return (
-        <div className="task border mb-3">
-          <div className="task-header d-flex justify-content-between align-items-center pl-3 pr-3 pt-2 pb-2 bg-light border-bottom">
-            <div>{task.type || 'Task'} {task.type === "Food/Drink" &&
-                  <span className="pl-3 pr-3">
-                    {this.state.updatedTask.vegan === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Vegan</span> }
-                    {this.state.updatedTask.vegetarian === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Vegetarian</span> }
-                    {this.state.updatedTask.glutenFree === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Gluten Free</span> }
-                    {this.state.updatedTask.nutFree === 1 && <span className="badge badge-pill badge-info ml-1 mr-1">Nut Free</span> }
-                  </span>
-             }
+        <div className='task list-group-item'>
+          <div className="task-body pt-2 pb-2">
+            <div className="d-flex">
+              <div className="col pl-0 pr-0">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h5 className="mb-1">{task.title}</h5>
+                    <div>
+                      <span className="btn badge border border-yellow bg-yellow ml-1" onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt}/> Edit</span>
+                      <span className="btn badge border border-pink bg-pink ml-1" onClick={(e) => this.confirmDeleteEvent(e)}><FontAwesomeIcon icon={faTimes}/> Delete</span>
+                    </div>
+                  </div>
+                  <div>{task.description}</div>
+                    {task.type === TASK_TYPES.FOOD && <>
+                    <div className="d-flex align-items-center mt-2">
+                      {task.dishCat && <span className="badge bg-blue mr-1">{task.dishCat}</span> }
+                      {task.vegan === 1 && <span className="badge badge-light mr-1">Vegan</span> }
+                      {task.vegetarian === 1 && <span className="badge badge-light mr-1">Vegetarian</span> }
+                      {task.glutenFree === 1 && <span className="badge badge-light mr-1">Gluten Free</span> }
+                      {task.nutFree === 1 && <span className="badge badge-light mr-1">Nut Free</span> }
+                      {task.type === 'Food/Drink' && task.recipeLink && <small className="ml-2"><a href={`${task.recipeLink}`} className="text-info">Recipe <FontAwesomeIcon icon={faLink} /></a></small>}
+                      </div>
+                      {task.otherDietaryNotes && <small className="mt-1 pl-1">Dietary Notes: {task.otherDietaryNotes}</small> }
+
+                    </>}
+              </div>
+              </div>
             </div>
-            {this.props.isHost && <button className="btn" onClick={(e) => this.handleDeleteTask(e)}><i className="text-danger fa fa-close"></i></button>}
+
+          <div className="d-flex align-items-center justify-content-between col-auto pl-0 pr-0 task-edit-wrap border-top mt-2 pt-2">
+
+            {/* If assigned to user */}
+            {(task.status === "Assigned" && task.assigneeUserId === user.id) && <>
+              <span><span className="badge badge-pill border border-purple bg-purple mr-1">{task.status} to you</span>
+              {task.assigneeComments && task.assigneeComments.length > 0 && <small className="text-muted"> Comment: {task.assigneeComments}</small>}</span>
+              <div>
+                <span className={`btn btn-sm small ` +  (this.state.isEditingResponse ? "text-yellow" : "")} onClick={() => this.toggleState('isEditingResponse')}>
+                  <FontAwesomeIcon icon={faPencilAlt} className="text-yellow"/> Edit response
+                </span>
+                <span className="btn btn-sm small" onClick={(e) => this.toggleSignUpForTask(e)}>
+                  <FontAwesomeIcon icon={faTimes} className="text-pink"/>  Cancel sign-up
+                </span>
+              </div>
+            </>}
+
+            {/* If unassigned */}
+            {task.status === "Unassigned" && <>
+              <span className="badge badge-pill bg-yellow border border-yellow">{task.status}</span>
+              <button className="btn btn-sm small" onClick={(e) => this.toggleSignUpForTask(e)}>
+                <FontAwesomeIcon icon={faHandPaper} className="text-blue"/> Sign-up for this task
+              </button>
+            </>}
+
+
+            {/* If assigned to other user */}
+            {task.status === "Assigned" && task.assigneeUserId !== user.id  && <div>
+              <small className="small text-muted">Assigned to: {task.assigneeFirstName} {task.assigneeLastName && task.assigneeLastName[0] + '.'}
+                {task.assigneeComments && task.assigneeComments.length > 0 && <> | Comment: {task.assigneeComments}</>}</small>
+            </div>}
+
           </div>
-          <div className="task-body d-flex">
-          <div className="col-auto pl-0 pr-0 input-group-addon bg-light task-checkbox-wrap border-right">
-            <label className="special-checkbox pl-3 pr-3 pt-2 pb-2">
-              <input
-                  disabled={task.status === "Assigned" && task.assigneeUserId !== user.id}
-                  onChange={(e) => this.handleResponseChange(e.target.checked ? "Assigned" : "Unassigned")}
-                  id={`taskCheckboxInput` + task.id}
-                  type="checkbox"
-                  checked={this.state.updatedTask.status === "Assigned" ? 1 : 0}
-                  name="taskCheckbox"/>
-            </label>
-          </div>
-          <div className="col d-flex justify-content-between align-items-center border-0">
-            <div className="pt-3 pb-3">
-              <div><h5 className="mb-1">{task.title}</h5></div>
-              <div>{task.description}</div>
-              {task.type === 'Food/Drink' && task.status === 'Assigned' && task.recipeLink && <div><a href={`${task.recipeLink}`} className="text-info">Link to recipe<i className="ml-2 fa fa-link"></i></a></div>}
-            </div>
-            {(this.state.updatedTask.status === task.status) && <>
-              {(task.status === "Assigned" && task.assigneeUserId !== user.id) &&
-                <span className="badge badge-pill badge-light text-secondary border">{this.state.updatedTask.status}</span> }
-              {(task.status === "Assigned" && task.assigneeUserId === user.id) &&
-                <span className="btn badge badge-pill badge-success" onClick={(e) => this.editTask(e)}>{this.state.updatedTask.status} to you</span> }
-              {task.status !== "Assigned" && <span className="badge badge-pill badge-warning">{this.state.updatedTask.status}</span>}
-             </>}
-          </div>
-        </div>
-          {task.status === "Assigned" && this.props.isHost &&
-          <div className="col d-flex align-items-center justify-content-between border-top">
-            <div className="pt-3 pb-3">Assigned to: {task.assigneeFirstName} {task.assigneeLastName}</div>
-            <div className="pt-3 pb-3"> Notes from assignee: {task.assigneeComments || "None provided"}</div>
+
+          {this.state.isEditingTask && <div className="mt-2 mb-2">
+           <TaskEditor
+               headerText="Edit Task"
+               task={task}
+               toggleEditor={() => this.toggleState('isEditingTask')}
+               submitId={task.id}
+               submitHandler={this.props.updateTask} />
           </div>
           }
-          {(this.state.updatedTask.status !== task.status || this.state.isEditingTask) && <>
-            <div className="col pl-0 pr-0 input-group border-top">
-            {(this.state.updatedTask.type === "Food/Drink") &&
-              <div className="col-12 pt-3 border-bottom">
-              <div className="form-group">
-                <label htmlFor="foodCategoryInput">Type Of Dish</label>
-                <select defaultValue={task.dishCat || ""} className="form-control"
-                        id="foodCategoryInput"
-                        onChange={this.handleNewDishCategory.bind(this)}>
-                  <option value="" disabled>Dish Category</option>
-                  <option value="Breakfast">Breakfast</option>
-                  <option value="Lunch">Lunch</option>
-                  <option value="Main">Main</option>
-                  <option value="Snack">Snack</option>
-                  <option value="Dessert">Dessert</option>
-                  <option value="Starch">Starch</option>
-                  <option value="Side">Side</option>
-                  <option value="Meat">Meat</option>
-                  <option value="Beverage">Beverage</option>
-                  <option value="Any/No Preference">Any/Other</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <div className="form-check">
-                  <label className="form-check-label" htmlFor="glutenFreeInput">
-                    <input
-                        defaultChecked={task.glutenFree}
-                        type="checkbox"
-                        id="glutenFreeInput"
-                        onChange={(e) => this.handleTaskInput(
-                            'glutenFree', e.target.checked ? 1 : 0)}
-                        className="form-check-input"
-                    />Gluten Free</label>
-                </div>
-                <div className="form-check">
-                  <label className="form-check-label" htmlFor="vegetarianInput">
-                    <input
-                        defaultChecked={task.vegetarian}
-                        type="checkbox"
-                        id="vegetarianInput"
-                        onChange={(e) => this.handleTaskInput(
-                            'vegetarian', e.target.checked ? 1 : 0)}
-                        className="form-check-input"
-                    />
-                    Vegetarian</label>
-                </div>
-                <div className="form-check">
-                  <label className="form-check-label" htmlFor="veganInput">
-                    <input
-                        defaultChecked={task.vegan}
-                        type="checkbox"
-                        id="veganInput"
-                        onChange={(e) => this.handleTaskInput('vegan',
-                            e.target.checked ? 1 : 0)}
-                        className="form-check-input"
-                    />
-                    Vegan</label>
-                </div>
-                <div className="form-check">
-                  <label className="form-check-label" htmlFor="nutFreeInput">
-                    <input
-                        defaultChecked={task.nutFree}
-                        type="checkbox"
-                        id="nutFreeInput"
-                        onChange={(e) => this.handleTaskInput('nutFree',
-                            e.target.checked ? 1 : 0)}
-                        className="form-check-input"
-                    />
-                    Nut Allergy</label>
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="otherDietaryNotes">Other Dietary Notes</label>
-                <input
-                    id="otherDietaryNotes"
-                    onChange={(e) => this.handleTaskInput(
-                        'otherDietaryNotes', e.target.value)}
-                    className={`form-control`}
-                    placeholder='Example: Something with low-sugar content'
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="recipeLinkInput">Recipe Link</label>
-                <input
-                    id="recipeLinkInput"
-                    onChange={(e) => this.handleTaskInput('recipeLink',
-                        e.target.value)}
-                    className={`form-control`}
-                    placeholder='Example: https://www.kingarthurflour.com/recipes/cornbread-recipe'
-                />
-              </div>
 
-            </div>
-            }
-              <input id={`assigneeCommentsInput` + task.id}
-                     name="assigneeComments"
-                     type="text"
-                     className="form-control border-0"
-                     placeholder="Comments for event organizer"
-                     onChange={(e) => this.handleTaskInput(
-                         'assigneeComments', e.target.value)}
-              />
-              <div className="input-group-addon border-left bg-light">
-                <button type="submit"
-                        onClick={(e) => this.handleUpdateTask(e)}
-                        className="btn btn-info special-border-radius">Save
-                </button>
-
-            </div>
-            </div>
-          </>
+          {this.state.isEditingResponse && <div className="mt-2 mb-2">
+            <TaskResponseEditor
+                headerText="Edit Task Sign-Up Details"
+                task={task}
+                toggleEditor={() => this.toggleState('isEditingResponse')}
+                submitId={task.id}
+                submitHandler={this.props.updateTask}
+                user={this.props.user}
+            />
+          </div>
           }
-
+          <ModalConfirm
+              show={this.state.showConfirm}
+              headerText="Delete this task?"
+              bodyText="Are you sure you want to delete this assigned task and all of its data? This action cannot be undone."
+              yesText="Delete Event"
+              noText="Cancel"
+              yesBtnClass="btn btn-danger"
+              noBtnClass="btn btn-secondary"
+              handleClose={() => this.stopShowConfirm()}
+              yesFunction={() => this.props.deleteTask(task.id)}
+          />
         </div>
     );
   }

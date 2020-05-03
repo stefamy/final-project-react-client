@@ -32,23 +32,13 @@ class EventPreview extends Component {
             <div className="card-body">
               {this.props.canDelete && <div className="float-right pl-2"><i
                   onClick={(e) => this.confirmDeleteEvent(e)}
-                  className="fa fa-close text-danger"></i></div>}
+                  className="btn fa fa-close text-danger"></i></div>}
               <h5 className="card-title">{event.name}</h5>
               <h6 className="card-subtitle">{event.description}</h6>
               <p className="card-text mt-2">{littleDate(
                   event.date)}{event.startTime &&
               <span> • {event.startTime}</span>}</p>
-              <p className="card-text mt-2">
-                {event.locationName && <span>{event.locationName}<br/></span>}
-                {event.locationCity && event.locationState &&
-                <span>{event.locationCity}, {event.locationState}<br/></span>}
-                {event.locationCity && !event.locationState &&
-                <span>{event.locationCity}<br/></span>}
-                {!event.locationCity && event.locationState &&
-                <span>{event.locationState}<br/></span>}
-              </p>
-              <Link to={`/event/${event.id}`} className="btn btn-outline-info">Go
-                to event</Link>
+              <Link to={`/event/${event.id}`} className="btn btn-info">View Event</Link>
             </div>
           </div>
           <ModalConfirm

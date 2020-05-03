@@ -7,6 +7,7 @@ import Home from '../components/home/Home'
 import Login from '../components/users/Login'
 import Register from '../components/users/Register'
 import User from '../components/users/User'
+import EditUser from '../components/users/EditUser'
 import Search from '../search/Search'
 import EventList from '../components/events/EventList'
 import Event from '../components/events/Event'
@@ -17,12 +18,13 @@ import RecipeDetails from "../components/recipes/RecipeDetails";
 const routes = (
     <div className="wrap">
       <Header/>
-      <div className="container mt-5 pb-5">
+      <div className="container mt-5 mb-5 p-1">
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/login" exact={true} component={Login}/>
           <Route exact path="/register" component={Register}/>
-          <Route exact path="/profile" component={User}/>
+          <Route exact path="/profile/:username" component={User}/>
+          <Route exact path="/profile/user/edit" component={EditUser}/>
           <Route exact path="/events" component={EventList}/>
           <Route exact path="/event/:eventId" component={Event}/>
           <Route exact path="/invites" component={InviteList}/>

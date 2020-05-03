@@ -4,9 +4,9 @@ import {
   LOGIN,
   LOGOUT,
   DELETE_USER,
-  UPDATE_USER,
   FIND_CURRENT_USER_DATA_STORE,
   UPDATE_USER_RSVP,
+  UPDATE_USER_PROFILE,
   CREATE_USER_HOSTED_EVENT,
   DELETE_USER_HOSTED_EVENT
 } from "../common/UserConstants";
@@ -39,9 +39,10 @@ export const logout = () => ({
   type: LOGOUT
 })
 
-export const updateCurrentUser = (user) => ({
-  type: UPDATE_USER,
-  newUser: user
+export const updateCurrentUserProfile = (user, newProfile) => ({
+  type: UPDATE_USER_PROFILE,
+  user: user,
+  newProfile: newProfile
 })
 
 export const updateCurrentUserRsvp = (user, invite, rsvpIndex) => ({
@@ -74,8 +75,8 @@ export default {
   logout,
   findCurrentUser,
   findCurrentUserDataStore,
-  updateCurrentUser,
   updateCurrentUserRsvp,
+  updateCurrentUserProfile,
   createCurrentUserHostedEvent,
   deleteCurrentUserHostedEvent,
   deleteCurrentUser

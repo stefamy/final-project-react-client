@@ -1,20 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
-// function badgeClass(response) {
-//   switch (response) {
-//     case "Yes":
-//       return 'badge-success';
-//     case "No":
-//       return 'badge-secondary';
-//     case "Pending":
-//       return 'badge-info';
-//     case "Maybe":
-//       return 'badge-warning';
-//     default:
-//       return 'badge-warning';
-//   }
-// }
+import {littleDate} from "../../util/calendar";
+import {time12Hour} from "../../util/clock";
 
 const RsvpPreview = ({ outerWrapClass, headerText, rsvp }) => {
 
@@ -24,11 +11,12 @@ const RsvpPreview = ({ outerWrapClass, headerText, rsvp }) => {
           <h5 className="card-header">{headerText}</h5>
           <div className="card-body">
             <h5 className="card-title">
-              Event: {rsvp.event.name} | {rsvp.event.date}
+              Event: {rsvp.event.name}
             </h5>
+            <p className="card-subtitle"> {littleDate(rsvp.event.date)} • {time12Hour(rsvp.event.startTime)} </p>
             <div className="pb-2">Your Response: {rsvp.invite.response}
             </div>
-            <Link to={`events/${rsvp.event.id}`} className="btn btn-info">Visit the Event Page</Link>
+            <Link to={`event/${rsvp.event.id}`} className="btn btn-info">View Event</Link>
           </div>
         </div>
       </div>

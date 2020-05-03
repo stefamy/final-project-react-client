@@ -4,7 +4,7 @@ import userActions from "../../actions/UserActions";
 import {connect} from "react-redux";
 import reviewsService from "../../services/ReviewsService";
 import reviewsActions from "../../actions/ReviewsActions";
-import Review from "../recipes/Review";
+import Review from "./Review";
 import CreateRecipeReview from "./CreateRecipeReview";
 
 class RecipeReviewsList extends Component {

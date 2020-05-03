@@ -88,10 +88,10 @@ class Event extends React.Component {
 
   render() {
     return (
-        <div className="bg-white border">
+        <div className="border bg-white rounded">
 
             {this.props.event && <>
-            <div className="bg-light p-3 border-bottom text-center position-relative">
+            <div className="pt-4 pb-4 pl-3 pr-3 bg-light border-bottom rounded-top text-center position-relative">
               {this.state.isEventHost &&
                 <div className="edit-btn-absolute">
                   {!this.state.isEditing &&
@@ -109,25 +109,29 @@ class Event extends React.Component {
                 }
               <h3 className="display-4 pt-2">{this.props.event.name} </h3>
               <p className="lead">{this.props.event.description} </p>
-              <p>{longDate(this.props.event.date)}
-                {this.props.event.startTime &&
-                  <span> • {time12Hour(this.props.event.startTime)}
-                    {this.props.event.endTime && <span> - {time12Hour(this.props.event.endTime)}</span>}
-                  </span>
-                }
 
-              </p>
+              {this.state.isEventHost && <>
+                <p>{longDate(this.props.event.date)}
+                  {this.props.event.startTime &&
+                    <span> • {time12Hour(this.props.event.startTime)}
+                      {this.props.event.endTime && <span> - {time12Hour(this.props.event.endTime)}</span>}
+                    </span>
+                  }
 
-              <Address
-                  name={this.props.event.locationName}
-                  street1={this.props.event.locationStreet1}
-                  street2={this.props.event.locationStreet2}
-                  city={this.props.event.locationCity}
-                  state={this.props.event.locationState}
-                  zip={this.props.event.locationZip}
-                  notes={this.props.event.locationNotes} />
+                </p>
 
-              <p>Hosted by: <Link to={`/profile/${this.props.event.hostUsername}`}>{this.props.event.hostFirstName} {this.props.event.hostLastName}</Link></p>
+                <Address
+                    name={this.props.event.locationName}
+                    street1={this.props.event.locationStreet1}
+                    street2={this.props.event.locationStreet2}
+                    city={this.props.event.locationCity}
+                    state={this.props.event.locationState}
+                    zip={this.props.event.locationZip}
+                    notes={this.props.event.locationNotes} />
+
+                <p>Hosted by: <Link className="text-info" to={`/profile/${this.props.event.hostUsername}`}>{this.props.event.hostFirstName} {this.props.event.hostLastName}</Link></p>
+              </>}
+              {!this.state.isEventGuest && <p className="text-center">Only event guests can see event details.</p> }
 
             </div>
             {this.state.isEventHost && this.state.isEditing &&
@@ -138,20 +142,23 @@ class Event extends React.Component {
                 deleteEvent={() => this.props.deleteEvent(this.props.user, this.props.event.id)}
             /> }
 
-            {this.state.isEventGuest &&
-            <div className="col-12 bg-white p-3">
-              <InviteList
-                  event={this.props.event}
-                  isEventHost={this.state.isEventHost}
-              />
-            </div> }
+            <div className="pl-3 pr-3 pt-4 pb-4 event-info-inner">
+              {this.state.isEventGuest && <InviteList event={this.props.event} isEventHost={this.state.isEventHost}/> }
 
+              {this.state.isEventGuest && <TaskList event={this.props.event}/>}
 
+              {!this.state.isEventGuest && <div>
+                <h2>Invites</h2>
+                <p>Only event guests can see the invite list.</p>
+                <h2>Tasks</h2>
+                <p>Only event guests can see the task list.</p>
+                <h2>Sign in</h2>
+                <p>If you were invited to this event, please log in to see the full event details.</p>
+                <a href="/login" className="btn btn-outline-info mr-2">Log in</a>
+                <a href="/register" className="btn btn-outline-info">Register</a>
+              </div>}
 
-            <div className="col-12 bg-white p-3">
-            <TaskList event={this.props.event} />
-            </div>
-
+             </div>
             </>
             }
 

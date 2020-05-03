@@ -5,7 +5,7 @@ import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
 
 const Header = ({logout, user}) =>
-    <header className="bg-white  border-bottom">
+    <header className="bg-white border-bottom">
       <nav
           className="container navbar navbar-expand navbar-default justify-content-between">
         <div className="navbar-header">
@@ -18,7 +18,7 @@ const Header = ({logout, user}) =>
           <li><a href="/tasks" className="nav-link btn">Tasks</a>
           </li>
           <li><a href="/invites" className="nav-link btn">Invites</a></li>
-          <li><a href="/profile" className="`nav-link btn">Profile</a></li>
+          <li><a href={`/profile/${user.profile.username}`} className="`nav-link btn">Profile</a></li>
           <li>
             <button onClick={logout} className="navlink btn">Logout</button>
           </li>
