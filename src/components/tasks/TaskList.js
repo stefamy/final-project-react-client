@@ -1,10 +1,10 @@
 import React from "react";
-import TaskEditor from "./TaskEditor";
+import TaskEdit from "./TaskEdit";
 import tasksService from "../../services/TasksService";
 import tasksActions from "../../actions/TasksActions";
 import {connect} from "react-redux";
-import TaskResponse from "./TaskResponse";
-import {TASK_TYPES} from "../../common/TasksConstants"
+import Task from "./Task";
+import {TASK_TYPES, TASK_STATUS} from "../../common/TasksConstants"
 
 function searchingFor(term) {
   return function (x) {
@@ -12,7 +12,6 @@ function searchingFor(term) {
         (x.description && x.description.toLowerCase().includes(term.toLowerCase())) ||!term;
   }
 }
-
 
 function filterOn(filterTerm) {
   return function (x) {
@@ -82,8 +81,8 @@ class TaskList extends React.Component {
                           onChange={this.filterHandler.bind(this)}>
                     <option value="" disabled>Display only</option>
                   <option value="">All</option>
-                  <option value="ASSIGNED">Assigned</option>
-                    <option value="UNASSIGNED">Unassigned</option>
+                  <option value={TASK_STATUS.ASSIGNED}>{TASK_STATUS.ASSIGNED}</option>
+                    <option value={TASK_STATUS.UNASSIGNED}>{TASK_STATUS.UNASSIGNED}</option>
                   </select>
               </form>
             </div>
@@ -92,7 +91,7 @@ class TaskList extends React.Component {
             <div className="task-list-body list-group mb-4">
             <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Preparation (Before event)</div>
               {this.props.tasks.filter(task => task.type === TASK_TYPES.PREP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
-                  <TaskResponse
+                  <Task
                       key={task.id}
                       task={task}
                       isHost={this.props.event.hostId === this.props.user.profile.id}
@@ -108,7 +107,7 @@ class TaskList extends React.Component {
             <div className="task-list-body list-group mb-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Food, Drink, and Supplies</div>
               {this.props.tasks.filter(task => task.type === TASK_TYPES.FOOD).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
-                  <TaskResponse
+                  <Task
                       key={task.id}
                       task={task}
                       isHost={this.props.event.hostId === this.props.user.profile.id}
@@ -125,7 +124,7 @@ class TaskList extends React.Component {
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Set-up</div>
               {this.props.tasks.filter(
                 task => task.type === TASK_TYPES.SETUP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
-                  <TaskResponse
+                  <Task
                       key={task.id}
                       task={task}
                       isHost={this.props.event.hostId === this.props.user.profile.id}
@@ -142,7 +141,7 @@ class TaskList extends React.Component {
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Clean-up</div>
               {this.props.tasks.filter(
                 task => task.type === TASK_TYPES.CLEANUP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
-                  <TaskResponse
+                  <Task
                       key={task.id}
                       task={task}
                       isHost={this.props.event.hostId === this.props.user.profile.id}
@@ -159,7 +158,7 @@ class TaskList extends React.Component {
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Other / Uncategorized</div>
               {this.props.tasks.filter(
                   task => task.type === TASK_TYPES.OTHER).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
-                  <TaskResponse
+                  <Task
                       key={task.id}
                       task={task}
                       isHost={this.props.event.hostId === this.props.user.profile.id}
@@ -182,7 +181,7 @@ class TaskList extends React.Component {
           </button>
           }
           {this.state.showCreateTask &&
-          <TaskEditor
+          <TaskEdit
               event={this.props.event}
               headerText="Create New Task"
               toggleEditor={() => this.stopShowCreateTask()}

@@ -7,10 +7,15 @@ export const UPDATE_TASK_FOR_EVENT = "UPDATE_TASK_FOR_EVENT"
 export const DELETE_TASK_FOR_EVENT = "DELETE_TASK_FOR_EVENT"
 
 export const TASK_TYPES = {
-  PREP: "PREP",
-  FOOD: "FOOD",
-  SETUP: "SETUP",
-  CLEANUP: "CLEANUP",
-  OTHER: "OTHER"
+  PREP: "Event Prep",
+  FOOD: "Food, Drink, & Supplies",
+  SETUP: "Setup",
+  CLEANUP: "Cleanup",
+  OTHER: "Uncategorized"
+}
+
+export const TASK_STATUS = {
+  ASSIGNED: "Assigned",
+  UNASSIGNED: "Unassigned"
 }
 

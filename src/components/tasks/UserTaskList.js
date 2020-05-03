@@ -4,7 +4,7 @@ import userActions from "../../actions/UserActions";
 import {connect} from "react-redux";
 import tasksService from "../../services/TasksService";
 import tasksActions from "../../actions/TasksActions";
-import Task from "./Task";
+import TaskPreview from "./TaskPreview";
 
 class UserTaskList extends Component {
 
@@ -37,14 +37,14 @@ class UserTaskList extends Component {
             {!this.state.guestUser && this.props.tasks &&
               <div>
                 {this.props.tasks.map((task, index) => (
-                    <Task
+                    <TaskPreview
                         key={index}
                         task={task}
-                        history={this.props.history}
-                        userId={this.props.userId}
-                        event={this.props.event}
-                        hideForm={this.props.hideForm}
-                        updateTask={this.props.updateTask}
+                        // history={this.props.history}
+                        // userId={this.props.userId}
+                        // event={this.props.event}
+                        // hideForm={this.props.hideForm}
+                        // updateTask={this.props.updateTask}
                     />
                 ))}
               </div>

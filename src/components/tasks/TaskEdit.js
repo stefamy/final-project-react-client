@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {TASK_TYPES} from "../../common/TasksConstants"
+import {TASK_TYPES, TASK_STATUS} from "../../common/TasksConstants"
 
-export default class TaskEditor extends Component {
+export default class TaskEdit extends Component {
 
 
   state = {
@@ -18,7 +18,7 @@ export default class TaskEditor extends Component {
         task: {
           eventId: this.props.event.id,
           eventDate: this.props.event.date,
-          status: "Unassigned"
+          status: TASK_STATUS.UNASSIGNED
         }
       });
     }
