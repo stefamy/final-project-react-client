@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9533d462-0b40-4a4c-b9af-b7ceb848f3cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/events/EditEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/events/EditEvent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/Hero.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Hero.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/invites/EditInvite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invites/EditInvite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/invites/Invite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invites/Invite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tasks/Task.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasks/Task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tasks/TaskEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasks/TaskEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tasks/TaskEditResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasks/TaskEditResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tasks/TaskList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasks/TaskList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/events/CreateEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/events/CreateEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/events/EventList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/events/EventList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/invites/CreateInvite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invites/CreateInvite.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,31 +35,19 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tasks/TaskEditResponse.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="51" column="36" lean-forward="true" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/invites/EditInvite.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="88">
-                  <caret line="40" column="51" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
+                  <caret line="40" column="52" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="52" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/invites/Invite.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="281">
-                  <caret line="65" column="56" selection-start-line="65" selection-start-column="56" selection-end-line="65" selection-end-column="56" />
+                <state relative-caret-position="179">
+                  <caret line="52" column="53" lean-forward="true" selection-start-line="52" selection-start-column="53" selection-end-line="52" selection-end-column="53" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -75,37 +56,28 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tasks/TaskEdit.js">
+            <entry file="file://$PROJECT_DIR$/src/components/invites/CreateInvite.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="178">
-                  <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="44" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="132">
+                  <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tasks/Task.js">
+            <entry file="file://$PROJECT_DIR$/src/components/footer/Footer.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="194">
-                  <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-                  <folding>
-                    <element signature="e#0#26#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="150">
+                  <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tasks/TaskList.js">
+            <entry file="file://$PROJECT_DIR$/src/components/home/Hero.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="159" column="35" selection-start-line="159" selection-start-column="35" selection-end-line="159" selection-end-column="35" />
-                  <folding>
-                    <element signature="e#0#26#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="45">
+                  <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
                 </state>
               </provider>
             </entry>
@@ -123,10 +95,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tasks/TaskPreview.js">
+            <entry file="file://$PROJECT_DIR$/src/components/home/Home.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="15" column="12" lean-forward="true" selection-end-line="21" />
+                <state relative-caret-position="182">
+                  <caret line="137" column="34" selection-start-line="137" selection-start-column="34" selection-end-line="137" selection-end-column="34" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -135,13 +107,34 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tasks/UserTaskList.js">
+            <entry file="file://$PROJECT_DIR$/src/components/reviews/Review.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+                <state relative-caret-position="442">
+                  <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+                  <folding>
+                    <element signature="e#0#26#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/events/EventList.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="242">
+                  <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#41#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/components/events/CreateEvent.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="345">
+                  <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
                 </state>
               </provider>
             </entry>
@@ -295,14 +288,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/reducers/TasksReducer.js" />
-        <option value="$PROJECT_DIR$/src/components/events/CreateEvent.js" />
         <option value="$PROJECT_DIR$/src/components/structural/modal.js" />
         <option value="$PROJECT_DIR$/src/components/structural/ConfirmFunction.js" />
         <option value="$PROJECT_DIR$/src/components/structural/ButtonWithConfirm.js" />
         <option value="$PROJECT_DIR$/src/components/structural/exampleModal.js" />
         <option value="$PROJECT_DIR$/src/components/structural/Modal.js" />
         <option value="$PROJECT_DIR$/src/components/structural/ModalConfirm.js" />
-        <option value="$PROJECT_DIR$/src/components/events/EventList.js" />
         <option value="$PROJECT_DIR$/src/util/clock.js" />
         <option value="$PROJECT_DIR$/src/services/UserService.js" />
         <option value="$PROJECT_DIR$/src/components/invites/InviteRsvp.js" />
@@ -334,7 +325,6 @@
         <option value="$PROJECT_DIR$/src/components/tasks/ClearTaskResponses.js" />
         <option value="$PROJECT_DIR$/src/components/tasks/update-task.js" />
         <option value="$PROJECT_DIR$/src/components/tasks/helpers.js" />
-        <option value="$PROJECT_DIR$/src/components/invites/CreateInvite.js" />
         <option value="$PROJECT_DIR$/src/routes/index.js" />
         <option value="$PROJECT_DIR$/src/components/home/Hero.js" />
         <option value="$PROJECT_DIR$/src/components/home/Home.js" />
@@ -345,6 +335,9 @@
         <option value="$PROJECT_DIR$/src/components/events/EditEvent.js" />
         <option value="$PROJECT_DIR$/src/components/tasks/Task.js" />
         <option value="$PROJECT_DIR$/src/components/invites/Invite.js" />
+        <option value="$PROJECT_DIR$/src/components/invites/CreateInvite.js" />
+        <option value="$PROJECT_DIR$/src/components/events/EventList.js" />
+        <option value="$PROJECT_DIR$/src/components/events/CreateEvent.js" />
       </list>
     </option>
   </component>
@@ -606,12 +599,12 @@
       <workItem from="1588270498628" duration="23583000" />
       <workItem from="1588296197024" duration="882000" />
       <workItem from="1588365850389" duration="35507000" />
-      <workItem from="1588534588421" duration="14648000" />
+      <workItem from="1588534588421" duration="14820000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="355135000" />
+    <option name="totallyTimeSpent" value="355307000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="498" y="23" width="1843" height="1057" extended-state="0" />
@@ -717,16 +710,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/common/ReviewsConstants.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/reviews/Review.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/reviews/CreateRecipeReview.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -897,13 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/footer/Footer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/invites/InviteRsvp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -927,15 +903,6 @@
           <caret line="137" column="18" lean-forward="true" selection-start-line="137" selection-start-column="18" selection-end-line="137" selection-end-column="18" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/events/EventList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -974,13 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/events/CreateEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -998,30 +958,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/invites/CreateInvite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="48" column="31" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/home/Hero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/home/Home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="137" column="34" selection-start-line="137" selection-start-column="34" selection-end-line="137" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tasks/helpers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1034,8 +970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tasks/TaskEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="44" />
+        <state relative-caret-position="45">
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -1046,23 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="51" column="36" lean-forward="true" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/invites/EditInvite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="40" column="51" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/events/EditEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="52" column="38" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -1109,13 +1028,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/invites/Invite.js">
+    <entry file="file://$PROJECT_DIR$/src/components/footer/Footer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="65" column="56" selection-start-line="65" selection-start-column="56" selection-end-line="65" selection-end-column="56" />
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/Hero.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="137" column="34" selection-start-line="137" selection-start-column="34" selection-end-line="137" selection-end-column="34" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/reviews/Review.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/invites/Invite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="52" column="53" lean-forward="true" selection-start-line="52" selection-start-column="53" selection-end-line="52" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/invites/EditInvite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="40" column="52" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/invites/CreateInvite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/events/EventList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/events/EditEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="52" column="38" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/events/CreateEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
         </state>
       </provider>
     </entry>

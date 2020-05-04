@@ -40,7 +40,7 @@ class EventList extends Component {
     const user = this.props.user || null;
 
     return (
-         <div className="bg-white border p-5">
+         <div className="bg-white border p-md-4 p-3">
           {!user.profile &&
               <>
                <h1 className="pb-2">Events You're Hosting</h1>
@@ -53,7 +53,7 @@ class EventList extends Component {
             <div className="row justify-content-between align-items-start pb-3">
               <h1 className="col">Events You're Hosting</h1>
                 {!this.state.showCreateEvent &&
-                <div className="col-auto">
+                <div className="col-md-auto">
                   <button
                       onClick={() => this.doShowCreateEvent()}
                       className="btn btn-info">

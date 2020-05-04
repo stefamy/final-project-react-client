@@ -21,7 +21,7 @@ export default class CreateEvent extends Component {
 
   render() {
     return (
-        <div className="mb-5">
+        <div className="mb-5 mt-sm-5">
           <h3>Create New Event</h3>
           <form onSubmit={(e) => this.handleCreateEvent(e)}>
             <h3 className="mt-3">What</h3>
