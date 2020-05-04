@@ -73,7 +73,7 @@ class TaskList extends React.Component {
         <>
           {this.props.tasks && <>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h3>Tasks</h3>
+              <h3>Task Assignments</h3>
               <form className="form-inline">
                 <input className="ml-2 form-control" placeholder="Search..." type="text" onChange={(e) => this.searchHandler(e)} value={term}/>
                 <select defaultValue="" className="ml-2 form-control"

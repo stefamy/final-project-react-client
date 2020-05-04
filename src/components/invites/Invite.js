@@ -1,6 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import EditInvite from "./EditInvite";
+import {faPencilAlt, faTimes, faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ModalConfirm from "../structural/ModalConfirm";
 
 
 function badgeClass(response) {
@@ -32,6 +35,16 @@ class Invite extends React.Component {
     });
   }
 
+  confirmDeleteEvent(e) {
+    e.preventDefault();
+    this.setState({showConfirm: true});
+  }
+
+  stopShowConfirm() {
+    this.setState({showConfirm: false});
+  }
+
+
   render() {
     const invite = this.props.invite;
 
@@ -53,21 +66,22 @@ class Invite extends React.Component {
             {this.props.isEventHost &&
               <div>
                 <a href={`mailto:` + invite.email}
-                   className="mr-2 btn text-info"><i
-                    className="fa fa-envelope text-info"></i></a>
+                   className="mr-2 btn text-info">
+                  <FontAwesomeIcon icon={faEnvelope} className="text-info"/></a>
                 {!this.state.isEditing &&
                   <button className="mr-2 btn" type="submit"
                   onClick={() => this.doShowEditInvite()}>
-                  <i className="text-warning fa fa-pencil"></i></button>
+                  <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></button>
                 }
                 {this.state.isEditing &&
                   <button className="mr-2 btn border-warning" type="submit"
                   onClick={() => this.stopShowEditInvite()}>
-                  <i className="text-warning fa fa-pencil"></i></button>
+                    <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></button>
                 }
                   <button className="btn" type="submit"
-                  onClick={() => this.props.deleteInvite(invite.id)}><i
-                  className="text-danger fa fa-close"></i></button>
+                  onClick={(e) => this.confirmDeleteEvent(e)}>
+                    <FontAwesomeIcon icon={faTimes} className="text-danger"/></button>
+
                 </div>
               }
           </div>
@@ -83,6 +97,17 @@ class Invite extends React.Component {
               cancelEditInvite={() => this.stopShowEditInvite()}
           />
           }
+        <ModalConfirm
+            show={this.state.showConfirm}
+            headerText="Delete this invite?"
+            bodyText="Are you sure you want to delete this invite? This action cannot be undone."
+            yesText="Delete Invite"
+            noText="Cancel"
+            yesBtnClass="btn btn-danger"
+            noBtnClass="btn btn-secondary"
+            handleClose={() => this.stopShowConfirm()}
+            yesFunction={() => this.props.deleteInvite(invite.id)}
+        />
     </>);
   }
 }

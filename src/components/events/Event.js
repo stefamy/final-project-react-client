@@ -11,6 +11,8 @@ import InviteList from "../invites/InviteList";
 import userActions from "../../actions/UserActions";
 import TaskList from "../tasks/TaskList";
 import {push} from "connected-react-router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
 
 class Event extends React.Component {
 
@@ -97,13 +99,13 @@ class Event extends React.Component {
                   {!this.state.isEditing &&
                   <button className="mr-2 btn" type="submit"
                           onClick={() => this.doShowEditEvent()}>
-                    <i className="fa fa-pencil text-warning"></i></button>
+                    <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></button>
                   }
                   {this.state.isEditing &&
                   <button className="mr-2 btn border-warning"
                           type="submit"
                           onClick={() => this.stopShowEditEvent()}>
-                    <i className="text-warning fa fa-pencil"></i></button>
+                    <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></button>
                   }
                 </div>
                 }
@@ -148,9 +150,9 @@ class Event extends React.Component {
               {this.state.isEventGuest && <TaskList event={this.props.event}/>}
 
               {!this.state.isEventGuest && <div>
-                <h2>Invites</h2>
+                <h2>Guest List</h2>
                 <p>Only event guests can see the invite list.</p>
-                <h2>Tasks</h2>
+                <h2>Task Assignments</h2>
                 <p>Only event guests can see the task list.</p>
                 <h2>Sign in</h2>
                 <p>If you were invited to this event, please log in to see the full event details.</p>

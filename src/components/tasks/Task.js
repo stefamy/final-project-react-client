@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHandPaper, faLink, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 import {TASK_TYPES, TASK_STATUS} from "../../common/TasksConstants"
 import ModalConfirm from "../structural/ModalConfirm"
+import {assignResponses, clearResponses} from "./helpers"
 import TaskEdit from "./TaskEdit"
 import TaskEditResponse from "./TaskEditResponse"
 
@@ -25,27 +26,9 @@ class Task extends React.Component {
   updateSignupStatus(newStatus) {
     let updatedTask = {...this.props.task};
     if (newStatus === TASK_STATUS.ASSIGNED) {
-      updatedTask.status = TASK_STATUS.ASSIGNED;
-      updatedTask.assigneeUserId = this.props.user.id;
-      updatedTask.assigneeFirstName = this.props.user.profile.firstName;
-      updatedTask.assigneeLastName = this.props.user.profile.lastName;
-      updatedTask.assigneeEmail = this.props.user.profile.email;
-      updatedTask.dateOfResponse = new Date();
-      updatedTask.assigneeComments = "";
+      updatedTask = assignResponses(updatedTask, this.props.user);
     } else {
-      updatedTask.status = TASK_STATUS.UNASSIGNED;
-      updatedTask.assigneeUserId = "";
-      updatedTask.assigneeFirstName = "";
-      updatedTask.assigneeLastName = "";
-      updatedTask.assigneeEmail = "";
-      updatedTask.dateOfResponse = "";
-      updatedTask.assigneeComments = "";
-      updatedTask.glutenFree = 0;
-      updatedTask.vegan = 0;
-      updatedTask.vegetarian = 0;
-      updatedTask.nutFree = 0;
-      updatedTask.otherDietaryNotes = "";
-      updatedTask.recipeLink = "";
+      updatedTask = clearResponses(updatedTask);
     }
     this.props.updateTask(updatedTask.id, updatedTask);
   }
@@ -81,8 +64,8 @@ class Task extends React.Component {
                   <div className="d-flex justify-content-between align-items-center">
                     <h5 className="mb-1">{task.title}</h5>
                     <div>
-                      <span className="btn badge border border-yellow bg-yellow ml-1" onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt}/> Edit</span>
-                      <span className="btn badge border border-pink bg-pink ml-1" onClick={(e) => this.confirmDeleteEvent(e)}><FontAwesomeIcon icon={faTimes}/> Delete</span>
+                      <span className={`btn ml-1` + (this.state.isEditingTask ? "border border-warning" : "")} onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></span>
+                      <span className="btn ml-1" onClick={(e) => this.confirmDeleteEvent(e)}><FontAwesomeIcon icon={faTimes} className="text-danger"/></span>
                     </div>
                   </div>
                   <div>{task.description}</div>
@@ -93,7 +76,7 @@ class Task extends React.Component {
                       {task.vegetarian === 1 && <span className="badge badge-light mr-1">Vegetarian</span> }
                       {task.glutenFree === 1 && <span className="badge badge-light mr-1">Gluten Free</span> }
                       {task.nutFree === 1 && <span className="badge badge-light mr-1">Nut Free</span> }
-                      {task.type === 'Food/Drink' && task.recipeLink && <small className="ml-2"><a href={`${task.recipeLink}`} className="text-info">Recipe <FontAwesomeIcon icon={faLink} /></a></small>}
+                      {task.type === TASK_TYPES.FOOD && task.recipeLink && <small className="ml-2"><a href={`${task.recipeLink}`} className="text-info">Recipe <FontAwesomeIcon icon={faLink} /></a></small>}
                       </div>
                       {task.otherDietaryNotes && <small className="mt-1 pl-1">Dietary Notes: {task.otherDietaryNotes}</small> }
 
@@ -109,11 +92,11 @@ class Task extends React.Component {
               <span><span className="badge badge-pill border border-purple bg-purple mr-1">{task.status} to you</span>
               {task.assigneeComments && task.assigneeComments.length > 0 && <small className="text-muted"> Comment: {task.assigneeComments}</small>}</span>
               <div>
-                <span className={`btn btn-sm small ` +  (this.state.isEditingResponse ? "text-yellow" : "")} onClick={() => this.toggleState('isEditingResponse')}>
-                  <FontAwesomeIcon icon={faPencilAlt} className="text-yellow"/> Edit response
+                <span className={`btn btn-sm small ` +  (this.state.isEditingResponse ? "border border-warning" : "")} onClick={() => this.toggleState('isEditingResponse')}>
+                  <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/> Edit response
                 </span>
                 <span className="btn btn-sm small" onClick={(e) => this.toggleSignUpForTask(e)}>
-                  <FontAwesomeIcon icon={faTimes} className="text-pink"/>  Cancel sign-up
+                  <FontAwesomeIcon icon={faTimes} className="text-danger"/>  Cancel sign-up
                 </span>
               </div>
             </>}

@@ -56,7 +56,7 @@ export default class TaskEdit extends Component {
           <div className="row align-items-between justify-content-between mb-2 pb-2">
             <div className="col-auto"><h5>{this.props.headerText}</h5></div>
             <div className="col-auto">
-              <button onClick={this.props.toggleEditor} className="btn btn-sm border-pink bg-pink">Cancel</button>
+              <button onClick={this.props.toggleEditor} className="btn btn-sm border-pink bg-pink">Cancel Editing</button>
             </div>
           </div>
           <form onSubmit={(e) => this.submit(e)}>
@@ -82,7 +82,7 @@ export default class TaskEdit extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="taskTypeInput">Type Of Task</label>
-              <select id="taskTypeInput" defaultValue={this.state.task.type} defaultChecked={this.state.task.type} className="form-control" value={this.state.value} onChange={this.handleNewTaskType.bind(this)}>
+              <select id="taskTypeInput" defaultValue={this.state.task.type || ""} className="form-control" value={this.state.value} onChange={this.handleNewTaskType.bind(this)}>
                 <option value="" disabled>Type of Task</option>
                 <option value={TASK_TYPES.PREP}>Event Prep</option>
                 <option value={TASK_TYPES.FOOD}>Food, Drink or Supplies</option>

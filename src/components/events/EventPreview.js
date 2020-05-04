@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import {littleDate} from "../../util/calendar";
+import {time12Hour} from "../../util/clock"
 import ModalConfirm from "../structural/ModalConfirm";
 
 class EventPreview extends Component {
@@ -37,7 +38,7 @@ class EventPreview extends Component {
               <h6 className="card-subtitle">{event.description}</h6>
               <p className="card-text mt-2">{littleDate(
                   event.date)}{event.startTime &&
-              <span> • {event.startTime}</span>}</p>
+              <span> • {time12Hour(event.startTime)}</span>}</p>
               <Link to={`/event/${event.id}`} className="btn btn-info">View Event</Link>
             </div>
           </div>

@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
-import userService from "../../services/UserService";
-import userActions from "../../actions/UserActions";
 import RsvpPreview from "../rsvps/RsvpPreview";
 import EventPreview from "../events/EventPreview";
 import TaskPreview from "../tasks/TaskPreview";
@@ -70,7 +68,7 @@ class Home extends React.Component {
 
               {this.props.user.tasks.length > 0 &&
                   <TaskPreview
-                      headerText="Upcoming Task"
+                      headerText="Your Assigned Tasks"
                       task={this.getUpcomingTask()}
                       history={this.props.history}
                       userId={this.props.user.profile.id}

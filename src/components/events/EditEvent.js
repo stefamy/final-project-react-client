@@ -43,7 +43,7 @@ class EditEvent extends Component {
              <div className="col-auto">
                <button
                    onClick={this.props.cancelEditEvent}
-                   className="btn btn-sm btn-outline-danger">
+                   className="btn btn-sm border-pink bg-pink">
                  Cancel Editing
                </button>
              </div>

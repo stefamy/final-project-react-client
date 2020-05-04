@@ -46,8 +46,8 @@ export default class EditInvite extends Component {
             <div className="col-auto">
               <button
                   onClick={this.props.cancelEditInvite}
-                  className="btn btn-sm btn-danger">
-                Cancel
+                  className="btn btn-sm border-pink bg-pink">
+                Cancel Editing
               </button>
             </div>
           </div>

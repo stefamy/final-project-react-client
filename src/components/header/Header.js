@@ -3,36 +3,36 @@ import {connect} from "react-redux";
 import { push } from 'connected-react-router'
 import userService from "../../services/UserService";
 import userActions from "../../actions/UserActions";
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+
 
 const Header = ({logout, user}) =>
     <header className="bg-white border-bottom">
-      <nav
-          className="container navbar navbar-expand navbar-default justify-content-between">
-        <div className="navbar-header">
-          <a className="navbar-brand-info text-info" href="/">Potluck Party Planner</a>
-        </div>
-        {user.profile && user.profile.id &&
-        <ul className="nav navbar-nav d-flex align-items-center justify-content-between">
-          <li><a href="/events" className="nav-link btn">Events You're
-            Hosting</a></li>
-          <li><a href="/tasks" className="nav-link btn">Tasks</a>
-          </li>
-          <li><a href="/invites" className="nav-link btn">Invites</a></li>
-          <li><a href={`/profile/${user.profile.username}`} className="`nav-link btn">Profile</a></li>
-          <li>
-            <button onClick={logout} className="navlink btn">Logout</button>
-          </li>
-        </ul>
-        }
-        {!user.profile || !user.profile.id &&
-        <ul className="nav navbar-nav d-flex align-items-center justify-content-between">
-          <li><a href="/search" className="nav-link btn">Recipe Finder</a></li>
-          <li><a href="/login" className="nav-link btn">Log in</a></li>
-          <li className="nav-link btn ml-2"><a href="/register" className="nav-link btn">Register</a>
-          </li>
-        </ul>
-        }
-      </nav>
+      <div className="container">
+      <Navbar collapseOnSelect expand="md" bg="white" variant="light" className="pl-0 pr-0">
+        <Navbar.Brand href="/">Potluck Party Planner</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          {user.profile && user.profile.id && <>
+          <Nav className="mr-auto">
+            <Nav.Link href="/events">Events</Nav.Link>
+            <Nav.Link href="/tasks">Tasks</Nav.Link>
+            <Nav.Link href="/invites">Invites</Nav.Link>
+          </Nav>
+          <Nav className="mr-0">
+            <Nav.Link href={`/profile/${user.profile.username}`}>Profile</Nav.Link>
+            <Nav.Link href="/logout">Logout</Nav.Link>
+          </Nav>
+          </> }
+          {!user.profile || !user.profile.id && <>
+            <Nav className="mr-auto">
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/register">Register</Nav.Link>
+            </Nav> </> }
+        </Navbar.Collapse>
+      </Navbar>
+      </div>
     </header>;
 
 const stateToPropertyMapper = state => {

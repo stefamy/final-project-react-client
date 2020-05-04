@@ -57,7 +57,7 @@ class InviteList extends React.Component {
           </div>}
 
           <div className="invite-list-wrap mb-5">
-            <h3>Invites</h3>
+            <h3>Guest List</h3>
             {this.props.invites &&
             <div className="list-group list-group-flush mt-3 border-top">
               {this.props.invites.map((invite, index) => (
