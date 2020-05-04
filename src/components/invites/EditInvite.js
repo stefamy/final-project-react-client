@@ -38,7 +38,7 @@ export default class EditInvite extends Component {
     const invite = this.props.invite;
 
     return (
-        <div className="edit-invite-form p-4 bg-light border-left border-right">
+        <div className="edit-invite-form p-md-4 p-3 bg-light border-left border-right">
           <div className="row align-items-between justify-content-between mb-2">
             <div className="col-auto">
               <h5>Update Invite</h5>
@@ -47,7 +47,7 @@ export default class EditInvite extends Component {
               <button
                   onClick={this.props.cancelEditInvite}
                   className="btn btn-sm border-pink bg-pink">
-                Cancel Editing
+                Cancel
               </button>
             </div>
           </div>

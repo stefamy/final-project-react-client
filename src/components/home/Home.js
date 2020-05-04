@@ -36,7 +36,7 @@ class Home extends React.Component {
 
           {this.props.user.profile && <div className="row">
 
-            <div className="col-lg-6 col-12 pb-5">
+            <div className="col-md-6 col-12 pb-lg-5 mb-2">
 
               {this.props.user.hostedEvents.length > 0 &&
                     <EventPreview
@@ -64,7 +64,7 @@ class Home extends React.Component {
 
             </div> {/* End widget 1 */}
 
-            <div className="col-lg-6 col-12 pb-5">
+            <div className="col-md-6 col-12 pb-lg-5 mb-2">
 
               {this.props.user.tasks.length > 0 &&
                   <TaskPreview
@@ -84,7 +84,7 @@ class Home extends React.Component {
 
             </div> {/* End widget 2 */}
 
-            <div className="col-lg-6 col-12 pb-5">
+            <div className="col-md-6 col-12 pb-lg-5 mb-2">
               <Card
                   header="Find your next recipe!"
                   title="Unsure what to bring to your next event?"
@@ -93,7 +93,7 @@ class Home extends React.Component {
               />
             </div>  {/* End widget 3 */}
 
-            <div className="col-lg-6 col-12 pb-5">
+            <div className="col-md-6 col-12 pb-lg-5 mb-2">
               <Card
                   header="Recently Reviewed"
                   cta={<RecipeReviewsList
@@ -110,7 +110,7 @@ class Home extends React.Component {
           </div>}  {/* End logged in user */}
 
           {!this.props.user.profile &&  <div className="row">
-            <div className="col-lg-6 col-12 pb-5">
+            <div className="col-md-6 col-12 pb-lg-5 mb-2">
               <div className="card">
                 <h5 className="card-header">It's party time!</h5>
                 <div className="card-body">
@@ -122,7 +122,7 @@ class Home extends React.Component {
               </div>
             </div>   {/* End widget 1 */}
 
-            <div className="col-lg-6 col-12 pb-5">
+            <div className="col-md-6 col-12 pb-lg-5 mb-2">
               <div className="card">
                 <h5 className="card-header">Find your next recipe!</h5>
                 <div className="card-body">
@@ -135,7 +135,7 @@ class Home extends React.Component {
               </div>
             </div>  {/* End widget 2 */}
 
-            <div className="col-12 mb-3">
+            <div className="col-12 pb-lg-5 mb-2">
               <div className="card">
                 <h5 className="card-header">Recent Recipe Reviews</h5>
                 <div className="card-body">

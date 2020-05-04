@@ -34,8 +34,8 @@ class EditEvent extends Component {
 
   render() {
     return (
-        <div className="bg-white p-4">
-         <div className="bg-light border p-4">
+        <div className="bg-white p-md-4 p-3">
+         <div className="bg-light border p-md-4 p-3">
            <div className="row align-items-between justify-content-between mb-2">
              <div className="col-auto">
                <h3>Update Event</h3>
@@ -44,7 +44,7 @@ class EditEvent extends Component {
                <button
                    onClick={this.props.cancelEditEvent}
                    className="btn btn-sm border-pink bg-pink">
-                 Cancel Editing
+                 Cancel
                </button>
              </div>
            </div>

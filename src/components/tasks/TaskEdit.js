@@ -52,11 +52,11 @@ export default class TaskEdit extends Component {
 
   render() {
     return (
-        <div className="task-form p-4 bg-light rounded border">
+        <div className="task-form p-md-4 p-3 bg-light rounded border">
           <div className="row align-items-between justify-content-between mb-2 pb-2">
             <div className="col-auto"><h5>{this.props.headerText}</h5></div>
             <div className="col-auto">
-              <button onClick={this.props.toggleEditor} className="btn btn-sm border-pink bg-pink">Cancel Editing</button>
+              <button onClick={this.props.toggleEditor} className="btn btn-sm border-pink bg-pink">Cancel</button>
             </div>
           </div>
           <form onSubmit={(e) => this.submit(e)}>

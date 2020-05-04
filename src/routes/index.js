@@ -18,7 +18,7 @@ import RecipeDetails from "../components/recipes/RecipeDetails";
 const routes = (
     <div className="wrap">
       <Header/>
-      <div className="container mt-5 mb-5 p-1">
+      <div className="container mt-lg-5 mb-lg-5 mt-md-4 mb-md-4 mt-2 mb-2 pl-2 pr-2">
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/login" exact={true} component={Login}/>

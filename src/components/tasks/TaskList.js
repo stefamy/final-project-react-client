@@ -72,11 +72,11 @@ class TaskList extends React.Component {
     return (
         <>
           {this.props.tasks && <>
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h3>Task Assignments</h3>
-              <form className="form-inline">
-                <input className="ml-2 form-control" placeholder="Search..." type="text" onChange={(e) => this.searchHandler(e)} value={term}/>
-                <select defaultValue="" className="ml-2 form-control"
+            <div className="row justify-content-between align-items-center mb-3">
+              <h3 className="col-12 col-md-6 mb-2 mb-lg-0">Task Assignments</h3>
+              <form className="col-12 col-md-6 form-inline justify-content-lg-end">
+                <input className="form-control mb-md-1 mb-2" placeholder="Search..." type="text" onChange={(e) => this.searchHandler(e)} value={term}/>
+                <select defaultValue="" className="form-control mb-md-1 ml-md-2"
                           id="filterSelect"
                           onChange={this.filterHandler.bind(this)}>
                     <option value="" disabled>Display only</option>
@@ -88,7 +88,7 @@ class TaskList extends React.Component {
             </div>
 
 
-            <div className="task-list-body list-group mb-4">
+            <div className="task-list-body list-group mb-2 mb-lg-4">
             <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Preparation (Before event)</div>
               {this.props.tasks.filter(task => task.type === TASK_TYPES.PREP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
@@ -104,7 +104,7 @@ class TaskList extends React.Component {
               ))}
             </div>
 
-            <div className="task-list-body list-group mb-4">
+            <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Food, Drink, and Supplies</div>
               {this.props.tasks.filter(task => task.type === TASK_TYPES.FOOD).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
@@ -120,7 +120,7 @@ class TaskList extends React.Component {
               ))}
             </div>
 
-            <div className="task-list-body list-group mb-4">
+            <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Set-up</div>
               {this.props.tasks.filter(
                 task => task.type === TASK_TYPES.SETUP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
@@ -137,7 +137,7 @@ class TaskList extends React.Component {
               ))}
             </div>
 
-            <div className="task-list-body list-group mb-4">
+            <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Clean-up</div>
               {this.props.tasks.filter(
                 task => task.type === TASK_TYPES.CLEANUP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
@@ -154,7 +154,7 @@ class TaskList extends React.Component {
               ))}
             </div>
 
-            <div className="task-list-body list-group mb-4">
+            <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Other / Uncategorized</div>
               {this.props.tasks.filter(
                   task => task.type === TASK_TYPES.OTHER).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (

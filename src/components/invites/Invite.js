@@ -50,8 +50,8 @@ class Invite extends React.Component {
 
     return ( <>
         <div className="list-group-item">
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
+          <div className="row justify-content-between align-items-start align-items-md-center">
+            <div className="col-12 col-md pl-0">
               {invite.guest.accountClaimed === 1 &&
               <Link className="text-info" to={`/profile/`
               + invite.guest.username}>{invite.guest.firstName} {invite.guest.lastName}</Link>
@@ -59,35 +59,35 @@ class Invite extends React.Component {
               {invite.guest.accountClaimed !== 1 && <>
                 {invite.firstName} {invite.lastName}
               </>}
-              <span className={`ml-3 badge badge-pill ` + badgeClass(
+              <span className={`ml-3 badge badge-pill mr-2 ` + badgeClass(
                   invite.response)}>{invite.response}</span>
-              {this.props.event.hostId === invite.guestId && <span className="ml-2 badge badge-white">Event Host ⭐️</span>}
+              {this.props.event.hostId === invite.guestId && <span className="badge badge-white">Event Host ⭐️</span>}
+              {invite.comments &&
+              <div className="small text-muted pt-2 pb-1 pt-md-0 pb-md-0">Comment from guest: {invite.firstName}: {invite.comments}</div>
+              }
             </div>
             {this.props.isEventHost &&
-              <div>
+              <div className="col-12 col-md-auto pl-0">
                 <a href={`mailto:` + invite.email}
-                   className="mr-2 btn text-info">
+                   className="mr-1 btn text-info">
                   <FontAwesomeIcon icon={faEnvelope} className="text-info"/></a>
                 {!this.state.isEditing &&
-                  <button className="mr-2 btn" type="submit"
+                  <button className="mr-1 btn" type="submit"
                   onClick={() => this.doShowEditInvite()}>
                   <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></button>
                 }
                 {this.state.isEditing &&
-                  <button className="mr-2 btn border-warning" type="submit"
+                  <button className="btn border-warning" type="submit"
                   onClick={() => this.stopShowEditInvite()}>
                     <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></button>
                 }
                   <button className="btn" type="submit"
                   onClick={(e) => this.confirmDeleteEvent(e)}>
                     <FontAwesomeIcon icon={faTimes} className="text-danger"/></button>
-
                 </div>
               }
           </div>
-          {invite.comments &&
-          <div className="small text-muted">Comment from guest: {invite.firstName}: {invite.comments}</div>
-          }
+
         </div>
 
         {this.state.isEditing &&

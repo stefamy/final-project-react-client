@@ -59,43 +59,42 @@ class Task extends React.Component {
     return (
         <div className='task list-group-item'>
           <div className="task-body pt-2 pb-2">
-            <div className="d-flex">
-              <div className="col pl-0 pr-0">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h5 className="mb-1">{task.title}</h5>
-                    <div>
-                      <span className={`btn ml-1` + (this.state.isEditingTask ? "border border-warning" : "")} onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></span>
+                  <div className="row justify-content-between">
+                    <div className="col-10 mb-1">
+                      <h5>{task.title}</h5>
+                      {task.description}
+                    </div>
+                    <div className="col-2 pl-0">
+                      <span className={`btn ml-1` + (this.state.isEditingTask ? " border border-warning" : "")} onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></span>
                       <span className="btn ml-1" onClick={(e) => this.confirmDeleteEvent(e)}><FontAwesomeIcon icon={faTimes} className="text-danger"/></span>
                     </div>
                   </div>
-                  <div>{task.description}</div>
                     {task.type === TASK_TYPES.FOOD && <>
-                    <div className="d-flex align-items-center mt-2">
-                      {task.dishCat && <span className="badge bg-blue mr-1">{task.dishCat}</span> }
-                      {task.vegan === 1 && <span className="badge badge-light mr-1">Vegan</span> }
-                      {task.vegetarian === 1 && <span className="badge badge-light mr-1">Vegetarian</span> }
-                      {task.glutenFree === 1 && <span className="badge badge-light mr-1">Gluten Free</span> }
-                      {task.nutFree === 1 && <span className="badge badge-light mr-1">Nut Free</span> }
-                      {task.type === TASK_TYPES.FOOD && task.recipeLink && <small className="ml-2"><a href={`${task.recipeLink}`} className="text-info">Recipe <FontAwesomeIcon icon={faLink} /></a></small>}
+                    <div className="d-flex flex-wrap align-items-center mt-2">
+                      {task.dishCat && <span className="badge bg-blue m-1">{task.dishCat}</span> }
+                      {task.vegan === 1 && <span className="badge badge-light m-1">Vegan</span> }
+                      {task.vegetarian === 1 && <span className="badge badge-light m-1">Vegetarian</span> }
+                      {task.glutenFree === 1 && <span className="badge badge-light m-1">Gluten Free</span> }
+                      {task.nutFree === 1 && <span className="badge badge-light m-1">Nut Free</span> }
+                      {task.type === TASK_TYPES.FOOD && task.recipeLink && <small className="m-1"><a href={`${task.recipeLink}`} className="text-info">Recipe <FontAwesomeIcon icon={faLink} /></a></small>}
                       </div>
                       {task.otherDietaryNotes && <small className="mt-1 pl-1">Dietary Notes: {task.otherDietaryNotes}</small> }
-
                     </>}
-              </div>
-              </div>
             </div>
 
-          <div className="d-flex align-items-center justify-content-between col-auto pl-0 pr-0 task-edit-wrap border-top mt-2 pt-2">
+          <div className="task-edit-wrap row align-items-center justify-content-between border-top mt-2">
 
             {/* If assigned to user */}
             {(task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId === user.id) && <>
-              <span><span className="badge badge-pill border border-purple bg-purple mr-1">{task.status} to you</span>
-              {task.assigneeComments && task.assigneeComments.length > 0 && <small className="text-muted"> Comment: {task.assigneeComments}</small>}</span>
-              <div>
-                <span className={`btn btn-sm small ` +  (this.state.isEditingResponse ? "border border-warning" : "")} onClick={() => this.toggleState('isEditingResponse')}>
+              <div className="col-12 col-md pt-2">
+                <span className="badge badge-pill border border-purple bg-purple mr-1">{task.status} to you</span>
+                {task.assigneeComments && task.assigneeComments.length > 0 && <small className="text-muted"> Comment: {task.assigneeComments}</small>}
+              </div>
+              <div className="col-auto pt-2">
+                <span className={`btn btn-sm small ` +  (this.state.isEditingResponse ? " border border-warning" : "")} onClick={() => this.toggleState('isEditingResponse')}>
                   <FontAwesomeIcon icon={faPencilAlt} className="text-warning"/> Edit response
                 </span>
-                <span className="btn btn-sm small" onClick={(e) => this.toggleSignUpForTask(e)}>
+                <span className="btn btn-sm small ml-2" onClick={(e) => this.toggleSignUpForTask(e)}>
                   <FontAwesomeIcon icon={faTimes} className="text-danger"/>  Cancel sign-up
                 </span>
               </div>
@@ -103,15 +102,19 @@ class Task extends React.Component {
 
             {/* If unassigned */}
             {task.status === TASK_STATUS.UNASSIGNED && <>
-              <span className="badge badge-pill bg-yellow border border-yellow">{task.status}</span>
-              <button className="btn btn-sm small" onClick={(e) => this.toggleSignUpForTask(e)}>
+              <div className="col-12 col-md pt-2">
+                <span className="badge badge-pill bg-yellow border border-yellow">{task.status}</span>
+              </div>
+              <div className="col-12 col-md-auto pt-2">
+                <button className="btn btn-sm small p-0" onClick={(e) => this.toggleSignUpForTask(e)}>
                 <FontAwesomeIcon icon={faHandPaper} className="text-blue"/> Sign-up for this task
               </button>
+              </div>
             </>}
 
 
             {/* If assigned to other user */}
-            {task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId !== user.id  && <div>
+            {task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId !== user.id  &&  <div className="col-12 col-md pt-2">
               <small className="small text-muted">Assigned to: {task.assigneeFirstName} {task.assigneeLastName && task.assigneeLastName[0] + '.'}
                 {task.assigneeComments && task.assigneeComments.length > 0 && <> | Comment: {task.assigneeComments}</>}</small>
             </div>}
@@ -130,7 +133,7 @@ class Task extends React.Component {
 
           {this.state.isEditingResponse && <div className="mt-2 mb-2">
             <TaskEditResponse
-                headerText="Edit Task Sign-Up Details"
+                headerText="Edit Sign-Up Details"
                 task={task}
                 toggleEditor={() => this.toggleState('isEditingResponse')}
                 submitId={task.id}
