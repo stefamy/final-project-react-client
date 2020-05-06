@@ -15,7 +15,8 @@ export default class EditInvite extends Component {
 
   handleUpdateInvite(e) {
     e.preventDefault();
-    this.props.updateInvite(this.state.updatedInvite.id, this.state.updatedInvite);
+    console.log('this state', this.state);
+    this.props.updateInvite(this.state.updatedInvite.inviteId, this.state.updatedInvite);
     this.props.cancelEditInvite();
   }
 
@@ -51,7 +52,8 @@ export default class EditInvite extends Component {
               </button>
             </div>
           </div>
-          <form onSubmit={(e) => this.handleUpdateInvite(e)}>
+          <form>
+            {invite.accountClaimed === 0 && <>
             <div className="form-group">
               <label htmlFor="inviteFirstNameInput">First Name</label>
               <input
@@ -86,16 +88,16 @@ export default class EditInvite extends Component {
               <small id="emailHelp" className="form-text text-muted">
                 *Invites are tied to the email address of the guest. If you entered in the wrong email address, delete the invite and make another one with the correct information.
               </small>
-            </div>
+            </div>  </>}
 
             <div className="form-group mt-2 mb-4" onChange={this.updateResponseChoice.bind(this)}>
             <div className="form-check form-check-inline pr-3">
               <label className="form-check-label"
-                     htmlFor={`response1 + ${invite.id}`}>
+                     htmlFor={`response1 + ${invite.inviteId}`}>
                 <input className="form-check-input"
-                       id={`response1 + ${invite.id}`}
+                       id={`response1 + ${invite.inviteId}`}
                        type="radio"
-                       name={`response + ${invite.id}`}
+                       name={`response + ${invite.inviteId}`}
                        value="Yes"
                        defaultChecked={invite.response
                        === "Yes"}
@@ -103,11 +105,11 @@ export default class EditInvite extends Component {
             </div>
             <div className="form-check form-check-inline pr-3">
               <label className="form-check-label"
-                     htmlFor={`response2 + ${invite.id}`}>
+                     htmlFor={`response2 + ${invite.inviteId}`}>
                 <input className="form-check-input"
-                       id={`response2 + ${invite.id}`}
+                       id={`response2 + ${invite.inviteId}`}
                        type="radio"
-                       name={`response + ${invite.id}`}
+                       name={`response + ${invite.inviteId}`}
                        value="No"
                        defaultChecked={invite.response
                        === "No"}
@@ -115,11 +117,11 @@ export default class EditInvite extends Component {
             </div>
             <div className="form-check form-check-inline">
               <label className="form-check-label"
-                     htmlFor={`response3 + ${invite.id}`}>
+                     htmlFor={`response3 + ${invite.inviteId}`}>
                 <input className="form-check-input"
-                       id={`response3 + ${invite.id}`}
+                       id={`response3 + ${invite.inviteId}`}
                        type="radio"
-                       name={`response + ${invite.id}`}
+                       name={`response + ${invite.inviteId}`}
                        value="Pending"
                        defaultChecked={invite.response
                        === "Pending"}
@@ -127,7 +129,7 @@ export default class EditInvite extends Component {
             </div>
         </div>
             <div className="form-group mt-3 mb-0">
-              {!this.state.isSaving && <button type="submit" className="btn btn-info">Update Invite</button> }
+              {!this.state.isSaving && <button type="submit" className="btn btn-info" onClick={(e) => this.handleUpdateInvite(e)}>Update Invite</button> }
               {this.state.showSuccess && <span className="text-success success-saved">Saved!</span> }
               {this.state.isSaving && <button type="submit" disabled className="btn btn-info">Update Invite</button> }
             </div>

@@ -1,9 +1,9 @@
 import React from "react";
 
- class InviteRsvp extends React.Component {
+ class Rsvp extends React.Component {
 
    state = {
-     updatedInvite: {}
+     updatedInvite: {...this.props.invite}
      }
 
 
@@ -34,9 +34,9 @@ import React from "react";
        }, 1000);
   }
 
-   handleUpdateInvite(e) {
-     e.preventDefault();
-     this.props.updateInvite(this.state.updatedInvite.id, this.state.updatedInvite);
+   handleUpdateInvite() {
+     let savedState = Object.assign({}, this.state.updatedInvite);
+     this.props.updateInvite(savedState.id, savedState);
    }
 
    render() {
@@ -96,7 +96,7 @@ import React from "react";
                          this.state.updatedInvite.comments !== this.props.invite.comments) &&
                         <button
                             type="submit"
-                            onClick={(e) => this.handleUpdateInvite(e)}
+                            onClick={() => this.handleUpdateInvite()}
                             className="btn btn-info mt-3">Update Response
                         </button>}
                      {!this.state.showSuccess && this.state.isUpdating && <button
@@ -119,4 +119,4 @@ import React from "react";
 }
 
 
-export default InviteRsvp;
+export default Rsvp;

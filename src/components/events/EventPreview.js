@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 import {littleDate} from "../../util/calendar";
 import {time12Hour} from "../../util/clock"
 import ModalConfirm from "../structural/ModalConfirm";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 class EventPreview extends Component {
 
@@ -31,9 +34,9 @@ class EventPreview extends Component {
             </h5>
             }
             <div className="card-body">
-              {this.props.canDelete && <div className="float-right pl-2"><i
-                  onClick={(e) => this.confirmDeleteEvent(e)}
-                  className="btn fa fa-close text-danger"></i></div>}
+              {this.props.canDelete && <div className="float-right btn">
+                <FontAwesomeIcon icon={faTimes} className="text-danger" onClick={(e) => this.confirmDeleteEvent(e)} />
+              </div>}
               <h5 className="card-title">{event.name}</h5>
               <h6 className="card-subtitle">{event.description}</h6>
               <p className="card-text mt-2">{littleDate(

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import eventsService from "../../services/EventsService";
-import eventsActions from "../../actions/EventsActions";
+import eventsService from "../../services/EventService";
+import eventsActions from "../../actions/EventActions";
 import {connect} from "react-redux";
 import ModalConfirm from "../structural/ModalConfirm"
 
@@ -8,7 +8,7 @@ class EditEvent extends Component {
 
 
   state = {
-    updatedEvent: {...this.props.event}
+    updatedEvent: {...this.props.logistics}
   }
 
   handleNewEventInput(attribute, newContent) {

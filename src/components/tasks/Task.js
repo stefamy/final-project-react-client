@@ -60,14 +60,14 @@ class Task extends React.Component {
         <div className='task list-group-item'>
           <div className="task-body pt-2 pb-2">
                   <div className="row justify-content-between">
-                    <div className="col-10 mb-1">
+                    <div className={`mb-1` +  (this.props.isEventHost ? " col-10" : " col-12")}>
                       <h5>{task.title}</h5>
                       {task.description}
                     </div>
-                    <div className="col-2 pl-0">
+                    {this.props.isEventHost &&  <div className="col-2 pl-0 text-right">
                       <span className={`btn ml-1` + (this.state.isEditingTask ? " border border-warning" : "")} onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></span>
                       <span className="btn ml-1" onClick={(e) => this.confirmDeleteEvent(e)}><FontAwesomeIcon icon={faTimes} className="text-danger"/></span>
-                    </div>
+                    </div> }
                   </div>
                     {task.type === TASK_TYPES.FOOD && <>
                     <div className="d-flex flex-wrap align-items-center mt-2">

@@ -33,7 +33,11 @@ class App extends React.Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user
+    userId: state.user.userId,
+    profile: state.user.profile,
+    events: state.user.events,
+    tasks: state.user.tasks,
+    rsvps: state.user.rsvps
   };
 };
 

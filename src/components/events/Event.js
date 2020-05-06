@@ -1,17 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import Address from "../structural/Address";
 import {longDate} from "../../util/calendar";
 import {time12Hour} from "../../util/clock"
 import EditEvent from "./EditEvent";
-import eventsActions from "../../actions/EventsActions";
-import eventsService from "../../services/EventsService";
+import eventsActions from "../../actions/EventActions";
+import eventsService from "../../services/EventService";
 import InviteList from "../invites/InviteList";
 import userActions from "../../actions/UserActions";
 import TaskList from "../tasks/TaskList";
 import {push} from "connected-react-router";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
 
 class Event extends React.Component {
@@ -23,13 +23,13 @@ class Event extends React.Component {
 
   componentDidMount() {
     this.props.loadAllEventData(this.props.match.params.eventId);
-    if (this.props.user.profile.id && this.props.event) {
+    if (this.props.userId && this.props.event.id) {
       this.setUserStatus();
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-      if (this.props.user.profile.id !== prevProps.user.profile.id
+      if (this.props.userId !== prevProps.userId
       || this.props.event.id !== prevProps.event.id) {
         this.setUserStatus();
       }
@@ -37,8 +37,8 @@ class Event extends React.Component {
 
   setUserStatus() {
       this.setState({
-        isEventHost: this.props.event.hostId === this.props.user.id,
-        isEventGuest: this.props.user.rsvps && (this.props.user.rsvps.some(rsvp => rsvp.event.id === this.props.event.id))
+        isEventHost: this.props.event.logistics.hostId === this.props.userId,
+        isEventGuest: this.props.invites && (this.props.invites.some(invite => invite.event.id === this.props.event.id))
       });
   }
 
@@ -92,7 +92,7 @@ class Event extends React.Component {
     return (
         <div className="border bg-white rounded">
 
-            {this.props.event && <>
+            {this.props.event.id && this.props.event.logistics && <>
             <div className="pt-4 pb-4 pl-3 pr-3 bg-light border-bottom rounded-top text-center position-relative">
               {this.state.isEventHost &&
                 <div className="edit-btn-absolute">
@@ -109,45 +109,45 @@ class Event extends React.Component {
                   }
                 </div>
                 }
-              <h3 className="display-4 pt-2">{this.props.event.name} </h3>
-              <p className="lead">{this.props.event.description} </p>
+              <h3 className="display-4 pt-2">{this.props.event.logistics.name} </h3>
+              <p className="lead">{this.props.event.logistics.description} </p>
 
-              {this.state.isEventHost && <>
-                <p>{longDate(this.props.event.date)}
-                  {this.props.event.startTime &&
-                    <span> • {time12Hour(this.props.event.startTime)}
-                      {this.props.event.endTime && <span> - {time12Hour(this.props.event.endTime)}</span>}
+              {this.state.isEventGuest && <>
+                <p>{longDate(this.props.event.logistics.date)}
+                  {this.props.event.logistics.startTime &&
+                    <span> • {time12Hour(this.props.event.logistics.startTime)}
+                      {this.props.event.logistics.endTime && <span> - {time12Hour(this.props.event.logistics.endTime)}</span>}
                     </span>
                   }
 
                 </p>
 
                 <Address
-                    name={this.props.event.locationName}
-                    street1={this.props.event.locationStreet1}
-                    street2={this.props.event.locationStreet2}
-                    city={this.props.event.locationCity}
-                    state={this.props.event.locationState}
-                    zip={this.props.event.locationZip}
-                    notes={this.props.event.locationNotes} />
+                    name={this.props.event.logistics.locationName}
+                    street1={this.props.event.logistics.locationStreet1}
+                    street2={this.props.event.logistics.locationStreet2}
+                    city={this.props.event.logistics.locationCity}
+                    state={this.props.event.logistics.locationState}
+                    zip={this.props.event.logistics.locationZip}
+                    notes={this.props.event.logistics.locationNotes} />
 
-                <p>Hosted by: <Link className="text-info" to={`/profile/${this.props.event.hostUsername}`}>{this.props.event.hostFirstName} {this.props.event.hostLastName}</Link></p>
+                <p>Hosted by: <Link className="text-info" to={`/profile/${this.props.event.logistics.hostUsername}`}>{this.props.event.logistics.hostFirstName} {this.props.event.logistics.hostLastName}</Link></p>
               </>}
               {!this.state.isEventGuest && <p className="text-center">Only event guests can see event details.</p> }
 
             </div>
             {this.state.isEventHost && this.state.isEditing &&
             <EditEvent
-                event={this.props.event}
+                logistics={this.props.event.logistics}
                 editEvent={() => this.editEvent()}
                 cancelEditEvent={() => this.stopShowEditEvent()}
                 deleteEvent={() => this.props.deleteEvent(this.props.user, this.props.event.id)}
             /> }
 
             <div className="pl-3 pr-3 pt-4 pb-4 event-info-inner">
-              {this.state.isEventGuest && <InviteList event={this.props.event} isEventHost={this.state.isEventHost}/> }
+              {this.state.isEventGuest && <InviteList eventId={this.props.event.id} isEventHost={this.state.isEventHost}/> }
 
-              {this.state.isEventGuest && <TaskList event={this.props.event}/>}
+              {this.state.isEventGuest && <TaskList eventId={this.props.event.id}/>}
 
               {!this.state.isEventGuest && <div>
                 <h2>Guest List</h2>
@@ -183,8 +183,17 @@ class Event extends React.Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user,
-    event: state.events.event
+    userId: state.user.userId,
+    profile: state.user.profile,
+    events: state.user.events,
+    tasks: state.user.tasks,
+    invites: state.user.invites,
+    event: {
+      id: state.event.id,
+      logistics: state.event.logistics,
+      guestList: state.event.guestList,
+    },
+
   };
 };
 
@@ -192,8 +201,8 @@ const stateToPropertyMapper = state => {
 const dispatchToPropertyMapper = dispatch => {
   return {
     loadAllEventData: (eventId) => {
-      eventsService.findEventByEventId(eventId).then(event => {
-        dispatch(eventsActions.findEvent(event));
+      eventsService.findEventDataStore(eventId).then(eventData => {
+        dispatch(eventsActions.findEventData(eventData));
       })
     },
     deleteEvent: (user, eventId) => {

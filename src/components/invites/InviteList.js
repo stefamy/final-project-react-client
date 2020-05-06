@@ -4,9 +4,9 @@ import Invite from "./Invite";
 import CreateInvite from "./CreateInvite";
 import invitesService from "../../services/InvitesService";
 import invitesActions from "../../actions/InvitesActions";
+import eventActions from "../../actions/EventActions";
 import {connect} from "react-redux";
-import eventsService from "../../services/EventsService";
-import InviteRsvp from "./InviteRsvp";
+import Rsvp from "../rsvps/Rsvp";
 
 class InviteList extends React.Component {
 
@@ -15,16 +15,16 @@ class InviteList extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.event && this.props.event.id) {
-      this.props.findAllInvitesForEvent(this.props.event.id);
-    }
+    // if (this.props.eventId) {
+    //   this.props.findAllInvitesForEvent(this.props.eventId);
+    // }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.event && prevProps.event.id !== this.props.event.id) {
-      this.props.findAllInvitesForEvent(this.props.event.id);
-    }
-    if (prevProps.invites && (this.props.invites.length !== prevProps.invites.length)) {
+    // if (prevProps.eventId && prevProps.eventId !== this.props.eventId) {
+    //   this.props.findAllInvitesForEvent(this.props.eventId);
+    // }
+    if (prevProps.event.guestList && (this.props.event.guestList.length !== prevProps.event.guestList.length)) {
       this.stopShowCreateInvite();
     }
   }
@@ -47,10 +47,10 @@ class InviteList extends React.Component {
           {!this.props.isEventHost &&
           <div className="mb-4">
             <h3>Your RSVP</h3>
-            <InviteRsvp
+            <Rsvp
                 event={this.props.event}
                 updateInvite={this.props.updateInvite}
-                invite={this.props.invites.find(
+                invite={this.props.guestList.find(
                     invite => invite.guestId === this.props.user.id)}
                 hideEventDetails={true}
             />
@@ -58,9 +58,9 @@ class InviteList extends React.Component {
 
           <div className="invite-list-wrap mb-5">
             <h3>Guest List</h3>
-            {this.props.invites &&
+            {this.props.event.guestList &&
             <div className="list-group list-group-flush mt-3 border-top">
-              {this.props.invites.map((invite, index) => (
+              {this.props.event.guestList.map((invite, index) => (
                   <Invite
                       key={index}
                       invite={invite}
@@ -84,7 +84,7 @@ class InviteList extends React.Component {
                   <CreateInvite
                       createInvite={this.props.createInvite}
                       cancelCreateInvite={() => this.stopShowCreateInvite()}
-                      eventId={this.props.event.id}
+                      eventId={this.props.eventId}
                       eventDate={this.props.event.date}
                   />)
             }
@@ -97,32 +97,30 @@ class InviteList extends React.Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user,
-    invites: state.invites.invites
-  };
+    userId: state.user.userId,
+    invites: state.user.invites,
+    event: {
+      guestList: state.event.guestList,
+    },
+  }
 };
 
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findAllInvitesForEvent: (eventId) => {
-      invitesService.findAllInvitesForEvent(eventId).then(invites => {
-        dispatch(invitesActions.findAllInvitesForEvent(invites));
-      });
-    },
     createInvite: (eventId, invite) => {
       invitesService.createInvite(eventId, invite).then(newInvite => {
-        dispatch(invitesActions.createInvite(newInvite));
+        dispatch(eventActions.createGuestInvite(newInvite));
       });
     },
     updateInvite: (inviteId, invite) => {
       invitesService.updateInvite(inviteId, invite).then(response => {
-        dispatch(invitesActions.updateInviteForEvent(invite));
+        dispatch(eventActions.updateGuestInvite(invite));
       });
     },
     deleteInvite: (inviteId) => {
       invitesService.deleteInvite(inviteId).then(response => {
-        dispatch(invitesActions.deleteInviteForEvent(inviteId));
+        dispatch(eventActions.deleteGuestInvite(inviteId));
       });
     },
   }

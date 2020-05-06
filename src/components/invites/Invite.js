@@ -1,9 +1,12 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import EditInvite from "./EditInvite";
 import {faPencilAlt, faTimes, faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ModalConfirm from "../structural/ModalConfirm";
+import invitesService from "../../services/InvitesService";
+import eventActions from "../../actions/EventActions";
 
 
 function badgeClass(response) {
@@ -52,11 +55,11 @@ class Invite extends React.Component {
         <div className="list-group-item">
           <div className="row justify-content-between align-items-start align-items-md-center">
             <div className="col-12 col-md pl-0">
-              {invite.guest.accountClaimed === 1 &&
+              {invite.accountClaimed === 1 &&
               <Link className="text-info" to={`/profile/`
-              + invite.guest.username}>{invite.guest.firstName} {invite.guest.lastName}</Link>
+              + invite.username}>{invite.firstName} {invite.lastName}</Link>
               }
-              {invite.guest.accountClaimed !== 1 && <>
+              {invite.accountClaimed !== 1 && <>
                 {invite.firstName} {invite.lastName}
               </>}
               <span className={`ml-3 badge badge-pill mr-2 ` + badgeClass(
@@ -106,10 +109,11 @@ class Invite extends React.Component {
             yesBtnClass="btn btn-danger"
             noBtnClass="btn btn-secondary"
             handleClose={() => this.stopShowConfirm()}
-            yesFunction={() => this.props.deleteInvite(invite.id)}
+            yesFunction={() => this.props.deleteInvite(invite.inviteId)}
         />
     </>);
   }
 }
 
 export default Invite;
+

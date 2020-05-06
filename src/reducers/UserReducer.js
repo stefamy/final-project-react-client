@@ -1,107 +1,107 @@
 import _ from 'lodash';
-import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_PROFILE, UPDATE_USER_RSVP, CREATE_USER_HOSTED_EVENT, DELETE_USER_HOSTED_EVENT, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
+import { REGISTER, LOGIN, FIND_CURRENT_USER, FIND_CURRENT_USER_DATA_STORE, UPDATE_USER_PROFILE, UPDATE_USER_INVITE, CREATE_USER_HOSTED_EVENT, DELETE_USER_HOSTED_EVENT, LOGOUT, DELETE_USER, UPDATE_USER } from "../common/UserConstants";
 
 const initialState = {
-  user: {
-    id: '',
-    profile: {},
-    tasks: [],
-    rsvps: [],
-    hostedEvents: [],
-    reviews: []
-  }
+  userId: '',
+  profile: {},
+  invites: [],
+  events: [],
+  reviews: [],
+  tasks: []
 }
 
 const userReducer = (state = initialState, action) => {
-  let user;
+  let user, userId, profile, invites, events, reviews, tasks;
   switch (action.type) {
 
 
     case REGISTER:
-      user = {};
-      user.id = action.newUser.id;
-      user.profile = _.cloneDeep(action.newUser)
+      userId = action.newUser.id;
+      profile = _.cloneDeep(action.newUser)
 
       return {
-        user: user
+        userId: userId,
+        profile: profile
       }
 
     case LOGIN:
-      user = {};
-      user.id = action.user.id;
-      user.profile = _.cloneDeep(action.user)
+      userId = action.user.id;
+      profile = _.cloneDeep(action.user)
 
       return {
-        user: user
+        userId: userId,
+        profile: profile
       }
 
     case FIND_CURRENT_USER:
-      user = {};
-      user.id = action.user.id;
-      user.profile = _.cloneDeep(action.user);
+      userId = action.user.id;
+      profile = _.cloneDeep(action.user.profile);
 
       return {
-        user: user
+        userId: userId,
+        profile: profile
       }
 
     case FIND_CURRENT_USER_DATA_STORE:
-      user = {};
-      user.id = action.userData.id;
-      user.profile = _.cloneDeep(action.userData.profile);
-      user.hostedEvents = _.cloneDeep(action.userData.hostedEvents);
-      user.rsvps = _.cloneDeep(action.userData.rsvps);
-      user.tasks = _.cloneDeep(action.userData.tasks);
-      user.reviews = _.cloneDeep(action.userData.reviews);
+      userId = action.userData.id;
+      profile = _.cloneDeep(action.userData.profile);
+      invites = _.cloneDeep(action.userData.invites);
+      events = _.cloneDeep(action.userData.events);
+      reviews = _.cloneDeep(action.userData.reviews);
+      tasks = _.cloneDeep(action.userData.tasks);
 
       return {
-        user: user
+        userId: userId,
+        profile: profile,
+        invites: invites,
+        events: events,
+        reviews: reviews,
+        tasks: tasks
       }
 
-    case UPDATE_USER_RSVP:
-      user = _.cloneDeep(action.user);
-      const newRsvps = _.cloneDeep(action.user.rsvps);
-      newRsvps[action.rsvpIndex].invite = _.cloneDeep(action.invite);
+    case UPDATE_USER_INVITE:
+      user = state;
 
-      user.rsvps = newRsvps;
+      invites = _.cloneDeep(action.invites);
+      user.invites = invites;
 
-      return {
-        user: user
-      }
+      return {...user}
 
     case UPDATE_USER_PROFILE:
-      user = _.cloneDeep(action.user);
-      const newProfile = _.cloneDeep(action.newProfile);
-      user.profile = newProfile;
+      user = state;
 
-      return {
-        user: user
-      }
+      profile = _.cloneDeep(action.newProfile);
+      user.profile = profile;
+
+      return {...user}
+
 
     case CREATE_USER_HOSTED_EVENT:
-      user = _.cloneDeep(action.user);
-      user.hostedEvents.push(action.event);
+      user = state;
 
-      return {
-        user: user
-      }
+      events = _.cloneDeep(state.events);
+      events.push(action.event);
+
+      user.events = events;
+
+      return {...user}
 
     case DELETE_USER_HOSTED_EVENT:
-      user = _.cloneDeep(action.user);
-      const updatedEvents = _.cloneDeep(action.user.hostedEvents);
-      _.remove(updatedEvents, {id: action.eventId})
+      user = state;
 
-      user.hostedEvents = updatedEvents;
+      events = _.cloneDeep(state.events);
+      _.remove(events, {id: action.eventId})
 
-      return {
-        user: user
-      }
+      user.events = events;
+
+      return {...user}
 
     case DELETE_USER:
-      return {
-        user: {
-          profile: {}
-        }
-      }
+      return {...initialState}
+
+    case LOGOUT:
+      return {...initialState}
+
 
     default:
       return state

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import EventPreview from "./EventPreview";
 import CreateEvent from "./CreateEvent";
-import eventsService from "../../services/EventsService";
-import eventsActions from "../../actions/EventsActions";
+import eventsService from "../../services/EventService";
 import userActions from "../../actions/UserActions";
 import { connect } from "react-redux";
 
@@ -13,15 +12,9 @@ class EventList extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.user.profile) {
-    //   this.props.findHostEventsForUser(this.props.user.profile.id);
-    // }
   }
 
   componentDidUpdate(prevProps) {
-    // if (prevProps.user.profile !== this.props.user.profile) {
-    //     this.props.findHostEventsForUser(this.props.user.profile.id);
-    // }
   }
 
   doShowCreateEvent() {
@@ -37,18 +30,17 @@ class EventList extends Component {
   }
 
   render() {
-    const user = this.props.user || null;
 
     return (
          <div className="bg-white border p-md-4 p-3">
-          {!user.profile &&
+          {!this.props.userId &&
               <>
                <h1 className="pb-2">Events You're Hosting</h1>
                <p> Please log in to view or create your events.</p>
              </>
           }
 
-          {user.profile &&
+          {this.props.userId &&
           <>
             <div className="row justify-content-between align-items-start pb-3">
               <h1 className="col">Events You're Hosting</h1>
@@ -70,18 +62,18 @@ class EventList extends Component {
               {this.state.showCreateEvent &&
               <CreateEvent
                   createEvent={this.props.createEvent}
-                  user={this.props.user}
+                  userId={this.props.userId}
               />
               }
             <div className="row">
-              {user.hostedEvents &&
-              user.hostedEvents.map((event, index) => (
+              {this.props.events &&
+              this.props.events.map((event, index) => (
                   <EventPreview
                       key={index}
                       event={event}
                       history={this.props.history}
                       canDelete={true}
-                      deleteEvent={() => this.props.deleteEvent(this.props.user, event.id)}
+                      deleteEvent={() => this.props.deleteEvent(event.id)}
                       outerWrapClass="col-lg-4 col-md-6 col-12 pb-3"
                   />
               ))}
@@ -96,20 +88,22 @@ class EventList extends Component {
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user
+    userId: state.user.userId,
+    profile: state.user.profile,
+    events: state.user.events
   };
 };
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    createEvent: (user, event) => {
-      eventsService.createEvent(user.id, event).then(event => {
-        dispatch(userActions.createCurrentUserHostedEvent(user, event));
+    createEvent: (userId, event) => {
+      eventsService.createEvent(userId, event).then(event => {
+        dispatch(userActions.createCurrentUserHostedEvent(event));
       });
     },
-    deleteEvent: (user, eventId) => {
+    deleteEvent: (eventId) => {
       eventsService.deleteEvent(eventId).then(res => {
-        dispatch(userActions.deleteCurrentUserHostedEvent(user, eventId));
+        dispatch(userActions.deleteCurrentUserHostedEvent(eventId));
       });
     },
   };

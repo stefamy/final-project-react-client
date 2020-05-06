@@ -2,17 +2,17 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router'
 
 import userReducer from "./UserReducer";
-import eventsReducer from "./EventsReducer";
-import tasksReducer from "./TasksReducer";
-import invitesReducer from "./InvitesReducer";
+import eventReducer from "./EventReducer";
+// import tasksReducer from "./TasksReducer";
+// import invitesReducer from "./InvitesReducer";
 import reviewsReducer from "./ReviewsReducer";
 
 const rootReducer = (history) => combineReducers({
     user: userReducer,
-    events: eventsReducer,
-    tasks: tasksReducer,
-    invites: invitesReducer,
+    event: eventReducer,
     reviews: reviewsReducer,
+    // tasks: tasksReducer,
+    // invites: invitesReducer,
     router: connectRouter(history)
 });
 

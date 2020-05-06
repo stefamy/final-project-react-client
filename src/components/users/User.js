@@ -3,7 +3,7 @@ import userActions from "../../actions/UserActions";
 import userService from "../../services/UserService";
 import EventPreview from "../events/EventPreview";
 import { connect } from "react-redux";
-import eventsService from "../../services/EventsService";
+import eventsService from "../../services/EventService";
 import TaskList from "../tasks/UserTaskList";
 import {Link} from "react-router-dom";
 import RecipeReviewsList from "../reviews/RecipeReviewsList";

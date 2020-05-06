@@ -35,13 +35,14 @@ export const findEventsByGuestId = (guestId) =>
     .then( response => response.json());
 
 
-
-// DELETE
-export const deleteEvent = (eventId) =>
-    fetch(`${API_URL}/api/events/${eventId}`, {
-      method: 'DELETE'
-    }).then(response => response.json());
-
+// READ - All event data
+export const findEventDataStore = (eventId) =>
+    fetch(`${API_URL}/api/events/${eventId}/data`, {
+      method: 'GET',
+      credentials: "include"
+    })
+    .then( response => response.json())
+    .catch(res => '');
 
 // UPDATE
 export const updateEvent = (eventId, event) =>
@@ -53,6 +54,12 @@ export const updateEvent = (eventId, event) =>
       }
     }).then(response => response.json())
 
+// DELETE
+export const deleteEvent = (eventId) =>
+    fetch(`${API_URL}/api/events/${eventId}`, {
+      method: 'DELETE'
+    }).then(response => response.json());
+
 
 
 export default {
@@ -60,7 +67,7 @@ export default {
   findEventByEventId,
   findEventsByHostId,
   findEventsByGuestId,
-  deleteEvent,
-  updateEvent
-
+  findEventDataStore,
+  updateEvent,
+  deleteEvent
 }

@@ -7,26 +7,26 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 
-const Header = ({logout, user}) =>
+const Header = ({logout, userId, profile}) =>
     <header className="bg-white border-bottom">
       <div className="container">
       <Navbar collapseOnSelect expand="md" bg="white" variant="light" className="pl-0 pr-0">
         <Navbar.Brand href="/">Potluck Party Planner</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          {user.profile && user.profile.id && <>
+          {userId && <>
           <Nav className="mr-auto">
             <Nav.Link href="/events">Events</Nav.Link>
             <Nav.Link href="/tasks">Tasks</Nav.Link>
             <Nav.Link href="/invites">Invites</Nav.Link>
           </Nav>
           <Nav className="mr-0">
-            <Nav.Link href={`/profile/${user.profile.username}`}>Profile</Nav.Link>
-            <Nav.Link href="/logout">Logout</Nav.Link>
+            <Nav.Link href={`/profile/${profile.username}`}>Profile</Nav.Link>
+            <Nav.Item><button className="btn text-muted" onClick={logout}>Logout</button></Nav.Item>
           </Nav>
           </> }
-          {!user.profile || !user.profile.id && <>
-            <Nav className="mr-auto">
+          {!userId && <>
+            <Nav className="col-12 justify-content-end">
               <Nav.Link href="/login">Login</Nav.Link>
               <Nav.Link href="/register">Register</Nav.Link>
             </Nav> </> }
@@ -37,7 +37,8 @@ const Header = ({logout, user}) =>
 
 const stateToPropertyMapper = state => {
   return {
-    user: state.user.user
+    userId: state.user.userId,
+    profile: state.user.profile
   };
 };
 
