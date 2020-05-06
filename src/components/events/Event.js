@@ -191,7 +191,6 @@ const stateToPropertyMapper = state => {
     event: {
       id: state.event.id,
       logistics: state.event.logistics,
-      guestList: state.event.guestList,
     },
 
   };

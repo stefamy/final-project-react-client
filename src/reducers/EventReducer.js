@@ -53,7 +53,7 @@ const eventReducer = (state = initialState, action) => {
       event = state;
       guestList = _.cloneDeep(state.guestList);
 
-      const indexInGuestList = _.findIndex(guestList, {id: action.updatedInvite.id});
+      const indexInGuestList = _.findIndex(guestList, {inviteId: action.updatedInvite.inviteId});
       guestList.splice(indexInGuestList, 1, action.updatedInvite);
 
       event.guestList = guestList;
@@ -86,7 +86,7 @@ const eventReducer = (state = initialState, action) => {
       taskList = _.cloneDeep(state.taskList);
 
       const indexInTaskList = _.findIndex(taskList, {id: action.updatedTask.id});
-      taskList.splice(indexInGuestList, 1, action.updatedTask);
+      taskList.splice(indexInTaskList, 1, action.updatedTask);
 
       event.taskList = taskList;
 

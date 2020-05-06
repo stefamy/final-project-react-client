@@ -1,12 +1,12 @@
 import React from "react";
 import {TASK_STATUS} from "../../common/TasksConstants";
 
-export const assignResponses = (task, user) => {
+export const assignResponses = (task, profile) => {
     task.status = TASK_STATUS.ASSIGNED;
-    task.assigneeUserId = user.id;
-    task.assigneeFirstName = user.profile.firstName;
-    task.assigneeLastName = user.profile.lastName;
-    task.assigneeEmail = user.profile.email;
+    task.assigneeUserId = profile.id;
+    task.assigneeFirstName = profile.firstName;
+    task.assigneeLastName = profile.lastName;
+    task.assigneeEmail = profile.email;
     task.dateOfResponse = new Date();
     task.assigneeComments = "";
 

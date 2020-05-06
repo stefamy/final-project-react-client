@@ -16,8 +16,8 @@ export default class TaskEdit extends Component {
     } else {
       this.setState({
         task: {
-          eventId: this.props.event.id,
-          eventDate: this.props.event.date,
+          eventId: this.props.eventLogistics.id,
+          eventDate: this.props.eventLogistics.date,
           status: TASK_STATUS.UNASSIGNED
         }
       });

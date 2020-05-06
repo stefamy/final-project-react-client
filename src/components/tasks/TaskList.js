@@ -5,6 +5,7 @@ import tasksActions from "../../actions/TasksActions";
 import {connect} from "react-redux";
 import Task from "./Task";
 import {TASK_TYPES, TASK_STATUS} from "../../common/TasksConstants"
+import eventActions from "../../actions/EventActions";
 
 function searchingFor(term) {
   return function (x) {
@@ -28,18 +29,14 @@ class TaskList extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.event && this.props.event.id) {
-      this.props.findAllTasksForEvent(this.props.event.id);
-      this.setState({isEventHost: this.props.event.hostId === this.props.userId})
-    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if ((prevProps.event && prevProps.event.id !== this.props.event.id) || (prevProps.eventTasks && prevProps.eventTasks.length !== this.props.eventTasks.length)) {
-      this.props.findAllTasksForEvent(this.props.event.id);
-    }
+    // if ((prevProps.event && prevProps.event.eventId !== this.props.eventId) || (prevProps.eventTasks && prevProps.eventTasks.length !== this.props.event.taskList.length)) {
+    //   this.props.findAllTasksForEvent(this.props.event.id);
+    // }
 
-    if (prevProps.eventTasks && (this.props.eventTasks.length
+    if (prevProps.eventTasks && (this.props.event.taskList.length
         !== prevProps.eventTasks.length)) {
       this.stopShowCreateTask();
     }
@@ -72,7 +69,7 @@ class TaskList extends React.Component {
 
     return (
         <>
-          {this.props.eventTasks && <>
+          {this.props.event.taskList && <>
             <div className="row justify-content-between align-items-center mb-3">
               <h3 className="col-12 col-md-6 mb-2 mb-lg-0">Task Assignments</h3>
               <form className="col-12 col-md-6 form-inline justify-content-lg-end">
@@ -91,14 +88,11 @@ class TaskList extends React.Component {
 
             <div className="task-list-body list-group mb-2 mb-lg-4">
             <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Preparation (Before event)</div>
-              {this.props.eventTasks.filter(task => task.type === TASK_TYPES.PREP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
+              {this.props.event.taskList.filter(task => task.type === TASK_TYPES.PREP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
                       key={task.id}
                       task={task}
-                      isEventHost={this.state.isEventHost}
-                      event={this.props.event}
-                      user={this.props.user}
-                      refresh={() => this.refresh()}
+                      isEventHost={this.props.event.logistics.hostId === this.props.userId}
                       updateTask={this.props.updateTask}
                       deleteTask={this.props.deleteTask}
                   />
@@ -107,14 +101,11 @@ class TaskList extends React.Component {
 
             <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Food, Drink, and Supplies</div>
-              {this.props.eventTasks.filter(task => task.type === TASK_TYPES.FOOD).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
+              {this.props.event.taskList.filter(task => task.type === TASK_TYPES.FOOD).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
                       key={task.id}
                       task={task}
-                      isEventHost={this.state.isEventHost}
-                      event={this.props.event}
-                      user={this.props.user}
-                      refresh={() => this.refresh()}
+                      isEventHost={this.props.event.logistics.hostId === this.props.userId}
                       updateTask={this.props.updateTask}
                       deleteTask={this.props.deleteTask}
                   />
@@ -123,15 +114,12 @@ class TaskList extends React.Component {
 
             <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Set-up</div>
-              {this.props.eventTasks.filter(
+              {this.props.event.taskList.filter(
                 task => task.type === TASK_TYPES.SETUP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
                       key={task.id}
                       task={task}
-                      isEventHost={this.state.isEventHost}
-                      event={this.props.event}
-                      user={this.props.user}
-                      refresh={() => this.refresh()}
+                      isEventHost={this.props.event.logistics.hostId === this.props.userId}
                       updateTask={this.props.updateTask}
                       deleteTask={this.props.deleteTask}
                   />
@@ -140,15 +128,12 @@ class TaskList extends React.Component {
 
             <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Event Clean-up</div>
-              {this.props.eventTasks.filter(
+              {this.props.event.taskList.filter(
                 task => task.type === TASK_TYPES.CLEANUP).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
                       key={task.id}
                       task={task}
-                      isEventHost={this.state.isEventHost}
-                      event={this.props.event}
-                      user={this.props.user}
-                      refresh={() => this.refresh()}
+                      isEventHost={this.props.event.logistics.hostId === this.props.userId}
                       updateTask={this.props.updateTask}
                       deleteTask={this.props.deleteTask}
                   />
@@ -157,15 +142,13 @@ class TaskList extends React.Component {
 
             <div className="task-list-body list-group mb-2 mb-lg-4">
               <div className="task-list-header pl-3 pr-3 pt-2 pb-2 bg-light  list-group-item">Other / Uncategorized</div>
-              {this.props.eventTasks.filter(
+              {this.props.event.taskList.filter(
                   task => task.type === TASK_TYPES.OTHER).filter(searchingFor(term)).filter(filterOn(filterTerm)).map((task) => (
                   <Task
                       key={task.id}
                       task={task}
-                      isEventHost={this.state.isEventHost}
-                      event={this.props.event}
-                      user={this.props.user}
-                      refresh={() => this.refresh()}
+                      isEventHost={this.props.event.logistics.hostId === this.props.userId}
+                      userId={this.props.userId}
                       updateTask={this.props.updateTask}
                       deleteTask={this.props.deleteTask}
                   />
@@ -174,7 +157,7 @@ class TaskList extends React.Component {
 
           </>}
 
-          {!this.state.showCreateTask && this.state.isEventHost &&
+          {!this.state.showCreateTask && (this.props.event.logistics.hostId === this.props.userId) &&
           <button
               onClick={() => this.doShowCreateTask()}
               className="btn btn-outline-info">
@@ -183,10 +166,10 @@ class TaskList extends React.Component {
           }
           {this.state.showCreateTask &&
           <TaskEdit
-              event={this.props.event}
+              eventLogistics={this.props.event.logistics}
               headerText="Create New Task"
               toggleEditor={() => this.stopShowCreateTask()}
-              submitId={this.props.event.id}
+              submitId={this.props.eventId}
               submitHandler={this.props.createTask}
           />}
         </>
@@ -199,31 +182,28 @@ const stateToPropertyMapper = state => {
     userId: state.user.userId,
     tasks: state.user.tasks,
     event: {
+      eventId: state.event.eventId,
+      logistics: state.event.logistics,
       taskList: state.event.taskList,
     },
-  };
+  }
 };
 
 const dispatchToPropertyMapper = dispatch => {
   return {
-    findAllTasksForEvent: (eventId) => {
-      tasksService.findAllTasksForEvent(eventId).then(tasks => {
-        dispatch(tasksActions.findAllTasksForEvent(tasks));
-      });
-    },
     createTask: (eventId, task) => {
-      tasksService.createTask(eventId, task).then(task => {
-        dispatch(tasksActions.createTask(task));
+      tasksService.createTask(eventId, task).then(newTask => {
+        dispatch(eventActions.createEventTask(newTask));
       });
     },
     updateTask: (taskId, task) => {
       tasksService.updateTask(taskId, task).then(response => {
-        dispatch(tasksActions.updateTaskForEvent(task));
+        dispatch(eventActions.updateEventTask(task));
       });
     },
     deleteTask: (taskId) => {
       tasksService.deleteTask(taskId).then(response => {
-        dispatch(tasksActions.deleteTaskForEvent(taskId));
+        dispatch(eventActions.deleteEventTask(taskId));
       });
     }
   }

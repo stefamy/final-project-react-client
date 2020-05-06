@@ -6,6 +6,9 @@ import ModalConfirm from "../structural/ModalConfirm"
 import {assignResponses, clearResponses} from "./helpers"
 import TaskEdit from "./TaskEdit"
 import TaskEditResponse from "./TaskEditResponse"
+import tasksService from "../../services/TasksService";
+import eventActions from "../../actions/EventActions";
+import {connect} from "react-redux";
 
 class Task extends React.Component {
 
@@ -18,15 +21,12 @@ class Task extends React.Component {
     e.preventDefault();
     const newStatus = this.props.task.status === TASK_STATUS.ASSIGNED ? TASK_STATUS.UNASSIGNED : TASK_STATUS.ASSIGNED;
     this.updateSignupStatus(newStatus);
-    if (newStatus === TASK_STATUS.ASSIGNED) {
-      this.setState({isEditingResponse: true})
-    }
   }
 
   updateSignupStatus(newStatus) {
     let updatedTask = {...this.props.task};
     if (newStatus === TASK_STATUS.ASSIGNED) {
-      updatedTask = assignResponses(updatedTask, this.props.user);
+      updatedTask = assignResponses(updatedTask, this.props.profile);
     } else {
       updatedTask = clearResponses(updatedTask);
     }
@@ -39,7 +39,7 @@ class Task extends React.Component {
     })
   }
 
-  confirmDeleteEvent(e) {
+  confirmDeleteTask(e) {
     e.preventDefault();
     if (this.props.task.status === 'Assigned') {
       this.setState({showConfirm: true});
@@ -54,7 +54,7 @@ class Task extends React.Component {
 
   render() {
     const task = this.props.task;
-    const user = this.props.user;
+    const userId = this.props.userId;
 
     return (
         <div className='task list-group-item'>
@@ -66,7 +66,7 @@ class Task extends React.Component {
                     </div>
                     {this.props.isEventHost &&  <div className="col-2 pl-0 text-right">
                       <span className={`btn ml-1` + (this.state.isEditingTask ? " border border-warning" : "")} onClick={() => this.toggleState('isEditingTask')}><FontAwesomeIcon icon={faPencilAlt} className="text-warning"/></span>
-                      <span className="btn ml-1" onClick={(e) => this.confirmDeleteEvent(e)}><FontAwesomeIcon icon={faTimes} className="text-danger"/></span>
+                      <span className="btn ml-1" onClick={(e) => this.confirmDeleteTask(e)}><FontAwesomeIcon icon={faTimes} className="text-danger"/></span>
                     </div> }
                   </div>
                     {task.type === TASK_TYPES.FOOD && <>
@@ -85,7 +85,7 @@ class Task extends React.Component {
           <div className="task-edit-wrap row align-items-center justify-content-between border-top mt-2">
 
             {/* If assigned to user */}
-            {(task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId === user.id) && <>
+            {(task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId === userId) && <>
               <div className="col-12 col-md pt-2">
                 <span className="badge badge-pill border border-purple bg-purple mr-1">{task.status} to you</span>
                 {task.assigneeComments && task.assigneeComments.length > 0 && <small className="text-muted"> Comment: {task.assigneeComments}</small>}
@@ -114,7 +114,7 @@ class Task extends React.Component {
 
 
             {/* If assigned to other user */}
-            {task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId !== user.id  &&  <div className="col-12 col-md pt-2">
+            {task.status === TASK_STATUS.ASSIGNED && task.assigneeUserId !== userId  &&  <div className="col-12 col-md pt-2">
               <small className="small text-muted">Assigned to: {task.assigneeFirstName} {task.assigneeLastName && task.assigneeLastName[0] + '.'}
                 {task.assigneeComments && task.assigneeComments.length > 0 && <> | Comment: {task.assigneeComments}</>}</small>
             </div>}
@@ -138,7 +138,6 @@ class Task extends React.Component {
                 toggleEditor={() => this.toggleState('isEditingResponse')}
                 submitId={task.id}
                 submitHandler={this.props.updateTask}
-                user={this.props.user}
             />
           </div>
           }
@@ -146,7 +145,7 @@ class Task extends React.Component {
               show={this.state.showConfirm}
               headerText="Delete this task?"
               bodyText="Are you sure you want to delete this assigned task and all of its data? This action cannot be undone."
-              yesText="Delete Event"
+              yesText="Delete Task"
               noText="Cancel"
               yesBtnClass="btn btn-danger"
               noBtnClass="btn btn-secondary"
@@ -159,4 +158,14 @@ class Task extends React.Component {
 
 }
 
-export default Task;
+const stateToPropertyMapper = state => {
+  return {
+    userId: state.user.userId,
+    profile: state.user.profile
+  }
+};
+
+
+export default connect(
+    stateToPropertyMapper
+)(Task);
